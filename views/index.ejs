@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en" class="has-lab-nav-bottom lab-theme-light">
+<head>
+   <title>Note Taking App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+      
+
+
+<body>
+   
+ 
+<h3 class = "noteTitle"> Current Notes </h3>
+
+
+
+
+<div class="table-responsive"> 
+<table class="table">
+	
+  <thead class = "thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Delete Note</th>
+      <th scope="col"> Modify Note </th>
+    </tr>
+  </thead>
+
+  <% for(var i=0; i < currentNotes.length; i++) { %>
+  <tbody>
+    <tr>
+      <td><%= currentNotes[i].title %></td>
+      <td><%= currentNotes[i].content %></td>
+      <td>
+      <form method="POST" action="/notes/delete/<%= currentNotes[i]._id %>?_method=DELETE">
+
+      	<input type="hidden" name="_method" value="DELETE"/>
+      	<button type="submit">
+      			<i class="far fa-trash-alt"></i>
+      	</button>
+      </form>
+    </td>
+    <td>
+      <button>
+        <a href = "/modifyForm/<%= currentNotes[i]._id %>"> <i class="fas fa-pencil-alt"></i> </a> 
+      </button>
+      </form>
+    </td>
+    </tr>
+    <% } %>
+
+  </tbody>
+</table>
+
+</div>
+
+<div class = "noteTitle"> 
+<a href="/addNote"> Click here to add note </a>
+</div>
+
+ 
+
+  
+  </html>
