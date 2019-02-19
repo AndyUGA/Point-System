@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -12,9 +12,9 @@
         <title>Element</title>
     </head>
     <body>
-        
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="LivePoints.html">Live Points</a>
+            <a class="navbar-brand" href="/">Live Points</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,18 +22,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Check-In  </a>
+                        <a class="nav-link" href="/">Check-In  </a>
                     </li>
                 </ul>
             </div>
         </nav>
-        
+
         <div class = "container">
             <button type="button" onclick="loadXMLDoc()">Change Content</button>
             <p id="demo"></p>
-            
+
         <div class="table-responsive">
-            
+
             <table class="table containter ">
                 <thead>
                     <tr>
@@ -42,27 +42,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                  <% for(var i=0; i < result.length; i++) { %>
+
                     <tr>
 
-                        <td>Andy Truong</td>
-                        <td>50</td>
+                        <td><%= result[i].Name %></td>
+                        <td><%= result[i].Points %></td>
                     </tr>
-                    <tr>
+                      <% } %>
 
-                        <td>Amy Dao</td>
-                        <td>70</td>
-                    </tr>
-                    <tr>
 
-                        <td>Andy Ni</td>
-                        <td>80</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
             </div>
-        
-      
+
+
 
           <script type = "text/javascript" src = "script.js"> </script>
     </body>

@@ -13,7 +13,7 @@ module.exports = function(app, db) {
 	//Displays home page
 	app.get('/', (req, res) => {
 
-		var collection = db.collection("notes");
+		var collection = db.collection("Members");
 		var currentNotes = [];
 
 		collection.find({}).toArray(function (err, result) {
@@ -23,14 +23,14 @@ module.exports = function(app, db) {
 			if(err) {
 				res.send({ 'error': ' An error has occurred'});
 			} else {
-				res.render('index', {currentNotes: result});
+				res.render('index', {result: result});
 			}
 		});
 	});
 
 	app.get('/LivePoints', (req, res) => {
 
-		var collection = db.collection("notes");
+		var collection = db.collection("Members");
 		var currentNotes = [];
 
 		collection.find({}).toArray(function (err, result) {
@@ -40,7 +40,7 @@ module.exports = function(app, db) {
 			if(err) {
 				res.send({ 'error': ' An error has occurred'});
 			} else {
-				res.render('LivePoints', {currentNotes: result});
+				res.render('LivePoints', {result: result});
 			}
 		});
 	});
