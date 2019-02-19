@@ -1,72 +1,118 @@
 <!DOCTYPE html>
-
-<html lang="en" class="has-lab-nav-bottom lab-theme-light">
-<head>
-   <title>Note Taking App</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="/stylesheet.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
-
-        <meta charset="utf-8">
+<html>
+    <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-      
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="instascan.js"></script>
 
 
-<body>
-   
- 
-<h3 class = "noteTitle"> Current Notes </h3>
+
+        <title>Element</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">Check-In</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/LivePoints">Live Points</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <br>
+        <div class="d-flex align-items-center justify-content-center">
+
+            <div class="card" style="width: 22rem;">
+                <img class = "cardIMG" src="images/uvsase_main_logomark.png" alt="Card image cap">
+
+            </div>
+        </div>
+        <br>
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="card" style="width: 22rem;">
+                <div class="card-body">
+
+                    <p class="card-text text-center">Workshop Check-In</p>
+
+                    <video  width = "320" height = "250" playsinline controls="true" id="preview"></video>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="d-flex justify-content-center">
+            <p id = "name"> </p>
+
+        </div>
+        <div class="d-flex justify-content-center">
+            <p id = "score"> </p>
+        </div>
 
 
 
 
-<div class="table-responsive"> 
-<table class="table">
-	
-  <thead class = "thead-dark">
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Content</th>
-      <th scope="col">Delete Note</th>
-      <th scope="col"> Modify Note </th>
-    </tr>
-  </thead>
 
-  <% for(var i=0; i < currentNotes.length; i++) { %>
-  <tbody>
-    <tr>
-      <td><%= currentNotes[i].title %></td>
-      <td><%= currentNotes[i].content %></td>
-      <td>
-      <form method="POST" action="/notes/delete/<%= currentNotes[i]._id %>?_method=DELETE">
+        <script type="text/javascript">
 
-      	<input type="hidden" name="_method" value="DELETE"/>
-      	<button type="submit">
-      			<i class="far fa-trash-alt"></i>
-      	</button>
-      </form>
-    </td>
-    <td>
-      <button>
-        <a href = "/modifyForm/<%= currentNotes[i]._id %>"> <i class="fas fa-pencil-alt"></i> </a> 
-      </button>
-      </form>
-    </td>
-    </tr>
-    <% } %>
 
-  </tbody>
-</table>
 
-</div>
+            let scanner = new Instascan.Scanner(
+                {
+                    video : document.getElementById('preview'),
+                    mirror : false,
+                }
+            );
 
-<div class = "noteTitle"> 
-<a href="/addNote"> Click here to add note </a>
-</div>
+            scanner.addListener('scan', function (content) {
 
- 
+                console.log(content);
 
-  
-  </html>
+                var JSONContent = JSON.parse(content);
+
+                console.log(JSON.parse(content)['Name']);
+                document.getElementById("name").innerHTML = "Name is " + JSONContent['Name'];
+                document.getElementById("score").innerHTML = "Score is " + JSONContent['Score'];
+
+            });
+
+
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]);
+                }
+                else {
+                    console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+
+
+
+
+
+
+
+
+
+
+        </script>
+
+
+
+
+    </body>
+</html>
