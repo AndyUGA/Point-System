@@ -5,11 +5,6 @@ module.exports = function(app, db) {
 
 
 
-
-
-
-
-
 	//Displays home page
 	app.get('/', (req, res) => {
 
