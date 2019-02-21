@@ -18,7 +18,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="index.html">Check-In</a>
+            <a class="navbar-brand" href="/">Check-In</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -51,8 +51,7 @@
             </div>
         </div>
 
-
-
+        <p> Andy's Points: <%= result[0].Points%>  </p>
         <div class="d-flex justify-content-center">
             <p id = "name"> </p>
 
@@ -67,13 +66,11 @@
             <p id = "check"> </p>
         </div>
 
-
+        <a href="/LivePoints">
 
 
 
         <script type="text/javascript">
-
-
 
             let scanner = new Instascan.Scanner(
                 {
@@ -89,12 +86,22 @@
                 console.log(content);
 
                 var JSONContent = JSON.parse(content);
-
+                var pointsIncreaseURL = "/increasePoints/" + JSONContent['Score'];
                 console.log(JSON.parse(content)['Name']);
                 document.getElementById("name").innerHTML = "Name: " + JSONContent['Name'];
                 document.getElementById("score").innerHTML = "Score: " + JSONContent['Score'];
                 document.getElementById("workshop").innerHTML = "Checked into " + JSONContent['Workshop'] + " Workshop";
                 document.getElementById("check").innerHTML =  "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Checkmark_green.svg/2000px-Checkmark_green.svg.png'/>";
+
+                var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log("Request to increase points has been sent");
+
+        }
+        };
+        xhttp.open("GET", pointsIncreaseURL, true);
+        xhttp.send();
 
             });
 
@@ -118,9 +125,7 @@
 
 
 
-
         </script>
-
 
 
 

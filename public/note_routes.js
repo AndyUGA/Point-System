@@ -40,18 +40,15 @@ module.exports = function(app, db) {
 		});
 	});
 
-	app.get('/increasePoints/:points', (req, res) => {
+	app.get('/increasePoints', (req, res) => {
 
 		var collection = db.collection("Members");
-		const pointsToAdd = req.params.points;
 
 
 		collection.find({}).toArray(function (err, result) {
 			const id = result[0]._id;
-
-			console.log("Point to add is " + pointsToAdd);
 			const details = {'_id': new ObjectID(id) };
-			const note = {Name: result[0].Name, Points : pointsToAdd};
+			const note = {Name: result[0].Name, Points : 1000};
 
 			console.log(result[0]);
 
