@@ -54,7 +54,7 @@
         <div class="table-responsive">
 
             <table class="table containter text-center ">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Points</th>
@@ -76,28 +76,7 @@
                 </tbody>
             </table>
 
-            <table class="table containter text-center ">
-                <thead>
-                    <tr>
-                        <th scope="col">House</th>
-                        <th scope="col">Points</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                  <% for(var i=0; i < houseResults.length; i++) { %>
-
-                    <tr>
-
-                        <td><%= houseResults[i].Name %></td>
-                        <td><%= houseResults[i].Points %></td>
-
-                    </tr>
-                      <% } %>
-
-
-                </tbody>
-            </table>
 
 
 
@@ -105,9 +84,7 @@
         </div>
             </div>
 
-
-
-                                    <section class="pricing-section bg-1">
+            <section class="pricing-section bg-1">
 
                                     <div class="pricing pricing--sonam">
                                           <% for(var i=0; i < houseResults.length; i++) { %>
