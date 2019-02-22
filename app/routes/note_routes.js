@@ -12,7 +12,6 @@ module.exports = function(app, db) {
 		var currentNotes = [];
 
 		collection.find({}).toArray(function (err, result) {
-			console.log("result is ");
 			console.log(result);
 
 			if(err) {
@@ -29,7 +28,6 @@ module.exports = function(app, db) {
 		var currentNotes = [];
 
 		collection.find({}).toArray(function (err, result) {
-			console.log("result is ");
 			console.log(result);
 
 			if(err) {
@@ -40,28 +38,52 @@ module.exports = function(app, db) {
 		});
 	});
 
-	app.get('/increasePoints/:points', (req, res) => {
+	app.get('/increasePoints/:name/:points', (req, res) => {
+
+
 
 		var collection = db.collection("Members");
-		const pointsToAdd = req.params.points;
+		const pointsToAdd = parseInt(req.params.points);
 
 
+		console.log("Point to add is " + pointsToAdd);
+		const name = req.params.name;
+
+
+		console.log("Name is " + name);
 		collection.find({}).toArray(function (err, result) {
-			const id = result[0]._id;
 
-			console.log("Point to add is " + pointsToAdd);
-			const details = {'_id': new ObjectID(id) };
-			const note = {Name: result[0].Name, Points : pointsToAdd};
 
-			console.log(result[0]);
+			//Loops through current attendees and updates score 
+			for(var i = 0; i < result.length; i++)
+			{
+				console.log("Comparing " + name + " with " + result[i].Name);
+				if(name == result[i].Name)
+				{
 
-			db.collection('Members').update(details, note, (err, item) => {
-				if(err) {
-					res.send({ 'error': ' An error has occurred'});
-				} else {
-						res.redirect('/LivePoints');
+					const id = {'_id': new ObjectID(result[i]._id)};
+					console.log("id is " + id._id);
+
+					const currentPoint = parseInt(result[i].Points);
+					console.log("Current points from qr code is " + currentPoint);
+
+					const content = {Name: name, Points : currentPoint + pointsToAdd};
+
+					db.collection('Members').update(id, content, (err, item) => {
+						if(err) {
+							res.send({ 'Error is ': + err});
+						} else {
+								res.redirect('/LivePoints');
+						}
+					});
+					break;
 				}
-			});
+
+			}
+
+
+
+
 		});
 	})
 

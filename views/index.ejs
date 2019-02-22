@@ -66,12 +66,13 @@
             <p id = "check"> </p>
         </div>
 
-        <a href="/LivePoints">
+        <a href="/increasePoints/Andy/50"> Increase Points </a>
 
 
 
         <script type="text/javascript">
 
+/*
             let scanner = new Instascan.Scanner(
                 {
                     video : document.getElementById('preview'),
@@ -86,14 +87,14 @@
                 console.log(content);
 
                 var JSONContent = JSON.parse(content);
-                var pointsIncreaseURL = "/increasePoints/" + JSONContent['Score'];
+                var pointsIncreaseURL = "/increasePoints/" + JSONContent['Name'] + "/"+ JSONContent['Score'];
                 console.log(JSON.parse(content)['Name']);
                 document.getElementById("name").innerHTML = "Name: " + JSONContent['Name'];
                 document.getElementById("score").innerHTML = "Score: " + JSONContent['Score'];
                 document.getElementById("workshop").innerHTML = "Checked into " + JSONContent['Workshop'] + " Workshop";
                 document.getElementById("check").innerHTML =  "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Checkmark_green.svg/2000px-Checkmark_green.svg.png'/>";
 
-                var xhttp = new XMLHttpRequest();
+        var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           console.log("Request to increase points has been sent");
@@ -117,10 +118,18 @@
                 console.error(e);
             });
 
+*/
 
 
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+  console.log("Request to increase points has been sent");
 
-
+}
+};
+xhttp.open("GET", "/increasePoints/Austin/500", true);
+xhttp.send();
 
 
 
