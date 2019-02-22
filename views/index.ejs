@@ -51,7 +51,20 @@
             </div>
         </div>
 
+
+        <div class="d-flex justify-content-center">
         <p> Andy's Points: <%= result[0].Points%>  </p>
+      </div>
+
+      <div class="d-flex justify-content-center">
+      <p> Amy's Points: <%= result[1].Points%>  </p>
+    </div>
+
+    <div class="d-flex justify-content-center">
+    <p> Vita's Points: <%= result[2].Points%>  </p>
+  </div>
+
+
         <div class="d-flex justify-content-center">
             <p id = "name"> </p>
 
@@ -90,16 +103,11 @@
                 console.log(content);
 
                 var data = JSON.parse(content);
-                console.log('93');
 
                 document.getElementById("name").innerHTML = "Name : " + data['Name'];
 
-
-
-
-                document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + data['House'] + " and himself" ;
+                document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + data['House'] ;
                 //document.getElementById("workshop").innerHTML = "Checked into " + JSONContent['Workshop'] + " Workshop";
-                //document.getElementById("house").innerHTML = "Checked into " + data['House'] + " House";
                 //document.getElementById("check").innerHTML =  "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Checkmark_green.svg/2000px-Checkmark_green.svg.png'/>";
 
                 var xhttp = new XMLHttpRequest();

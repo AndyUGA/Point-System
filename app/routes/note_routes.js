@@ -68,10 +68,10 @@ module.exports = function(app, db) {
 				//Checks name from qrcode against database
 				if(name == result[i].Name)
 				{
-
-					const currentPoints = parseInt(result[i].Points);
-					const attendeeID = {'_id': new ObjectID(result[i]._id)};
-					const attendeeHouse = result[i].House;
+					const attendee = result[i];
+					const currentPoints = parseInt(attendee.Points);
+					const attendeeID = {'_id': new ObjectID(attendee._id)};
+					const attendeeHouse = attendee.House;
 					const attendeeContent = { Name: name, House: attendeeHouse, Points : currentPoints + pointsToAdd};
 
 					//Update attendee points
@@ -113,18 +113,19 @@ module.exports = function(app, db) {
 
 			for(var i = 0; i < result.length; i++)
 			{
-				if(houseName == result[i].Name)
+				const attendee = result[i];
+				if(houseName == attendee.Name)
 				{
 
 				//Update score for attendee house
-				const	houseID = {'_id': new ObjectID(result[i]._id)};
+				const	houseID = {'_id': new ObjectID(attendee._id)};
 
 				//Current points of the house
-				const currentHousePoints = result[i].Points;
+				const currentHousePoints = attendee.Points;
 
 
 				const totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
-				const houseContent = {Name: result[i].Name, Points : totalHousePoints};
+				const houseContent = {Name: attendee.Name, Points : totalHousePoints};
 
 				db.collection('Houses').update(houseID, houseContent, (err, item) => {
 						if(err) {
@@ -148,28 +149,6 @@ module.exports = function(app, db) {
 
 
 
-
-	app.get('/defaultPoints', (req, res) => {
-
-		var collection = db.collection("Members");
-
-
-		collection.find({}).toArray(function (err, result) {
-			const id = result[0]._id;
-			const details = {'_id': new ObjectID(id) };
-			const note = {Name: result[0].Name, Points : 50};
-
-
-
-			db.collection('Members').update(details, note, (err, item) => {
-				if(err) {
-					res.send({ 'error': ' An error has occurred'});
-				} else {
-						res.redirect('/LivePoints');
-				}
-			});
-		});
-	})
 
 
 
