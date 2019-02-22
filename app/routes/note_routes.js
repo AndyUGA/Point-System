@@ -12,7 +12,7 @@ module.exports = function(app, db) {
 		var currentNotes = [];
 
 		collection.find({}).toArray(function (err, result) {
-			//console.log(result);
+			console.log(result);
 
 			if(err) {
 				res.send({ 'error': ' An error has occurred'});
@@ -25,25 +25,34 @@ module.exports = function(app, db) {
 	app.get('/LivePoints', (req, res) => {
 
 		var collection = db.collection("Members");
+		var houseResults;
 		var currentNotes = [];
 
-		collection.find({}).toArray(function (err, result) {
-			//console.log(result);
+		collection.find({}).toArray(function (err, memberResults) {
+
+
+			collection = db.collection("Houses");
+			collection.find({}).toArray(function (err, result) {
+				houseResults = result;
+
+
+				if(err) {
+					res.send({ 'error': ' An error has occurred'});
+				} else {
+
+				}
+			});
+
 
 			if(err) {
 				res.send({ 'error': ' An error has occurred'});
 			} else {
-				res.render('LivePoints', {result: result});
+				res.render('LivePoints', {memberResults: memberResults, houseResults: houseResults});
 			}
 		});
 	});
 
 	app.get('/increasePoints/:name/:points', (req, res) => {
-
-
-
-
-
 
 
 
@@ -61,21 +70,11 @@ module.exports = function(app, db) {
 				//Checks name from qrcode against database
 				if(name == result[i].Name)
 				{
-					//The current amount of points that the attendee has
+
 					const currentPoints = parseInt(result[i].Points);
-
-					//The current id of the attendee
 					const attendeeID = {'_id': new ObjectID(result[i]._id)};
-
-					//The current house of the attendee
-					const currentHouse = result[i].House;
-
-					console.log("Current points: " + currentPoints);
-					console.log("Points to add : " + pointsToAdd);
-
-					const attendeeContent = { Name: name, House: currentHouse, Points : currentPoints + pointsToAdd};
-
-
+					const attendeeHouse = result[i].House;
+					const attendeeContent = { Name: name, House: attendeeHouse, Points : currentPoints + pointsToAdd};
 
 					//Update attendee points
 					db.collection('Members').update(attendeeID, attendeeContent, (err, item) => {
@@ -83,12 +82,10 @@ module.exports = function(app, db) {
 							console.log("Error is " + err);
 							res.send({ 'Error is ': + err});
 						} else {
-							console.log('91');
-								res.redirect('/increaseHousePoints/' + currentHouse + '/' + pointsToAdd);
+								console.log('91');
+								res.redirect('/increaseHousePoints/' + attendeeHouse + '/' + pointsToAdd);
 						}
 					});
-
-
 					break;
 				}
 
@@ -105,44 +102,34 @@ module.exports = function(app, db) {
 
 	})
 
+	//Update score for attendee house
 	app.get('/increaseHousePoints/:house/:pointsToAdd', (req, res) => {
 
-		//Update score for attendee house
+
 		const houseName = req.params.house
 		const pointsToAdd = req.params.pointsToAdd;
-		var currentHousePoints;
-		var houseID;
-
-		collection = db.collection("Houses");
+		const collection = db.collection("Houses");
 
 		collection.find({}).toArray(function (err, result) {
-			console.log('103');
-			console.log(result);
-
 
 
 			for(var i = 0; i < result.length; i++)
 			{
 				if(houseName == result[i].Name)
 				{
-					//Current id of house
 
-					houseID = {'_id': new ObjectID(result[i]._id)};
+				//Update score for attendee house
+				const	houseID = {'_id': new ObjectID(result[i]._id)};
 
-					//Current points of the house
-					currentHousePoints = result[i].Points;
+				//Current points of the house
+				const currentHousePoints = result[i].Points;
 
 
-					const totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
-					var houseContent = {Name: result[i].Name, Points : totalHousePoints};
-
-					console.log('id:');
-					console.log(houseID);
-					console.log(houseContent);
+				const totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
+				const houseContent = {Name: result[i].Name, Points : totalHousePoints};
 
 				db.collection('Houses').update(houseID, houseContent, (err, item) => {
 						if(err) {
-
 							console.log("Error is " + err);
 							res.send({ 'Error is ': + err});
 						} else {
@@ -151,10 +138,13 @@ module.exports = function(app, db) {
 						}
 					});
 
+					//Break out of loop if a match is found
 					break;
 				}
 
 			}
+
+			console.log(result);
 		});
 	})
 
@@ -182,24 +172,6 @@ module.exports = function(app, db) {
 			});
 		});
 	})
-
-/*
-		app.put('/:id/:name/updateNotes', (req, res) => {
-			const id = req.params.id;
-			const name = req.params.name;
-
-			const note = {content: req.body.content};
-
-			const details = {'_id': new ObjectID(id) };
-			db.collection(name).update(details, note, (err, item) => {
-				if(err) {
-					res.send({ 'error': ' An error has occurred'});
-				} else {
-						res.redirect('/' + name + '/getNotes');
-				}
-			});
-		});
-		*/
 
 
 

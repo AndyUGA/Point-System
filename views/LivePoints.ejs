@@ -38,15 +38,17 @@
                     <tr>
                         <th  scope="col">Name</th>
                         <th scope="col">Points</th>
+                        <th scope="col"> House </th>
                     </tr>
                 </thead>
                 <tbody>
-                  <% for(var i=0; i < result.length; i++) { %>
+                  <% for(var i=0; i < memberResults.length; i++) { %>
 
                     <tr>
 
-                        <td><%= result[i].Name %></td>
-                        <td><%= result[i].Points %></td>
+                        <td><%= memberResults[i].Name %></td>
+                        <td><%= memberResults[i].Points %></td>
+                        <td><%= memberResults[i].House %></td>
                     </tr>
                       <% } %>
 

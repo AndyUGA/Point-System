@@ -65,14 +65,17 @@
         <div class="d-flex justify-content-center">
             <p id = "check"> </p>
         </div>
+        <div class="d-flex justify-content-center">
+            <p id = "house"> </p>
+        </div>
 
-        <a href="/increasePoints/Andy/50"> Increase Points </a>
+
 
 
 
         <script type="text/javascript">
 
-/*
+
             let scanner = new Instascan.Scanner(
                 {
                     video : document.getElementById('preview'),
@@ -87,22 +90,26 @@
                 console.log(content);
 
                 var JSONContent = JSON.parse(content);
-                var pointsIncreaseURL = "/increasePoints/" + JSONContent['Name'] + "/"+ JSONContent['Score'];
-                console.log(JSON.parse(content)['Name']);
-                document.getElementById("name").innerHTML = "Name: " + JSONContent['Name'];
-                document.getElementById("score").innerHTML = "Score: " + JSONContent['Score'];
-                document.getElementById("workshop").innerHTML = "Checked into " + JSONContent['Workshop'] + " Workshop";
-                document.getElementById("check").innerHTML =  "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Checkmark_green.svg/2000px-Checkmark_green.svg.png'/>";
+                console.log('93');
+                console.log(JSONContent);
+                document.getElementById("name").innerHTML = "Name : " + JSONContent['Name'];
 
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          console.log("Request to increase points has been sent");
 
-        }
-        };
-        xhttp.open("GET", pointsIncreaseURL, true);
-        xhttp.send();
+
+                document.getElementById("score").innerHTML = "Points : " + JSONContent['Score'];
+                //document.getElementById("workshop").innerHTML = "Checked into " + JSONContent['Workshop'] + " Workshop";
+                document.getElementById("house").innerHTML = "Checked into " + JSONContent['House'] + " House";
+                //document.getElementById("check").innerHTML =  "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Checkmark_green.svg/2000px-Checkmark_green.svg.png'/>";
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log("Request to increase points has been sent");
+
+                }
+                };
+                xhttp.open("GET", "/increasePoints/" + JSONContent['Name'] + "/" + JSONContent['Score'], true);
+                xhttp.send();
 
             });
 
@@ -118,18 +125,10 @@
                 console.error(e);
             });
 
-*/
 
 
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-if (this.readyState == 4 && this.status == 200) {
-  console.log("Request to increase points has been sent");
 
-}
-};
-xhttp.open("GET", "/increasePoints/Andy/500", true);
-xhttp.send();
+
 
 
 
