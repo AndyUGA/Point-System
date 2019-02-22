@@ -12,7 +12,7 @@ module.exports = function(app, db) {
 		var currentNotes = [];
 
 		collection.find({}).toArray(function (err, result) {
-			console.log(result);
+
 
 			if(err) {
 				res.send({ 'error': ' An error has occurred'});
@@ -26,7 +26,7 @@ module.exports = function(app, db) {
 
 		var collection = db.collection("Members");
 		var houseResults;
-		var currentNotes = [];
+
 
 		collection.find({}).toArray(function (err, memberResults) {
 
@@ -40,15 +40,13 @@ module.exports = function(app, db) {
 					res.send({ 'error': ' An error has occurred'});
 				} else {
 
+
+					res.render('LivePoints', {memberResults: memberResults, houseResults: houseResults});
 				}
 			});
 
 
-			if(err) {
-				res.send({ 'error': ' An error has occurred'});
-			} else {
-				res.render('LivePoints', {memberResults: memberResults, houseResults: houseResults});
-			}
+
 		});
 	});
 
@@ -82,7 +80,7 @@ module.exports = function(app, db) {
 							console.log("Error is " + err);
 							res.send({ 'Error is ': + err});
 						} else {
-								console.log('91');
+
 								res.redirect('/increaseHousePoints/' + attendeeHouse + '/' + pointsToAdd);
 						}
 					});
@@ -133,7 +131,7 @@ module.exports = function(app, db) {
 							console.log("Error is " + err);
 							res.send({ 'Error is ': + err});
 						} else {
-								console.log("House points updated");
+
 								res.redirect('/LivePoints');
 						}
 					});
@@ -144,7 +142,7 @@ module.exports = function(app, db) {
 
 			}
 
-			console.log(result);
+
 		});
 	})
 
@@ -161,7 +159,7 @@ module.exports = function(app, db) {
 			const details = {'_id': new ObjectID(id) };
 			const note = {Name: result[0].Name, Points : 50};
 
-			console.log(result[0]);
+
 
 			db.collection('Members').update(details, note, (err, item) => {
 				if(err) {
