@@ -213,7 +213,8 @@ a:hover, a:focus {
 .bg-7 {
 	color: #C3E9F5;
 
-	background: linear-gradient(45deg, #7e67e5, #02cbdf);
+	/*background: linear-gradient(45deg, #7e67e5, blac);*/
+	background: white;
 
 
 }
