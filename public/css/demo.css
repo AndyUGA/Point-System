@@ -81,7 +81,7 @@ a:hover, a:focus {
 	color: #333;
 }
 
-.pricing-section a:hover, 
+.pricing-section a:hover,
 .pricing-section a:focus {
 	color: #000;
 }
@@ -212,7 +212,10 @@ a:hover, a:focus {
 
 .bg-7 {
 	color: #C3E9F5;
+
 	background: linear-gradient(45deg, #7e67e5, #02cbdf);
+
+
 }
 
 .bg-8 {
@@ -244,7 +247,7 @@ a:hover, a:focus {
 }
 
 .bg-12 a {
-	color: #fff; 
+	color: #fff;
 	font-weight: bold;
 }
 
