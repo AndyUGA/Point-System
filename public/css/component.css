@@ -46,14 +46,25 @@
 	padding: 2em;
 	cursor: default;
 	border-radius: 10px;
-	background: #1F1F1F;
+	background: #1a472a;
+	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
+	-webkit-transition: background 0.3s;
+	transition: background 0.3s;
+}
+
+.pricing_item2 {
+	margin: 1em;
+	padding: 2em;
+	cursor: default;
+	border-radius: 10px;
+	background: #1a472a;
 	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
 }
 
 .pricing--sonam .pricing__item:hover {
-	background: #141315;
+	background: #2a623d;
 }
 
 .pricing--sonam .pricing__title {

@@ -22,7 +22,7 @@ module.exports = function(app, db) {
 		});
 	});
 
-	app.get('/LivePoints', (req, res) => {
+	app.get('/attendeePoints', (req, res) => {
 
 		var collection = db.collection("Members");
 		var houseResults;
@@ -41,7 +41,35 @@ module.exports = function(app, db) {
 				} else {
 
 
-					res.render('LivePoints', {memberResults: memberResults, houseResults: houseResults});
+					res.render('attendeePoints', {memberResults: memberResults, houseResults: houseResults});
+				}
+			});
+
+
+
+		});
+	});
+
+	app.get('/housePoints', (req, res) => {
+
+		var collection = db.collection("Members");
+		var houseResults;
+
+
+		collection.find({}).toArray(function (err, memberResults) {
+
+
+			collection = db.collection("Houses");
+			collection.find({}).toArray(function (err, result) {
+				houseResults = result;
+
+
+				if(err) {
+					res.send({ 'error': ' An error has occurred'});
+				} else {
+
+
+					res.render('housePoints', {memberResults: memberResults, houseResults: houseResults});
 				}
 			});
 
@@ -133,7 +161,7 @@ module.exports = function(app, db) {
 							res.send({ 'Error is ': + err});
 						} else {
 
-								res.redirect('/LivePoints');
+								res.redirect('/attendeePoints');
 						}
 					});
 

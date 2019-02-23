@@ -34,7 +34,7 @@
     <body>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/LivePoints">Live Points</a>
+            <a class="navbar-brand" href="/attendeePoints">House Points</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,9 +44,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/">Check-In  </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/attendeePoints">Attendee Points  </a>
+                    </li>
                 </ul>
             </div>
         </nav>
+
+
+
+              <div class="pricing pricing--sonam">
+                  <div class="pricing__item">
+                      <h3 class="pricing__title"><%= houseResults[0].Name %></h3>
+                      <h3 class="pricing__title"><%= houseResults[0].Points %></h3>
+                  </div>
+              </div>
+
+              <div class="pricing pricing--sonam">
+                  <div class="pricing__item">
+                      <h3 class="pricing__title"><%= houseResults[0].Name %></h3>
+                      <h3 class="pricing__title"><%= houseResults[0].Points %></h3>
+                  </div>
+              </div>
 
 
 
@@ -83,22 +102,23 @@
 
         </div>
 
-
+          <!--
             <section class="pricing-section bg-1">
 
-                                    <div class="pricing pricing--sonam">
-                                          <% for(var i=0; i < houseResults.length; i++) { %>
-                                        <div class="pricing__item">
-                                            <h3 class="pricing__title"><%= houseResults[i].Name %></h3>
-                                            <h3 class="pricing__title"><%= houseResults[i].Points %></h3>
+                  <div class="pricing pricing--sonam">
+                        <% for(var i=0; i < houseResults.length; i++) { %>
+                      <div class="pricing__item">
+                          <h3 class="pricing__title"><%= houseResults[i].Name %></h3>
+                          <h3 class="pricing__title"><%= houseResults[i].Points %></h3>
 
 
 
 
-                                        </div>
-                                          <% } %>
-                                    </div>
-                                </section>
+                      </div>
+                        <% } %>
+                  </div>
+              </section>
+            -->
 
 
 
