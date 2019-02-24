@@ -50,6 +50,7 @@
 	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
+	color: white;
 }
 
 .pricing--sonam2 .pricing__item {
@@ -61,6 +62,7 @@
 	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
+	color: white;
 }
 
 .pricing--sonam3 .pricing__item {
@@ -72,6 +74,7 @@
 	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
+	color: white;
 }
 
 .pricing--sonam4 .pricing__item {
@@ -83,6 +86,7 @@
 	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
+	color: white;
 }
 
 
