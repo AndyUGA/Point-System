@@ -10,6 +10,10 @@
 	font-style: normal;
 }
 
+.icon2 {
+	width: 50%;
+	height: 50%;
+}
 .icon {
 	font-family: 'linearicons';
 	speak: none;
@@ -533,4 +537,3 @@
 .icon--pointer-left::before {
 	content: "\e8a9";
 }
-
