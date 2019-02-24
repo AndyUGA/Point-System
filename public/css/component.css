@@ -46,13 +46,35 @@
 	padding: 2em;
 	cursor: default;
 	border-radius: 10px;
-	background: #1a472a;
+	background: #f91313;
 	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
 }
 
-.pricing_item2 {
+.pricing--sonam2 .pricing__item {
+	margin: 1em;
+	padding: 2em;
+	cursor: default;
+	border-radius: 10px;
+	background: #ecb939;
+	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
+	-webkit-transition: background 0.3s;
+	transition: background 0.3s;
+}
+
+.pricing--sonam3 .pricing__item {
+	margin: 1em;
+	padding: 2em;
+	cursor: default;
+	border-radius: 10px;
+	background: #0e1a40;
+	box-shadow: 0 5px 20px rgba(0,0,0,0.05), 0 15px 30px -10px rgba(0,0,0,0.3);
+	-webkit-transition: background 0.3s;
+	transition: background 0.3s;
+}
+
+.pricing--sonam4 .pricing__item {
 	margin: 1em;
 	padding: 2em;
 	cursor: default;
@@ -63,7 +85,21 @@
 	transition: background 0.3s;
 }
 
+
+
 .pricing--sonam .pricing__item:hover {
+	background: #ea0000;
+}
+
+.pricing--sonam2 .pricing__item:hover {
+	background: #f0c75e;
+}
+
+.pricing--sonam3 .pricing__item:hover {
+	background: #222f5b;
+}
+
+.pricing--sonam4 .pricing__item:hover {
 	background: #2a623d;
 }
 

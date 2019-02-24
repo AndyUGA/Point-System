@@ -55,52 +55,38 @@
 
               <div class="pricing pricing--sonam">
                   <div class="pricing__item">
-                      <h3 class="pricing__title"><%= houseResults[0].Name %></h3>
-                      <h3 class="pricing__title"><%= houseResults[0].Points %></h3>
+                      <h3 class=""><%= houseResults[0].Name %></h3>
+                      <h3 class=""><%= houseResults[0].Points %></h3>
                   </div>
               </div>
 
-              <div class="pricing pricing--sonam">
+              <div class="pricing pricing--sonam2">
                   <div class="pricing__item">
-                      <h3 class="pricing__title"><%= houseResults[0].Name %></h3>
-                      <h3 class="pricing__title"><%= houseResults[0].Points %></h3>
+                      <h3 class=""><%= houseResults[1].Name %></h3>
+                      <h3 class=""><%= houseResults[1].Points %></h3>
+                  </div>
+              </div>
+
+              <div class="pricing pricing--sonam3">
+                  <div class="pricing__item">
+                      <h3 class=""><%= houseResults[2].Name %></h3>
+                      <h3 class=""><%= houseResults[2].Points %></h3>
+                  </div>
+              </div>
+
+              <div class="pricing pricing--sonam4">
+                  <div class="pricing__item">
+                      <h3 class=""><%= houseResults[3].Name %></h3>
+                      <h3 class=""><%= houseResults[3].Points %></h3>
                   </div>
               </div>
 
 
 
 
-        <div class="table-responsive">
-
-            <table class="table containter text-center ">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Points</th>
-                        <th scope="col"> House </th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <% for(var i=0; i < memberResults.length; i++) { %>
-
-                    <tr>
-
-                        <td><%= memberResults[i].Name %></td>
-                        <td><%= memberResults[i].Points %></td>
-                        <td><%= memberResults[i].House %></td>
-                    </tr>
-                      <% } %>
-
-
-                </tbody>
-            </table>
 
 
 
-
-
-
-        </div>
 
           <!--
             <section class="pricing-section bg-1">
