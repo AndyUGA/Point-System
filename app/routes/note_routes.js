@@ -53,6 +53,21 @@ module.exports = function(app, db) {
     });
   });
 
+  //Get page to display how many points each house has
+  app.get("/history", (req, res) => {
+    var collection = db.collection("History");
+
+    collection.find({}).toArray(function(err, historyResults) {
+      if (err) {
+        res.send({ error: " An error has occurred" });
+      } else {
+        res.render("history", {
+          historyResults: historyResults
+        });
+      }
+    });
+  });
+
   //Update score for attendee
   app.post("/increasePoints/:name/:points/:house", (req, res) => {
     const collection = db.collection("Members");
@@ -154,9 +169,7 @@ module.exports = function(app, db) {
         console.log("Error is " + err);
         res.send({ "Error is ": +err });
       } else {
-        res.render("history", {
-          attendeeContent: attendeeContent
-        });
+        console.log("Action has been recorded to history page");
       }
     });
   });
