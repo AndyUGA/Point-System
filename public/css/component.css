@@ -1,5 +1,11 @@
 /* Common styles */
 
+.entirePage {
+  background-image: url("http://www.glittergraphics.org/img/63/631368/hogwarts-logo-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+}
 .pricing {
   display: -webkit-flex;
   display: flex;

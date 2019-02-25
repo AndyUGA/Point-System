@@ -46,33 +46,11 @@
                 </ul>
             </div>
         </nav>
-          <!--
-        <br>
-        <div class="d-flex align-items-center justify-content-center">
-
-            <div class="card" style="width: 22rem;">
-                <img class = "cardIMG" src="images/uvsase_main_logomark.png" alt="Card image cap">
-
-            </div>
-        </div>
-        <br>
-
-        <div class="d-flex align-items-center justify-content-center">
-            <div class="card" style="width: 22rem;">
-                <div class="card-body">
-
-                    <p class="card-text text-center">Workshop Check-In</p>
-
-
-                </div>
-            </div>
-        </div>
-
-      -->
 
 
 
-        <section class="pricing-section bg-1">
+
+
 
             <div class="pricing pricing--norbu">
                 <div class="pricing__item">
@@ -91,7 +69,7 @@
             <div class="d-flex justify-content-center">
                 <p id = "score"> </p>
             </div>
-        </section>
+
 
 
 
@@ -127,10 +105,9 @@
                 var data = JSON.parse(content);
 
                 document.getElementById("name").innerHTML = "Name : " + data['Name'];
-
                 document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + data['House'] ;
-                //document.getElementById("workshop").innerHTML = "Checked into " + JSONContent['Workshop'] + " Workshop";
-                //document.getElementById("check").innerHTML =  "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Checkmark_green.svg/2000px-Checkmark_green.svg.png'/>";
+
+
 
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -139,9 +116,18 @@
 
                 }
                 };
-                xhttp.open("GET", "/increasePoints/" + data['Name'] + "/" + data['Points'], true);
+                xhttp.open("POST", "/increasePoints/" + data['Name'] + "/" + data['Points'] + "/" + data['House'], true);
                 xhttp.send();
 
+                var xhttp2 = new XMLHttpRequest();
+                xhttp2.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log("Request to increase points has been sent");
+
+                }
+                };
+                xhttp2.open("POST", "/record/" + data['Name'] + "/" + data['Points'] + "/" + data['House'], true);
+                xhttp2.send();
             });
 
 

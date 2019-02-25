@@ -15,6 +15,7 @@ module.exports = function(app, db) {
     });
   });
 
+  //Get page to display hwo many points each attendee has
   app.get("/attendeePoints", (req, res) => {
     var collection = db.collection("Members");
     var houseResults;
@@ -36,6 +37,7 @@ module.exports = function(app, db) {
     });
   });
 
+  //Get page to display how many points each house has
   app.get("/housePoints", (req, res) => {
     var collection = db.collection("Members");
     var houseResults;
@@ -57,28 +59,27 @@ module.exports = function(app, db) {
     });
   });
 
-  app.get("/increasePoints/:name/:points", (req, res) => {
+  //Update score for attendee
+  app.post("/increasePoints/:name/:points/:house", (req, res) => {
     const collection = db.collection("Members");
     const pointsToAdd = parseInt(req.params.points);
-    const name = req.params.name;
+    const attendeeName = req.params.name;
+    const attendeeHouse = req.params.house;
+
     collection.find({}).toArray(function(err, result) {
-      //Loops through current attendees
       for (var i = 0; i < result.length; i++) {
-        //Checks name from qrcode against database
-        if (name == result[i].Name) {
+        if (attendeeName == result[i].Name) {
           const attendee = result[i];
           const currentPoints = parseInt(attendee.Points);
           const attendeeID = { _id: new ObjectID(attendee._id) };
-          const attendeeHouse = attendee.House;
           const attendeeContent = {
             $set: {
-              Name: name,
+              Name: attendeeName,
               House: attendeeHouse,
               Points: currentPoints + pointsToAdd
             }
           };
 
-          //Update attendee points
           db.collection("Members").updateOne(
             attendeeID,
             attendeeContent,
@@ -109,10 +110,8 @@ module.exports = function(app, db) {
       for (var i = 0; i < result.length; i++) {
         const attendee = result[i];
         if (houseName == attendee.Name) {
-          //Update score for attendee house
           const houseID = { _id: new ObjectID(attendee._id) };
 
-          //Current points of the house
           const currentHousePoints = attendee.Points;
 
           const totalHousePoints =
@@ -140,6 +139,30 @@ module.exports = function(app, db) {
           //Break out of loop if a match is found
           break;
         }
+      }
+    });
+  });
+
+  app.post("/record/:name/:points/:house", (req, res) => {
+    const collection = db.collection("History");
+    const pointsToAdd = parseInt(req.params.points);
+    const attendeeName = req.params.name;
+    const attendeeHouse = req.params.house;
+
+    const attendeeContent = {
+      Name: attendeeName,
+      House: attendeeHouse,
+      Points: pointsToAdd
+    };
+
+    collection.insertOne(attendeeContent, (err, item) => {
+      if (err) {
+        console.log("Error is " + err);
+        res.send({ "Error is ": +err });
+      } else {
+        res.render("history", {
+          attendeeContent: attendeeContent
+        });
       }
     });
   });
