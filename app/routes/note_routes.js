@@ -21,19 +21,13 @@ module.exports = function(app, db) {
     var houseResults;
 
     collection.find({}).toArray(function(err, memberResults) {
-      collection = db.collection("Houses");
-      collection.find({}).toArray(function(err, result) {
-        houseResults = result;
-
-        if (err) {
-          res.send({ error: " An error has occurred" });
-        } else {
-          res.render("attendeePoints", {
-            memberResults: memberResults,
-            houseResults: houseResults
-          });
-        }
-      });
+      if (err) {
+        res.send({ error: " An error has occurred" });
+      } else {
+        res.render("attendeePoints", {
+          memberResults: memberResults
+        });
+      }
     });
   });
 
