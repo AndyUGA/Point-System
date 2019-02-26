@@ -1,5 +1,20 @@
 /* Common styles */
 
+* {
+  font-family: Harry;
+}
+@font-face {
+  font-family: Harry;
+  src: url("Harry.TTF");
+}
+.test {
+  background-image: url("https://wallpaperplay.com/walls/full/b/5/8/64772.jpg");
+}
+
+.attendeePoints {
+  color: white;
+}
+
 .entirePage {
   background-image: url("http://www.glittergraphics.org/img/63/631368/hogwarts-logo-wallpaper.jpg");
   background-repeat: no-repeat;
@@ -53,8 +68,7 @@
   cursor: default;
   border-radius: 10px;
   background: #f91313;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05),
-    0 15px 30px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   color: white;
@@ -66,8 +80,7 @@
   cursor: default;
   border-radius: 10px;
   background: #ecb939;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05),
-    0 15px 30px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   color: white;
@@ -79,8 +92,7 @@
   cursor: default;
   border-radius: 10px;
   background: #0e1a40;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05),
-    0 15px 30px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   color: white;
@@ -92,8 +104,7 @@
   cursor: default;
   border-radius: 10px;
   background: #1a472a;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05),
-    0 15px 30px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05), 0 15px 30px -10px rgba(0, 0, 0, 0.3);
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
   color: white;
