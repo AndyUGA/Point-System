@@ -173,6 +173,7 @@ module.exports = function(app, db) {
     const points = parseInt(req.body.points);
     const attendeeHouse = req.body.house;
     console.log("points from body is " + points);
+    console.log("attendeeHouse is " + attendeeHouse);
     let houseID;
     let currentHousePoints;
 
@@ -193,7 +194,7 @@ module.exports = function(app, db) {
         }
       };
 
-      db.collection("Members").updateOne(houseID, modifyPointsContent, (err, item) => {
+      collection.updateOne(houseID, modifyPointsContent, (err, item) => {
         if (err) {
           res.send({ error: err });
           console.log("Error is " + err);
