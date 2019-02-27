@@ -69,7 +69,17 @@ module.exports = function(app, db) {
   });
   //Get form to modify points
   app.get("/modifyPoints", (req, res) => {
-    res.render("modifyPoints");
+    var collection = db.collection("Houses");
+
+    collection.find({}).toArray(function(err, houseResults) {
+      if (err) {
+        res.send({ error: " An error has occurred" });
+      } else {
+        res.render("modifyPoints", {
+          houseResults: houseResults
+        });
+      }
+    });
   });
 
   //Update score for attendee
@@ -172,8 +182,7 @@ module.exports = function(app, db) {
     const collection = db.collection("Houses");
     const points = parseInt(req.body.points);
     const attendeeHouse = req.body.house;
-    console.log("points from body is " + points);
-    console.log("attendeeHouse is " + attendeeHouse);
+
     let houseID;
     let currentHousePoints;
 
@@ -183,8 +192,6 @@ module.exports = function(app, db) {
         if (houseResults[i].Name == attendeeHouse) {
           houseID = { _id: new ObjectID(houseResults[i]._id) };
           currentHousePoints = houseResults[i].Points;
-          console.log("houseID is " + houseID._id);
-          console.log("currentHousePoints is " + currentHousePoints);
         }
       }
 
