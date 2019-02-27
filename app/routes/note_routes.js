@@ -166,4 +166,27 @@ module.exports = function(app, db) {
       }
     });
   });
+
+  //Added points to Houses based on form
+  app.post("/modifyPoints", (req, res) => {
+    const collection = db.collection("Houses");
+    const points = parseInt(req.body.points);
+    const attendeeHouse = req.body.house;
+
+    collection.find({}).toArray(function(err, memberResults) {
+      collection = db.collection("Houses");
+      collection.find({}).toArray(function(err, result) {
+        const modifyPointsContent = {
+          Points: points
+        };
+
+        collection.updateOne(modifyPointsContent, (err, item) => {});
+        if (err) {
+          res.send({ error: " An error has occurred" });
+        } else {
+          res.render("housePoints");
+        }
+      });
+    });
+  });
 };
