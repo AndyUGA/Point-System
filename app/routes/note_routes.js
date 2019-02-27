@@ -172,19 +172,33 @@ module.exports = function(app, db) {
     const collection = db.collection("Houses");
     const points = parseInt(req.body.points);
     const attendeeHouse = req.body.house;
+    console.log("points from body is " + points);
+    let houseID;
+    let currentHousePoints;
 
-    collection.find({}).toArray(function(err, memberResults) {
-      collection = db.collection("Houses");
-      collection.find({}).toArray(function(err, result) {
-        const modifyPointsContent = {
-          Points: points
-        };
+    collection.find({}).toArray(function(err, houseResults) {
+      console.log(houseResults);
+      for (var i = 0; i < houseResults.length; i++) {
+        if (houseResults[i].Name == attendeeHouse) {
+          houseID = { _id: new ObjectID(houseResults[i]._id) };
+          currentHousePoints = houseResults[i].Points;
+          console.log("houseID is " + houseID._id);
+          console.log("currentHousePoints is " + currentHousePoints);
+        }
+      }
 
-        collection.updateOne(modifyPointsContent, (err, item) => {});
+      const modifyPointsContent = {
+        $set: {
+          Points: points + parseInt(currentHousePoints)
+        }
+      };
+
+      db.collection("Members").updateOne(houseID, modifyPointsContent, (err, item) => {
         if (err) {
-          res.send({ error: " An error has occurred" });
+          res.send({ error: err });
+          console.log("Error is " + err);
         } else {
-          res.render("housePoints");
+          res.redirect("/housePoints");
         }
       });
     });
