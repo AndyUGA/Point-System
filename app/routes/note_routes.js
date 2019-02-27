@@ -67,6 +67,10 @@ module.exports = function(app, db) {
       }
     });
   });
+  //Get form to modify points
+  app.get("/modifyPoints", (req, res) => {
+    res.render("modifyPoints");
+  });
 
   //Update score for attendee
   app.post("/increasePoints/:name/:points/:house", (req, res) => {
@@ -89,20 +93,14 @@ module.exports = function(app, db) {
             }
           };
 
-          db.collection("Members").updateOne(
-            attendeeID,
-            attendeeContent,
-            (err, item) => {
-              if (err) {
-                console.log("Error is " + err);
-                res.send({ "Error is ": +err });
-              } else {
-                res.redirect(
-                  "/increaseHousePoints/" + attendeeHouse + "/" + pointsToAdd
-                );
-              }
+          db.collection("Members").updateOne(attendeeID, attendeeContent, (err, item) => {
+            if (err) {
+              console.log("Error is " + err);
+              res.send({ "Error is ": +err });
+            } else {
+              res.redirect("/increaseHousePoints/" + attendeeHouse + "/" + pointsToAdd);
             }
-          );
+          });
           break;
         }
       }
@@ -123,8 +121,7 @@ module.exports = function(app, db) {
 
           const currentHousePoints = attendee.Points;
 
-          const totalHousePoints =
-            parseInt(currentHousePoints) + parseInt(pointsToAdd);
+          const totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
           const houseContent = {
             $set: {
               Name: attendee.Name,
@@ -132,18 +129,14 @@ module.exports = function(app, db) {
             }
           };
 
-          db.collection("Houses").updateOne(
-            houseID,
-            houseContent,
-            (err, item) => {
-              if (err) {
-                console.log("Error is " + err);
-                res.send({ "Error is ": +err });
-              } else {
-                res.redirect("/attendeePoints");
-              }
+          db.collection("Houses").updateOne(houseID, houseContent, (err, item) => {
+            if (err) {
+              console.log("Error is " + err);
+              res.send({ "Error is ": +err });
+            } else {
+              res.redirect("/attendeePoints");
             }
-          );
+          });
 
           //Break out of loop if a match is found
           break;

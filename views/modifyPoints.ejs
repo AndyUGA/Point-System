@@ -21,16 +21,20 @@
 
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-        <title>Element</title>
+
+
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <title>Modify Points</title>
     </head>
-    <body class = "" >
+    <body >
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/attendeePoints">Attendee Points</a>
+            <a class="navbar-brand" href="/attendeePoints">History</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -41,52 +45,36 @@
                         <a class="nav-link" href="/">Check-In  </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/housePoints">House Points </a>
+                        <a class="nav-link" href="/attendeePoints">Attendee Points  </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/history">History </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/modifyPoints">Modify Points</a>
+                        <a class="nav-link" href="/housePoints">House Points  </a>
                     </li>
                 </ul>
             </div>
         </nav>
 
 
+          <div class="container h-100">
 
-        <div class="table-responsive">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <form class="col-12">
+      <div class="form-group text-center">
+        <label  for="formGroupExampleInput" text-align >House</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="House">
+      </div>
+      <div class="form-group text-center">
+        <label for="formGroupExampleInput2">Amount of Points</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Points">
+      </div>
+    </form>
+  </div>
+</div>
 
-            <table class="table containter text-center ">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Points</th>
-                        <th scope="col"> House </th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <% for(var i=0; i < memberResults.length; i++) { %>
-
-                    <tr class = "attendeePoints">
-
-                        <td><%= memberResults[i].Name %></td>
-                        <td><%= memberResults[i].Points %></td>
-                        <td><%= memberResults[i].House %></td>
-                    </tr>
-                      <% } %>
-
-
-                </tbody>
-            </table>
-
-
-
-
-
-
-        </div>
-
+      </div>
+    </div>
 
 
 
