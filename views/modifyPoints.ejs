@@ -61,12 +61,12 @@
         <div class="card" style="width: 18rem;">
   <div class="card-body">
     <form action = "/modifyPoints" method="post" class="col-12 text-center">
-      <label for="formGroupExampleInput2">Select House</label>
+      <label for="formGroupExampleInput2">Select Name</label>
       <br>
       <select class = "text-center" name ="selectResult">
-        <% for(var i=0; i < houseResults.length; i++) { %>
+        <% for(var i=0; i < memberResults.length; i++) { %>
 
-            <option value=<%= houseResults[i].Name %>><%= houseResults[i].Name %></option>
+            <option value=<%= memberResults[i].Name %>><%= memberResults[i].Name %></option>
 
 
             <% } %>
@@ -75,6 +75,8 @@
 
       <div class="form-group text-center">
         <br>
+
+
         <label for="formGroupExampleInput2">Amount of Points</label>
         <input type="text" class="form-control" name="points" placeholder="Points">
       </div>
@@ -84,6 +86,35 @@
       </div>
     </form>
   </div>
+</div>
+<div class="card" style="width: 18rem;">
+<div class="card-body">
+<form action = "/modifyPoints" method="post" class="col-12 text-center">
+<label for="formGroupExampleInput2">Select House</label>
+<br>
+<select class = "text-center" name ="selectResult">
+<% for(var i=0; i < houseResults.length; i++) { %>
+
+    <option value=<%= houseResults[i].Name %>><%= houseResults[i].Name %></option>
+
+
+    <% } %>
+
+</select>
+
+<div class="form-group text-center">
+<br>
+
+
+<label for="formGroupExampleInput2">Amount of Points</label>
+<input type="text" class="form-control" name="points" placeholder="Points">
+</div>
+
+<div class="col-md-12 text-center">
+  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</div>
+</form>
+</div>
 </div>
 
       </div>

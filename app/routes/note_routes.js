@@ -1,4 +1,5 @@
 var ObjectID = require("mongodb").ObjectID;
+const request = require("request");
 
 module.exports = function(app, db) {
   //Displays home page
@@ -70,15 +71,20 @@ module.exports = function(app, db) {
   //Get form to modify points
   app.get("/modifyPoints", (req, res) => {
     var collection = db.collection("Houses");
-
+    var hrResults;
     collection.find({}).toArray(function(err, houseResults) {
-      if (err) {
-        res.send({ error: " An error has occurred" });
-      } else {
-        res.render("modifyPoints", {
-          houseResults: houseResults
-        });
-      }
+      hrResults = houseResults;
+      collection = db.collection("Members");
+      collection.find({}).toArray(function(err, memberResults) {
+        if (err) {
+          res.send({ error: " An error has occurred" });
+        } else {
+          res.render("modifyPoints", {
+            houseResults: hrResults,
+            memberResults: memberResults
+          });
+        }
+      });
     });
   });
 
@@ -182,6 +188,7 @@ module.exports = function(app, db) {
     const collection = db.collection("Houses");
     const points = parseInt(req.body.points);
     const attendeeHouse = req.body.selectResult;
+    const name = req.body.name;
 
     let houseID;
     let currentHousePoints;
@@ -206,6 +213,12 @@ module.exports = function(app, db) {
           res.send({ error: err });
           console.log("Error is " + err);
         } else {
+          console.log("Record history is about to be called");
+          request("/record/" + name + "/" + points + "/" + attendeeHouse, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+              console.log("History has been recorded");
+            }
+          });
           res.redirect("/housePoints");
         }
       });
