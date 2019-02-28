@@ -181,7 +181,7 @@ module.exports = function(app, db) {
   app.post("/modifyPoints", (req, res) => {
     const collection = db.collection("Houses");
     const points = parseInt(req.body.points);
-    const attendeeHouse = req.body.house;
+    const attendeeHouse = req.body.selectResult;
 
     let houseID;
     let currentHousePoints;
