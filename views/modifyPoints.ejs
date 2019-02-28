@@ -63,7 +63,7 @@
     <form action = "/modifyPoints" method="post" class="col-12 text-center">
       <label for="formGroupExampleInput2">Select Name</label>
       <br>
-      <select class = "text-center" name ="selectResult">
+      <select class = "text-center" name ="attendeeName">
         <% for(var i=0; i < memberResults.length; i++) { %>
 
             <option value=<%= memberResults[i].Name %>><%= memberResults[i].Name %></option>
@@ -92,7 +92,7 @@
 <form action = "/modifyPoints" method="post" class="col-12 text-center">
 <label for="formGroupExampleInput2">Select House</label>
 <br>
-<select class = "text-center" name ="selectResult">
+<select class = "text-center" name ="selectedHouse">
 <% for(var i=0; i < houseResults.length; i++) { %>
 
     <option value=<%= houseResults[i].Name %>><%= houseResults[i].Name %></option>

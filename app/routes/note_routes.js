@@ -1,5 +1,5 @@
 var ObjectID = require("mongodb").ObjectID;
-const request = require("request");
+const http = require("http");
 
 module.exports = function(app, db) {
   //Displays home page
@@ -187,8 +187,8 @@ module.exports = function(app, db) {
   app.post("/modifyPoints", (req, res) => {
     const collection = db.collection("Houses");
     const points = parseInt(req.body.points);
-    const attendeeHouse = req.body.selectResult;
-    const name = req.body.name;
+    const attendeeHouse = req.body.selectedHouse;
+    const name = "Form";
 
     let houseID;
     let currentHousePoints;
@@ -213,12 +213,6 @@ module.exports = function(app, db) {
           res.send({ error: err });
           console.log("Error is " + err);
         } else {
-          console.log("Record history is about to be called");
-          request("/record/" + name + "/" + points + "/" + attendeeHouse, function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-              console.log("History has been recorded");
-            }
-          });
           res.redirect("/housePoints");
         }
       });
