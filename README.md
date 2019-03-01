@@ -1,7 +1,7 @@
 
 # Registration System
 
-![Image](https://appdividend.com/wp-content/uploads/2017/06/express-js-tutorials.jpg)
+![Image](https://github.com/AndyUGA/Element/blob/master/public/images/uvsase2.png)
 
 A registration system for UVSASE Element conference
 
@@ -25,4 +25,4 @@ A registration system for UVSASE Element conference
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-[Live Preview](https://vivacious-trigonometry.glitch.me)
+UVSASE Registration System - [Live Preview](https://vivacious-trigonometry.glitch.me)
