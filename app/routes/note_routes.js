@@ -2,6 +2,13 @@ var ObjectID = require("mongodb").ObjectID;
 const http = require("http");
 
 module.exports = function(app, db) {
+  var testFunction = function(req, res) {
+    console.log("req is ");
+    console.log(req);
+    console.log("res is ");
+    console.log(res);
+  };
+
   //Displays home page
   app.get("/", (req, res) => {
     var collection = db.collection("Members");
@@ -161,7 +168,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.post("/record/:name/:points/:house", (req, res) => {
+  var record = app.post("/record/:name/:points/:house", (req, res) => {
     const collection = db.collection("History");
     const pointsToAdd = parseInt(req.params.points);
     const attendeeName = req.params.name;
@@ -189,6 +196,8 @@ module.exports = function(app, db) {
     const points = parseInt(req.body.points);
     const attendeeHouse = req.body.selectedHouse;
     const name = "Form";
+    const operation = req.body.add;
+    console.log("operation is " + operation);
 
     let houseID;
     let currentHousePoints;

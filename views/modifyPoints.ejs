@@ -56,7 +56,6 @@
 
 
           <div class="container h-100">
-
       <div class="row h-100 justify-content-center align-items-center">
         <div class="card" style="width: 18rem;">
   <div class="card-body">
@@ -65,20 +64,14 @@
       <br>
       <select class = "text-center" name ="attendeeName">
         <% for(var i=0; i < memberResults.length; i++) { %>
-
             <option value=<%= memberResults[i].Name %>><%= memberResults[i].Name %></option>
-
-
-            <% } %>
-
-  </select>
-
+        <% } %>
+      </select>
       <div class="form-group text-center">
         <br>
-
-
         <label for="formGroupExampleInput2">Amount of Points</label>
         <input type="text" class="form-control" name="points" placeholder="Points">
+
       </div>
 
       <div class="col-md-12 text-center">
@@ -87,6 +80,11 @@
     </form>
   </div>
 </div>
+
+
+
+
+
 <div class="card" style="width: 18rem;">
 <div class="card-body">
 <form action = "/modifyPoints" method="post" class="col-12 text-center">
@@ -104,10 +102,9 @@
 
 <div class="form-group text-center">
 <br>
-
-
 <label for="formGroupExampleInput2">Amount of Points</label>
 <input type="text" class="form-control" name="points" placeholder="Points">
+<input type="hidden" class="form-control" name="add" placeholder="add">
 </div>
 
 <div class="col-md-12 text-center">
