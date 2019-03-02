@@ -168,7 +168,8 @@ module.exports = function(app, db) {
     });
   });
 
-  var record = app.post("/record/:name/:points/:house", (req, res) => {
+  //Record point increases on history page
+  app.post("/record/:name/:points/:house", (req, res) => {
     const collection = db.collection("History");
     const pointsToAdd = parseInt(req.params.points);
     const attendeeName = req.params.name;
@@ -195,9 +196,8 @@ module.exports = function(app, db) {
     const collection = db.collection("Houses");
     const points = parseInt(req.body.points);
     const attendeeHouse = req.body.selectedHouse;
-    const name = "Form";
-    const operation = req.body.add;
-    console.log("operation is " + operation);
+    const operation = req.body.operation;
+    console.log("Operation is " + operation);
 
     let houseID;
     let currentHousePoints;
@@ -210,10 +210,15 @@ module.exports = function(app, db) {
           currentHousePoints = houseResults[i].Points;
         }
       }
-
+      let modifiedPoints = 0;
+      if (operation == "add") {
+        modifiedPoints = points + parseInt(currentHousePoints);
+      } else if (operation == "subtract") {
+        modifiedPoints = parseInt(currentHousePoints) - points;
+      }
       const modifyPointsContent = {
         $set: {
-          Points: points + parseInt(currentHousePoints)
+          Points: modifiedPoints
         }
       };
 

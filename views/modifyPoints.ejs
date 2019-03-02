@@ -88,23 +88,25 @@
 <div class="card" style="width: 18rem;">
 <div class="card-body">
 <form action = "/modifyPoints" method="post" class="col-12 text-center">
-<label for="formGroupExampleInput2">Select House</label>
-<br>
+
+
 <select class = "text-center" name ="selectedHouse">
 <% for(var i=0; i < houseResults.length; i++) { %>
-
     <option value=<%= houseResults[i].Name %>><%= houseResults[i].Name %></option>
+<% } %>
 
-
-    <% } %>
-
+</select>
+<br><br>
+<select class = "text-center" name ="operation">
+    <option value= "add"> Add </option>
+    <option value= "subtract"> Subtract </option>
 </select>
 
 <div class="form-group text-center">
 <br>
 <label for="formGroupExampleInput2">Amount of Points</label>
 <input type="text" class="form-control" name="points" placeholder="Points">
-<input type="hidden" class="form-control" name="add" placeholder="add">
+<input type="hidden" class="form-control" name="add" value = "add" placeholder="add">
 </div>
 
 <div class="col-md-12 text-center">

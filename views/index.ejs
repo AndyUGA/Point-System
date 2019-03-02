@@ -94,6 +94,7 @@
 
         <script type="text/javascript">
 
+          console.log("<%= result[0].Name %>");
 
             let scanner = new Instascan.Scanner(
                 {
@@ -108,11 +109,24 @@
 
                 console.log(content);
 
+
                 var data = JSON.parse(content);
 
-                document.getElementById("name").innerHTML = "Name : " + data['Name'];
-                document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + data['House'] ;
-                document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop'];
+                <% for(var i=0; i < result.length; i++) { %>
+                    if("<%= result[i].Name %>" == data['Name'])
+                    {
+                      if("<%= result[i].Workshop %>" == data['Workshop'])
+                      {
+                        document.getElementById("name").innerHTML = "Name : " + data['Name'];
+                        document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + data['House'] ;
+                        document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop'];
+                      }
+                    }
+
+                    <% } %>
+
+                
+
 
 
                 var xhttp = new XMLHttpRequest();
