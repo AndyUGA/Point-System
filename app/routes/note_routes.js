@@ -2,13 +2,6 @@ var ObjectID = require("mongodb").ObjectID;
 const http = require("http");
 
 module.exports = function(app, db) {
-  var testFunction = function(req, res) {
-    console.log("req is ");
-    console.log(req);
-    console.log("res is ");
-    console.log(res);
-  };
-
   //Displays home page
   app.get("/", (req, res) => {
     var collection = db.collection("Members");
@@ -105,18 +98,17 @@ module.exports = function(app, db) {
   });
 
   //Update score for attendee
-  app.post("/increasePoints/:name/:points/:house", (req, res) => {
+  app.post("/increasePoints/:name/:points/:house/:redirect", (req, res) => {
     const collection = db.collection("Members");
     let pointsToAdd = 0;
-    console.log("req.body.points is " + req.body.points);
+
     if (req.body.points == undefined) {
-      console.log("112");
       pointsToAdd = parseInt(req.params.points);
     } else {
-      console.log("115");
       pointsToAdd = parseInt(req.body.points);
     }
 
+    const redirect = req.params.redirect;
     const attendeeName = req.params.name;
     const attendeeHouse = req.params.house;
     const operation = req.body.operation;
@@ -130,13 +122,10 @@ module.exports = function(app, db) {
 
           let calculatedPoints = 0;
           if (operation == "add") {
-            console.log("Adding " + pointsToAdd + " to " + currentPoints);
             calculatedPoints = currentPoints + pointsToAdd;
           } else if (operation == "subtract") {
-            console.log("Subtract " + pointsToAdd + " from " + currentPoints);
             calculatedPoints = currentPoints - pointsToAdd;
           } else {
-            console.log("Adding " + pointsToAdd + " to " + currentPoints);
             calculatedPoints = currentPoints + pointsToAdd;
           }
           const attendeeContent = {
@@ -152,7 +141,9 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              res.redirect("/increaseHousePoints/" + attendeeHouse + "/" + pointsToAdd);
+              //res.redirect("/increaseHousePoints/" + attendeeHouse + "/" + pointsToAdd);
+              console.log("Sending request to record points");
+              res.redirect("/record/" + attendeeName + "/" + pointsToAdd + "/" + attendeeHouse + "/" + redirect);
             }
           });
           break;
@@ -162,7 +153,7 @@ module.exports = function(app, db) {
   });
 
   //Update score for attendee house
-  app.get("/increaseHousePoints/:house/:pointsToAdd", (req, res) => {
+  app.post("/increaseHousePoints/:house/:pointsToAdd", (req, res) => {
     const houseName = req.params.house;
     const pointsToAdd = req.params.pointsToAdd;
     const collection = db.collection("Houses");
@@ -200,7 +191,10 @@ module.exports = function(app, db) {
   });
 
   //Record point increases on history page
-  app.post("/record/:name/:points/:house", (req, res) => {
+  app.get("/record/:name/:points/:house/:redirect", (req, res) => {
+    console.log("Entering record method");
+
+    const redirect = req.params.redirect;
     const collection = db.collection("History");
     const pointsToAdd = parseInt(req.params.points);
     const attendeeName = req.params.name;
@@ -217,7 +211,11 @@ module.exports = function(app, db) {
         console.log("Error is " + err);
         res.send({ "Error is ": +err });
       } else {
-        console.log("Action has been recorded to history page");
+        if (redirect == "yesRedirect") {
+          res.redirect("/attendeeInfo");
+        } else {
+          console.log("Action has been recorded to history page");
+        }
       }
     });
   });
@@ -243,10 +241,8 @@ module.exports = function(app, db) {
       }
       let modifiedPoints = 0;
       if (operation == "add") {
-        console.log("Adding " + points + " points to " + currentAttendeePoints);
         modifiedPoints = currentAttendeePoints + parseInt(points);
       } else if (operation == "subtract") {
-        console.log("Subtract " + points + " from " + currentAttendeePoints);
         modifiedPoints = parseInt(currentAttendeePoints) - points;
       }
       const modifyPointsContent = {
