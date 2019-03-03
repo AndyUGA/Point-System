@@ -78,6 +78,9 @@
                 <p id = "score"> </p>
             </div>
             <div class="d-flex justify-content-center">
+                <p id = "totalPoints"> </p>
+            </div>
+            <div class="d-flex justify-content-center">
                 <p id = "workshop"> </p>
             </div>
 
@@ -123,6 +126,8 @@
                       {
                         document.getElementById("name").innerHTML = "Name : " + data['Name'];
                         document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + data['House'] ;
+                        let totalPoints = parseInt(data['Points']) + parseInt(<%= result[i].points %>);
+                        document.getElementById("totalPoints").innerHTML = "Total points : " + totalPoints;
                         document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop'];
                         console.log("Workshops match!");
                       }

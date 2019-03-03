@@ -75,7 +75,8 @@ module.exports = function(app, db) {
       }
     });
   });
-  //Get form to modify points
+
+  //Get page to display attendee information
   app.get("/attendeeInfo", (req, res) => {
     var collection = db.collection("Houses");
     var hrResults;
@@ -95,6 +96,7 @@ module.exports = function(app, db) {
     });
   });
 
+  //Get form to modify points
   app.get("/modifyPointsForm/:name/:points/:house", (req, res) => {
     const name = req.params.name;
     const points = req.params.points;
@@ -105,9 +107,19 @@ module.exports = function(app, db) {
   //Update score for attendee
   app.post("/increasePoints/:name/:points/:house", (req, res) => {
     const collection = db.collection("Members");
-    const pointsToAdd = parseInt(req.params.points);
+    let pointsToAdd = 0;
+    console.log("req.body.points is " + req.body.points);
+    if (req.body.points == undefined) {
+      console.log("112");
+      pointsToAdd = parseInt(req.params.points);
+    } else {
+      console.log("115");
+      pointsToAdd = parseInt(req.body.points);
+    }
+
     const attendeeName = req.params.name;
     const attendeeHouse = req.params.house;
+    const operation = req.body.operation;
 
     collection.find({}).toArray(function(err, result) {
       for (var i = 0; i < result.length; i++) {
@@ -115,11 +127,23 @@ module.exports = function(app, db) {
           const attendee = result[i];
           const currentPoints = parseInt(attendee.Points);
           const attendeeID = { _id: new ObjectID(attendee._id) };
+
+          let calculatedPoints = 0;
+          if (operation == "add") {
+            console.log("Adding " + pointsToAdd + " to " + currentPoints);
+            calculatedPoints = currentPoints + pointsToAdd;
+          } else if (operation == "subtract") {
+            console.log("Subtract " + pointsToAdd + " from " + currentPoints);
+            calculatedPoints = currentPoints - pointsToAdd;
+          } else {
+            console.log("Adding " + pointsToAdd + " to " + currentPoints);
+            calculatedPoints = currentPoints + pointsToAdd;
+          }
           const attendeeContent = {
             $set: {
               Name: attendeeName,
               House: attendeeHouse,
-              Points: currentPoints + pointsToAdd
+              Points: calculatedPoints
             }
           };
 
@@ -198,7 +222,7 @@ module.exports = function(app, db) {
     });
   });
 
-  //Added points to Houses based on form
+  //Modify points for attendee
   app.post("/modifyPoints", (req, res) => {
     const collection = db.collection("Members");
     const points = parseInt(req.body.points);

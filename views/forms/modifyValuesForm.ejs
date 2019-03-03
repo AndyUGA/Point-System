@@ -53,8 +53,9 @@
       <div class="row h-100 justify-content-center align-items-center">
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <form action = "/modifyPoints" method="post" class="col-12 text-center">
-              <p> Name : <%= name %> </p>
+            <form action = "/increasePoints/<%= name %>/<%= points %>/<%= house %>" method="post" class="col-12 text-center">
+              <p> Name : <b> <%= name %> </b> </p>
+              <p> Current Points : <b> <%= points %> </b> </p>
               <select class = "text-center" name ="operation">
                 <option value= "add"> Add </option>
                 <option value= "subtract"> Subtract </option>
