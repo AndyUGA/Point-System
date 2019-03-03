@@ -95,10 +95,11 @@ module.exports = function(app, db) {
     });
   });
 
-  app.get("/modifyPointsForm/:name/:points", (req, res) => {
+  app.get("/modifyPointsForm/:name/:points/:house", (req, res) => {
     const name = req.params.name;
     const points = req.params.points;
-    res.render("forms/modifyValuesForm");
+    const house = req.params.house;
+    res.render("modifyPoints", { name: name, points: points, house: house });
   });
 
   //Update score for attendee
