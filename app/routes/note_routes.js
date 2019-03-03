@@ -86,13 +86,19 @@ module.exports = function(app, db) {
         if (err) {
           res.send({ error: " An error has occurred" });
         } else {
-          res.render("modifyPoints", {
+          res.render("modifyPointValues", {
             houseResults: hrResults,
             memberResults: memberResults
           });
         }
       });
     });
+  });
+
+  app.get("/modifyPointsForm/:name/:points", (req, res) => {
+    const name = req.params.name;
+    const points = req.params.points;
+    res.render("forms/modifyValuesForm");
   });
 
   //Update score for attendee
