@@ -42,6 +42,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/history"> History  </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/attendeeInfo"> Attendee Information  </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -51,16 +54,18 @@
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <form action = "/modifyPoints" method="post" class="col-12 text-center">
-              <br><br>
+              <p> Name : <%= name %> </p>
               <select class = "text-center" name ="operation">
                 <option value= "add"> Add </option>
                 <option value= "subtract"> Subtract </option>
               </select>
               <div class="form-group text-center">
                 <br>
-                <label for="formGroupExampleInput2">Amount of Points</label>
                 <input type="text" class="form-control" name="points" placeholder="Points">
                 <input type="hidden" class="form-control" name="add" value = "add" placeholder="add">
+                <input type="hidden" class="form-control" name="name" value = "<%=name%>" placeholder="add">
+                <input type="hidden" class="form-control" name="points" value = "<%=points%>" placeholder="add">
+                <input type="hidden" class="form-control" name="house" value = "<%=house%>" placeholder="add">
               </div>
               <div class="col-md-12 text-center">
                 <button type="submit" class="btn btn-primary btn-lg">Submit</button>

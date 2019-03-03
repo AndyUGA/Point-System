@@ -76,7 +76,7 @@ module.exports = function(app, db) {
     });
   });
   //Get form to modify points
-  app.get("/modifyPoints", (req, res) => {
+  app.get("/attendeeInfo", (req, res) => {
     var collection = db.collection("Houses");
     var hrResults;
     collection.find({}).toArray(function(err, houseResults) {
@@ -86,7 +86,7 @@ module.exports = function(app, db) {
         if (err) {
           res.send({ error: " An error has occurred" });
         } else {
-          res.render("modifyPointValues", {
+          res.render("attendeeInfo", {
             houseResults: hrResults,
             memberResults: memberResults
           });
@@ -200,20 +200,20 @@ module.exports = function(app, db) {
 
   //Added points to Houses based on form
   app.post("/modifyPoints", (req, res) => {
-    const collection = db.collection("Houses");
+    const collection = db.collection("Members");
     const points = parseInt(req.body.points);
-    const attendeeHouse = req.body.selectedHouse;
+    const attendeeHouse = req.body.house;
+    const name = req.body.name;
     const operation = req.body.operation;
 
-    let houseID;
+    let attendeeID;
     let currentHousePoints;
 
-    collection.find({}).toArray(function(err, houseResults) {
-      console.log(houseResults);
-      for (var i = 0; i < houseResults.length; i++) {
-        if (houseResults[i].Name == attendeeHouse) {
-          houseID = { _id: new ObjectID(houseResults[i]._id) };
-          currentHousePoints = houseResults[i].Points;
+    collection.find({}).toArray(function(err, memberResults) {
+      for (var i = 0; i < memberResults.length; i++) {
+        let currentMember = memberResults[i];
+        if (currentMember.Name == name) {
+          attendeeID = { _id: new ObjectID(currentMember._id) };
         }
       }
       let modifiedPoints = 0;
