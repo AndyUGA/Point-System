@@ -138,16 +138,16 @@ module.exports = function(app, db) {
 
     collection.find({}).toArray(function(err, result) {
       for (var i = 0; i < result.length; i++) {
-        const attendee = result[i];
-        if (houseName == attendee.Name) {
-          const houseID = { _id: new ObjectID(attendee._id) };
+        const houseInfo = result[i];
+        if (houseName == houseInfo.Name) {
+          const houseID = { _id: new ObjectID(houseInfo._id) };
 
-          const currentHousePoints = attendee.Points;
+          const currentHousePoints = houseInfo.Points;
 
           const totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
           const houseContent = {
             $set: {
-              Name: attendee.Name,
+              Name: houseInfo.Name,
               Points: totalHousePoints
             }
           };
@@ -197,7 +197,6 @@ module.exports = function(app, db) {
     const points = parseInt(req.body.points);
     const attendeeHouse = req.body.selectedHouse;
     const operation = req.body.operation;
-    console.log("Operation is " + operation);
 
     let houseID;
     let currentHousePoints;

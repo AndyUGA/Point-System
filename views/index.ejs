@@ -68,6 +68,8 @@
                 </div>
 
             </div>
+
+
             <div class="d-flex justify-content-center">
                 <p id = "name"> </p>
 
@@ -107,32 +109,36 @@
 
             scanner.addListener('scan', function (content) {
 
-                console.log(content);
+
 
 
                 var data = JSON.parse(content);
 
                 <% for(var i=0; i < result.length; i++) { %>
+                    //console.log("Comparing <%= result[i].Name %> with " + data['Name']);
                     if("<%= result[i].Name %>" == data['Name'])
                     {
+                      //console.log("Comparing <%= result[i].Workshop %> with " + data['Workshop']);
                       if("<%= result[i].Workshop %>" == data['Workshop'])
                       {
                         document.getElementById("name").innerHTML = "Name : " + data['Name'];
                         document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + data['House'] ;
                         document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop'];
+                        console.log("Workshops match!");
                       }
+
                     }
 
                     <% } %>
 
-                
+
 
 
 
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                  console.log("Request to increase points has been sent");
+                  console.log("/increasePoints request has been sent!");
 
                 }
                 };
@@ -142,10 +148,11 @@
                 var xhttp2 = new XMLHttpRequest();
                 xhttp2.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                  console.log("Request to increase points has been sent");
+
 
                 }
                 };
+                console.log("/record request has been sent!");;
                 xhttp2.open("POST", "/record/" + data['Name'] + "/" + data['Points'] + "/" + data['House'], true);
                 xhttp2.send();
             });
