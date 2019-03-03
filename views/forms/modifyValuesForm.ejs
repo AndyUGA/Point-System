@@ -1,58 +1,87 @@
 <!DOCTYPE html>
-
-<html lang="en" class="has-lab-nav-bottom lab-theme-light">
-<head>
-   <title>Modify Values Form</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="/stylesheet.css">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  <link href='https://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Sahitya:400,700' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Playfair+Display:900' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,700,800' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="css/demo.css" />
-<link rel="stylesheet" type="text/css" href="css/icons.css" />
-<link rel="stylesheet" type="text/css" href="css/component.css" />
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" type="text/css" href="stylesheet.css">
+      <link href='https://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Sahitya:400,700' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Playfair+Display:900' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,700,800' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+      <link rel="stylesheet" type="text/css" href="css/demo.css" />
+      <link rel="stylesheet" type="text/css" href="css/icons.css" />
+      <link rel="stylesheet" type="text/css" href="css/component.css" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+      <title>Modify Points</title>
   </head>
-
-
-
-<body>
-
-
-<center><h3> Modify Values </h3>
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-12 ">
-            <div class="well well-sm">
-                <form action = ""  class="form-horizontal " method="post">
-                    <fieldset>
-                        <div class="form-group">
-
-                            <div class="col-md-8">
-                                <input id="content" value = "<%= points %>"  name="point" type="text" placeholder=" Content " class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/attendeePoints">Modify Points</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Check-In  </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/attendeePoints">Attendee Points  </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/housePoints">House Points  </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/history"> History  </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/attendeeInfo"> Attendee Information  </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br>
+    <div class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <form action = "/modifyPoints" method="post" class="col-12 text-center">
+              <p> Name : <%= name %> </p>
+              <select class = "text-center" name ="operation">
+                <option value= "add"> Add </option>
+                <option value= "subtract"> Subtract </option>
+              </select>
+              <div class="form-group text-center">
+                <br>
+                <input type="text" class="form-control" name="points" placeholder="Points">
+                <input type="hidden" class="form-control" name="add" value = "add" placeholder="add">
+                <input type="hidden" class="form-control" name="name" value = "<%=name%>" placeholder="add">
+                <input type="hidden" class="form-control" name="points" value = "<%=points%>" placeholder="add">
+                <input type="hidden" class="form-control" name="house" value = "<%=house%>" placeholder="add">
+              </div>
+              <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
 
-</div>
-   </center>
 
-  </html>
+
+
+
+
+
+    </body>
+</html>

@@ -99,7 +99,7 @@ module.exports = function(app, db) {
     const name = req.params.name;
     const points = req.params.points;
     const house = req.params.house;
-    res.render("modifyPoints", { name: name, points: points, house: house });
+    res.render("forms/modifyValuesForm", { name: name, points: points, house: house });
   });
 
   //Update score for attendee
@@ -207,20 +207,23 @@ module.exports = function(app, db) {
     const operation = req.body.operation;
 
     let attendeeID;
-    let currentHousePoints;
+    let currentAttendeePoints;
 
     collection.find({}).toArray(function(err, memberResults) {
       for (var i = 0; i < memberResults.length; i++) {
         let currentMember = memberResults[i];
         if (currentMember.Name == name) {
           attendeeID = { _id: new ObjectID(currentMember._id) };
+          currentAttendeePoints = currentMember.Points;
         }
       }
       let modifiedPoints = 0;
       if (operation == "add") {
-        modifiedPoints = points + parseInt(currentHousePoints);
+        console.log("Adding " + points + " points to " + currentAttendeePoints);
+        modifiedPoints = currentAttendeePoints + parseInt(points);
       } else if (operation == "subtract") {
-        modifiedPoints = parseInt(currentHousePoints) - points;
+        console.log("Subtract " + points + " from " + currentAttendeePoints);
+        modifiedPoints = parseInt(currentAttendeePoints) - points;
       }
       const modifyPointsContent = {
         $set: {
@@ -228,12 +231,12 @@ module.exports = function(app, db) {
         }
       };
 
-      collection.updateOne(houseID, modifyPointsContent, (err, item) => {
+      collection.updateOne(attendeeID, modifyPointsContent, (err, item) => {
         if (err) {
           res.send({ error: err });
           console.log("Error is " + err);
         } else {
-          res.redirect("/housePoints");
+          res.redirect("/attendeePoints");
         }
       });
     });
