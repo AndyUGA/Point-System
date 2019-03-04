@@ -225,46 +225,4 @@ module.exports = function(app, db) {
       }
     });
   });
-
-  //Modify points for attendee
-  app.post("/modifyPoints", (req, res) => {
-    const collection = db.collection("Members");
-    const points = parseInt(req.body.points);
-    const attendeeHouse = req.body.house;
-    const name = req.body.name;
-    const operation = req.body.operation;
-
-    let attendeeID;
-    let currentAttendeePoints;
-
-    collection.find({}).toArray(function(err, memberResults) {
-      for (var i = 0; i < memberResults.length; i++) {
-        let currentMember = memberResults[i];
-        if (currentMember.Name == name) {
-          attendeeID = { _id: new ObjectID(currentMember._id) };
-          currentAttendeePoints = currentMember.Points;
-        }
-      }
-      let modifiedPoints = 0;
-      if (operation == "add") {
-        modifiedPoints = currentAttendeePoints + parseInt(points);
-      } else if (operation == "subtract") {
-        modifiedPoints = parseInt(currentAttendeePoints) - points;
-      }
-      const modifyPointsContent = {
-        $set: {
-          Points: modifiedPoints
-        }
-      };
-
-      collection.updateOne(attendeeID, modifyPointsContent, (err, item) => {
-        if (err) {
-          res.send({ error: err });
-          console.log("Error is " + err);
-        } else {
-          res.redirect("/attendeePoints");
-        }
-      });
-    });
-  });
 };
