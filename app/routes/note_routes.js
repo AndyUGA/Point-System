@@ -111,7 +111,7 @@ module.exports = function(app, db) {
     const redirect = req.params.redirect;
     const attendeeName = req.params.name;
     const attendeeHouse = req.params.house;
-    const operation = req.body.operation;
+    let operation = req.body.operation;
 
     collection.find({}).toArray(function(err, result) {
       for (var i = 0; i < result.length; i++) {
@@ -121,11 +121,10 @@ module.exports = function(app, db) {
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
           let calculatedPoints = 0;
-          if (operation == "add") {
-            calculatedPoints = currentPoints + pointsToAdd;
-          } else if (operation == "subtract") {
+          if (operation == "subtract") {
             calculatedPoints = currentPoints - pointsToAdd;
           } else {
+            operation = "add";
             calculatedPoints = currentPoints + pointsToAdd;
           }
           const attendeeContent = {
@@ -143,7 +142,7 @@ module.exports = function(app, db) {
             } else {
               //res.redirect("/increaseHousePoints/" + attendeeHouse + "/" + pointsToAdd);
               console.log("Sending request to record points");
-              res.redirect("/record/" + attendeeName + "/" + pointsToAdd + "/" + attendeeHouse + "/" + redirect);
+              res.redirect("/record/" + attendeeName + "/" + pointsToAdd + "/" + attendeeHouse + "/" + redirect + "/" + operation);
             }
           });
           break;
@@ -191,14 +190,21 @@ module.exports = function(app, db) {
   });
 
   //Record point increases on history page
-  app.get("/record/:name/:points/:house/:redirect", (req, res) => {
+  app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
     console.log("Entering record method");
 
+    const operation = req.params.operation;
     const redirect = req.params.redirect;
     const collection = db.collection("History");
-    const pointsToAdd = parseInt(req.params.points);
+    let pointsToAdd = req.params.points;
     const attendeeName = req.params.name;
     const attendeeHouse = req.params.house;
+
+    if (operation == "subtract") {
+      pointsToAdd = "-" + pointsToAdd;
+    } else {
+      pointsToAdd = "+" + pointsToAdd;
+    }
 
     const attendeeContent = {
       Name: attendeeName,
