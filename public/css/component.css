@@ -5,6 +5,10 @@ body {
   height: 100%;
 }
 
+th {
+  background-color: #009fb7;
+  color: white;
+}
 .formTest {
   height: 100%;
 }
@@ -15,7 +19,7 @@ body {
 }
 
 * {
-  font-family: Harry;
+  font-family: Helvetica;
 }
 @font-face {
   font-family: Harry;
