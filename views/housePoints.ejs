@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <% include reusableComponents/css.html %>
+
+<head>
+    <% include reusableComponents/css.html %>
         <title>House Points</title>
-    </head>
-    <body>
+</head>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/"> House Points </a>
-
         <% include reusableComponents/navbar.html %>
-      </nav>
+    </nav>
+    <div class="pricing pricing--sonam">
+        <div class="pricing__item">
+            <h3 class="">
+                <%= houseResults[0].Name %>
+            </h3>
+            <h3 class="">
+                <%= houseResults[0].Points %>
+            </h3>
+        </div>
+    </div>
+    <div class="pricing pricing--sonam2">
+        <div class="pricing__item">
+            <h3 class="">
+                <%= houseResults[1].Name %>
+            </h3>
+            <h3 class="">
+                <%= houseResults[1].Points %>
+            </h3>
+        </div>
+    </div>
+    <div class="pricing pricing--sonam3">
+        <div class="pricing__item">
+            <h3 class="">
+                <%= houseResults[2].Name %>
+            </h3>
+            <h3 class="">
+                <%= houseResults[2].Points %>
+            </h3>
+        </div>
+    </div>
+    <div class="pricing pricing--sonam4">
+        <div class="pricing__item">
+            <h3 class="">
+                <%= houseResults[3].Name %>
+            </h3>
+            <h3 class="">
+                <%= houseResults[3].Points %>
+            </h3>
+        </div>
+    </div>
+</body>
 
-
-
-              <div class="pricing pricing--sonam">
-                  <div class="pricing__item">
-                      <h3 class=""><%= houseResults[0].Name %></h3>
-                      <h3 class=""><%= houseResults[0].Points %></h3>
-
-                  </div>
-              </div>
-
-              <div class="pricing pricing--sonam2">
-                  <div class="pricing__item">
-                      <h3 class=""><%= houseResults[1].Name %></h3>
-                      <h3 class=""><%= houseResults[1].Points %></h3>
-                  </div>
-              </div>
-
-              <div class="pricing pricing--sonam3">
-                  <div class="pricing__item">
-                      <h3 class=""><%= houseResults[2].Name %></h3>
-                      <h3 class=""><%= houseResults[2].Points %></h3>
-                  </div>
-              </div>
-
-              <div class="pricing pricing--sonam4">
-                  <div class="pricing__item">
-                      <h3 class=""><%= houseResults[3].Name %></h3>
-                      <h3 class=""><%= houseResults[3].Points %></h3>
-                  </div>
-              </div>
-
-
-
-
-
-
-
-
-
-    </body>
 </html>

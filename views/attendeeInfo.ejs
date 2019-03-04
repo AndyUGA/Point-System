@@ -1,71 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <% include reusableComponents/css.html %>
 
-
-
-
+<head>
+    <% include reusableComponents/css.html %>
     <title>Attendee Information</title>
-    </head>
-    <body>
+</head>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Attendee Info</a>
-
         <% include reusableComponents/navbar.html %>
-      </nav>
+    </nav>
 
-
-        <div class="table-responsive">
+    <div class="table-responsive">
         <table class="table table-bordered table-hover text-center">
-
-          <thead class = "thead-dark">
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Points </th>
-              <th scope = "col"> House </th>
-              <th scope = "col"> Workshop </th>
-              <th scope = "col"> Modify </th>
-            </tr>
-          </thead>
-
-          <% for(var i=0; i < memberResults.length; i++) { %>
-
-          <tbody>
-
-            <tr >
-              <td>
-                    <%= memberResults[i].Name %>
-              </td>
-              <td>
-                  <%= memberResults[i].Points %>
-              </td>
-              <td>
-                  <%= memberResults[i].House %>
-              </td>
-              <td>
-                <%= memberResults[i].Workshop %>
-              </td>
-              <td>
-                <a href="/modifyPointsForm/<%= memberResults[i].Name %>/<%= memberResults[i].Points %>/<%= memberResults[i].House %>"> <i class="far fa-edit">  </i></a>
-              </td>
-
-            </tr>
-            <% } %>
-
-
-
-          </tbody>
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Points </th>
+                    <th scope="col"> House </th>
+                    <th scope="col"> Workshop </th>
+                    <th scope="col"> Modify </th>
+                </tr>
+            </thead>
+            <% for(var i=0; i < memberResults.length; i++) { %>
+                <tbody>
+                    <tr>
+                        <td>
+                            <%= memberResults[i].Name %>
+                        </td>
+                        <td>
+                            <%= memberResults[i].Points %>
+                        </td>
+                        <td>
+                            <%= memberResults[i].House %>
+                        </td>
+                        <td>
+                            <%= memberResults[i].Workshop %>
+                        </td>
+                        <td>
+                            <a href="/modifyPointsForm/<%= memberResults[i].Name %>/<%= memberResults[i].Points %>/<%= memberResults[i].House %>"> <i class="far fa-edit">  </i></a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
         </table>
+    </div>
+</body>
 
-        </div>
-
-
-
-
-
-
-
-    </body>
 </html>

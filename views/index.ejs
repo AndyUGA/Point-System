@@ -1,142 +1,91 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <% include reusableComponents/css.html %>
 
+<head>
+    <% include reusableComponents/css.html %>
         <script type="text/javascript" src="instascan.js"></script>
-
-
-
         <title>Check-In</title>
-    </head>
-    <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Check-In</a>
-
         <% include reusableComponents/navbar.html %>
-      </nav>
+    </nav>
 
-            <div class="pricing pricing--norbu">
-                <div class="pricing__item">
-                  <br>
-                  <img class = "cardIMG" src="images/uvsase_main_logomark.png" alt="Card image cap">
-                  <br><br>
-                      <video  width = "330" height = "250" playsinline controls="true" id="preview"></video>
-                </div>
-            </div>
-
-
-            <div class="d-flex justify-content-center">
-                <p id = "name"> </p>
-
-            </div>
-            <div class="d-flex justify-content-center">
-                <p id = "score"> </p>
-            </div>
-            <div class="d-flex justify-content-center">
-                <p id = "workshop"> </p>
-            </div>
-
-
-
-
-                <div class="d-flex justify-content-center">
-                    <p id = "check"> </p>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <p id = "house"> </p>
-                </div>
-
-
-
-
-        <script type="text/javascript">
-
-          console.log("<%= result[0].Name %>");
-
-            let scanner = new Instascan.Scanner(
-                {
-                    video : document.getElementById('preview'),
-                    mirror : false,
-                    backgroundScan : false,
-                    scanPeriod: 3,
+    <div class="pricing pricing--norbu">
+        <div class="pricing__item">
+            <br>
+            <img class="cardIMG" src="images/uvsase_main_logomark.png" alt="Card image cap">
+            <br><br>
+            <video width="330" height="250" playsinline controls="true" id="preview"></video>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p id="name"> </p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p id="score"> </p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p id="workshop"> </p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p id="check"> </p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p id="house"> </p>
+    </div>
+    <script type="text/javascript">
+        console.log("<%= result[0].Name %>");
+        let scanner = new Instascan.Scanner({
+            video: document.getElementById('preview'),
+            mirror: false,
+            backgroundScan: false,
+            scanPeriod: 3,
+        });
+        scanner.addListener('scan', function(content) {
+            var data = JSON.parse(content);
+            <% for(var i=0; i < result.length; i++) { %>
+            //console.log("Comparing <%= result[i].Name %> with " + data['Name']);
+            if ("<%= result[i].Name %>" == data['Name']) {
+                //console.log("Comparing <%= result[i].Workshop %> with " + data['Workshop']);
+                if ("<%= result[i].Workshop %>" == data['Workshop']) {
+                    document.getElementById("name").innerHTML = "Name : " + data['Name'];
+                    document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + " attendee and " + data['House'];
+                    document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop'];
+                    console.log("Workshops match!");
                 }
-            );
-
-            scanner.addListener('scan', function (content) {
-
-
-
-
-                var data = JSON.parse(content);
-
-                <% for(var i=0; i < result.length; i++) { %>
-                    //console.log("Comparing <%= result[i].Name %> with " + data['Name']);
-                    if("<%= result[i].Name %>" == data['Name'])
-                    {
-                      //console.log("Comparing <%= result[i].Workshop %> with " + data['Workshop']);
-                      if("<%= result[i].Workshop %>" == data['Workshop'])
-                      {
-                        document.getElementById("name").innerHTML = "Name : " + data['Name'];
-                        document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + " attendee and " + data['House'] ;
-                        document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop'];
-                        console.log("Workshops match!");
-                      }
-
-                    }
-
-                    <% } %>
-
-
-
-
-
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
+            }
+            <% } %>
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                  console.log("/increasePoints request has been sent!");
-
+                    console.log("/increasePoints request has been sent!");
                 }
-                };
-                xhttp.open("POST", "/increasePoints/" + data['Name'] + "/" + data['Points'] + "/" + data['House'] + "/noRedirect", true);
-                xhttp.send();
+            };
+            xhttp.open("POST", "/increasePoints/" + data['Name'] + "/" + data['Points'] + "/" + data['House'] + "/noRedirect", true);
+            xhttp.send();
 
-                var xhttp2 = new XMLHttpRequest();
-                xhttp2.onreadystatechange = function() {
+            var xhttp2 = new XMLHttpRequest();
+            xhttp2.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-
-                  console.log("/increaseHousePoints request has been sent!");;
+                    console.log("/increaseHousePoints request has been sent!");;
                 }
-                };
+            };
+            xhttp2.open("POST", "/increaseHousePoints/" + data['House'] + "/" + data['Points'], true);
+            xhttp2.send();
+        });
 
-                xhttp2.open("POST", "/increaseHousePoints/" + data['House'] + "/" + data['Points'], true);
-
-                xhttp2.send();
-            });
-
-
-            Instascan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    scanner.start(cameras[0]);
-                }
-                else {
-                    console.error('No cameras found.');
-                }
-            }).catch(function (e) {
-                console.error(e);
-            });
-
-
-
-
-
-
-
-
-
-        </script>
-
-
-
-    </body>
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function(e) {
+            console.error(e);
+        });
+    </script>
+</body>
 </html>

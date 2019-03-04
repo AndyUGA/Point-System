@@ -1,53 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-          <% include reusableComponents/css.html %>
-    </head>
-    <body>
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<head>
+    <% include reusableComponents/css.html %>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/"> Attendee Points</a>
-
         <% include reusableComponents/navbar.html %>
-      </nav>
-
-
-        <div class="table-responsive">
-
-            <table class="table containter text-center ">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Points</th>
-                        <th scope="col"> House </th>
+    </nav>
+    <div class="table-responsive">
+        <table class="table containter text-center ">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Points</th>
+                    <th scope="col"> House </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < memberResults.length; i++) { %>
+                    <tr class="attendeePoints">
+                        <td>
+                            <%= memberResults[i].Name %>
+                        </td>
+                        <td>
+                            <%= memberResults[i].Points %>
+                        </td>
+                        <td>
+                            <%= memberResults[i].House %>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                  <% for(var i=0; i < memberResults.length; i++) { %>
-
-                    <tr class = "attendeePoints">
-
-                        <td><%= memberResults[i].Name %></td>
-                        <td><%= memberResults[i].Points %></td>
-                        <td><%= memberResults[i].House %></td>
-                    </tr>
-                      <% } %>
-
-
-                </tbody>
-            </table>
-
-
-
-
-
-
-        </div>
-
-
-
-
-
-
-    </body>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
 </html>
