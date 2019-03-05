@@ -91,11 +91,13 @@ module.exports = function(app, db) {
 
   //Search for attendee based on search bar
   app.post("/searchAttendee", (req, res) => {
-    let search = req.body.search;
-    console.log("95");
-    console.log(search[0]);
+    let attendeeName = req.body.attendeeName;
 
-    let query = { Name: search };
+    let nameLength = attendeeName.length;
+    let restOfQuery = attendeeName.substring(1, nameLength);
+    let upperCaseQuery = attendeeName[0].toUpperCase() + restOfQuery;
+    console.log(upperCaseQuery);
+    let query = { Name: upperCaseQuery };
 
     var collection = db.collection("Houses");
     var hrResults;
