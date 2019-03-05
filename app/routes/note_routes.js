@@ -89,6 +89,34 @@ module.exports = function(app, db) {
     });
   });
 
+  //Search for attendee based on search bar
+  app.post("/searchAttendee", (req, res) => {
+    let search = req.body.search;
+    console.log("95");
+    console.log(search[0]);
+
+    let query = { Name: search };
+
+    var collection = db.collection("Houses");
+    var hrResults;
+    collection.find({}).toArray(function(err, houseResults) {
+      hrResults = houseResults;
+      collection = db.collection("Members");
+
+      collection.find(query).toArray(function(err, memberResults) {
+        if (err) {
+          res.send({ error: " An error has occurred" });
+        } else {
+          console.log(memberResults);
+          res.render("attendeeInfo", {
+            houseResults: hrResults,
+            memberResults: memberResults
+          });
+        }
+      });
+    });
+  });
+
   //Get form to modify points
   app.post("/modifyPointsForm", (req, res) => {
     const name = req.body.tempName;

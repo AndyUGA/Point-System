@@ -24,6 +24,14 @@
                     <th scope="col"> Modify </th>
                 </tr>
             </thead>
+
+            <div class="search-container">
+               <form action="/searchAttendee" method = "POST">
+                 <input type="text" placeholder="Search.." name="search">
+                 <button type="submit"><i class="fa fa-search"></i></button>
+               </form>
+             </div>
+            <br>
             <% for(var i=0; i < memberResults.length; i++) { %>
                 <tbody>
                     <tr >
@@ -49,7 +57,7 @@
 
                         <td>
                           <form action = "/modifyPointsForm" method="POST" class="col-12 text-center">
-                            <div class="form-group text-center">
+                            <div class="form-group text-center ">
                               <button type="submit" class="modifyButton"><i class="fas fa-edit"></i> </button>
 
                             </div>
@@ -65,6 +73,10 @@
 
         </table>
     </div>
+
+
+
+
 </body>
 
 </html>
