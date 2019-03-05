@@ -90,10 +90,13 @@ module.exports = function(app, db) {
   });
 
   //Get form to modify points
-  app.get("/modifyPointsForm/:name/:points/:house", (req, res) => {
-    const name = req.params.name;
-    const points = req.params.points;
-    const house = req.params.house;
+  app.post("/modifyPointsForm", (req, res) => {
+    const name = req.body.tempName;
+    const points = req.body.points;
+    const house = req.body.house;
+    console.log("name is " + name);
+    console.log("points is " + points);
+    console.log("house is " + house);
 
     res.render("forms/modifyValuesForm", { name: name, points: points, house: house });
   });

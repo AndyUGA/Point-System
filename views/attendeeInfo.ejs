@@ -39,18 +39,19 @@
                         <td>
                             <%= memberResults[i].Workshop %>
                         </td>
-
+                        <!--
                         <td>
                           <input type="hidden" class="form-control" name="add" value = "Add" placeholder="add">
                             <a href="/modifyPointsForm/<%= memberResults[i].Name %>/<%= memberResults[i].Points %>/<%= memberResults[i].House %>"> <i class="far fa-edit">  </i></a>
                         </td>
+                      -->
 
-                      <!--
+
                         <td>
-                          <form action = "/modifyPointsForm/<%= memberResults[i].Name %>/<%= memberResults[i].Points %>/<%= memberResults[i].House %>" method="GET" class="col-12 text-center">
+                          <form action = "/modifyPointsForm" method="POST" class="col-12 text-center">
                             <div class="form-group text-center">
 
-                              <input type="text" class="form-control" name="tempName" value = "<%= memberResults[i].Name %>" placeholder="Name">
+                              <input type="hidden" class="form-control" name="tempName" value = "<%= memberResults[i].Name %>" placeholder="Name">
                               <input type="hidden" class="form-control" name = "points" value="<%= memberResults[i].Points %>" placeholder="Points">
                               <input type="hidden" class="form-control" name = "house" value="<%= memberResults[i].House %>"  placeholder="House">
                             </div>
@@ -59,7 +60,7 @@
                             </div>
                           </form>
                         </td>
-                      -->
+
                     </tr>
                     <% } %>
                 </tbody>
