@@ -14,7 +14,7 @@
     </nav>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-hover text-center">
+        <table class="table table-bordered table-hover text-center ">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -26,17 +26,17 @@
             </thead>
             <% for(var i=0; i < memberResults.length; i++) { %>
                 <tbody>
-                    <tr>
-                        <td>
+                    <tr >
+                        <td class="align-middle">
                             <%= memberResults[i].Name %>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <%= memberResults[i].Points %>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <%= memberResults[i].House %>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <%= memberResults[i].Workshop %>
                         </td>
                         <!--
@@ -50,14 +50,12 @@
                         <td>
                           <form action = "/modifyPointsForm" method="POST" class="col-12 text-center">
                             <div class="form-group text-center">
+                              <button type="submit" class="modifyButton"><i class="fas fa-edit"></i> </button>
 
-                              <input type="hidden" class="form-control" name="tempName" value = "<%= memberResults[i].Name %>" placeholder="Name">
-                              <input type="hidden" class="form-control" name = "points" value="<%= memberResults[i].Points %>" placeholder="Points">
-                              <input type="hidden" class="form-control" name = "house" value="<%= memberResults[i].House %>"  placeholder="House">
                             </div>
-                            <div class="col-md-12 text-center">
-                              <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                            </div>
+                            <input type="hidden" class="form-control" name="tempName" value = "<%= memberResults[i].Name %>" placeholder="Name">
+                            <input type="hidden" class="form-control" name = "points" value="<%= memberResults[i].Points %>" placeholder="Points">
+                            <input type="hidden" class="form-control" name = "house" value="<%= memberResults[i].House %>"  placeholder="House">
                           </form>
                         </td>
 

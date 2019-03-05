@@ -1,23 +1,25 @@
-
 img {
-    width: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-
+.modifyButton {
+  border: 0;
+  margin-top: 10px;
+  background: none;
 }
 
 .cardIMG {
-        display: block;
+  display: block;
   margin-left: auto;
   margin-right: auto;
   width: 30%;
-    }
+}
 
 @media only screen and (max-width: 700px) {
   img {
     width: 40%;
-}
-
+  }
 }
