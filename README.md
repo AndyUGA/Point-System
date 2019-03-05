@@ -3,7 +3,7 @@
 
 ![Image](https://github.com/AndyUGA/Element/blob/master/public/images/uvsase2.png)
 
-A registration system for UVSASE Element conference
+The registration system for UVSASE Element leadership conference
 
 ------------------------------------------------------------------------------------------------------------------------------  
 
@@ -11,17 +11,20 @@ A registration system for UVSASE Element conference
 - [Node.js](https://nodejs.org/en/) 
 - [Express.js](https://expressjs.com)
 - [MongoDB](https://www.mongodb.com) 
-- HTML
-- CSS
+- [EJS](https://ejs.co)
+- [Bootstrap](https://getbootstrap.com)
+- HTML5
+- CSS3
 - JavaScript
 
 ---------------------------------------------------------------------------------------------------------------------------
 ## Features
-- Ability check-in attendees with qr code scanner
+- Check-in attendees with qr code scanner
 - Track individual points for each attendee
-- Display live scores for individuals and for each house 
-- Record history each time points are modified 
-- Individually modify points for attendee or house 
+- View live scores for individuals and for each house 
+- Modify points for individual attendees
+- View history for each point modification 
+
 
 ---------------------------------------------------------------------------------------------------------------------------
 
