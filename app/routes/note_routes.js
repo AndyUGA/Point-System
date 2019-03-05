@@ -143,7 +143,8 @@ module.exports = function(app, db) {
             } else {
               //res.redirect("/increaseHousePoints/" + attendeeHouse + "/" + pointsToAdd);
               console.log("Sending request to record points");
-              res.redirect("/record/" + attendeeName + "/" + pointsToAdd + "/" + attendeeHouse + "/" + redirect + "/" + operation);
+              //res.redirect("/record/" + attendeeName + "/" + pointsToAdd + "/" + attendeeHouse + "/" + redirect + "/" + operation);
+              res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
           });
           break;
@@ -153,10 +154,12 @@ module.exports = function(app, db) {
   });
 
   //Update score for attendee house
-  app.post("/increaseHousePoints/:house/:pointsToAdd", (req, res) => {
+  app.get("/increaseHousePoints/:name/:house/:pointsToAdd/:redirect/:operation", (req, res) => {
     const houseName = req.params.house;
+    const name = req.params.name;
     const pointsToAdd = req.params.pointsToAdd;
-    let operation = req.body.operation;
+    const redirect = req.params.redirect;
+    let operation = req.params.operation;
     const collection = db.collection("Houses");
 
     collection.find({}).toArray(function(err, result) {
@@ -188,7 +191,8 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              res.redirect("/attendeePoints");
+              //res.redirect("/attendeePoints");
+              res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
             }
           });
 
