@@ -94,6 +94,7 @@ module.exports = function(app, db) {
     const name = req.params.name;
     const points = req.params.points;
     const house = req.params.house;
+
     res.render("forms/modifyValuesForm", { name: name, points: points, house: house });
   });
 
@@ -155,6 +156,7 @@ module.exports = function(app, db) {
   app.post("/increaseHousePoints/:house/:pointsToAdd", (req, res) => {
     const houseName = req.params.house;
     const pointsToAdd = req.params.pointsToAdd;
+    let operation = req.body.operation;
     const collection = db.collection("Houses");
 
     collection.find({}).toArray(function(err, result) {
@@ -165,7 +167,15 @@ module.exports = function(app, db) {
 
           const currentHousePoints = houseInfo.Points;
 
-          const totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
+          let totalHousePoints = 0;
+
+          if (operation == "subtract") {
+            totalHousePoints = parseInt(currentHousePoints) - parseInt(pointsToAdd);
+          } else {
+            operation = "add";
+            totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
+          }
+
           const houseContent = {
             $set: {
               Name: houseInfo.Name,
