@@ -93,20 +93,15 @@ module.exports = function(app, db) {
   app.post("/searchAttendee", (req, res) => {
     let attendeeName = req.body.attendeeName;
 
-    let nameLength = attendeeName.length;
-    let restOfQuery = attendeeName.substring(1, nameLength);
-    let upperCaseQuery = attendeeName[0].toUpperCase() + restOfQuery;
-    console.log(upperCaseQuery);
-    let query = { Name: upperCaseQuery };
-
     var collection = db.collection("Houses");
     var hrResults;
     collection.find({}).toArray(function(err, houseResults) {
       hrResults = houseResults;
       collection = db.collection("Members");
-
+      let query = { Name: { $regex: attendeeName, $options: "$i" } };
       collection.find(query).toArray(function(err, memberResults) {
         if (err) {
+          console.log("Error is " + err);
           res.send({ error: " An error has occurred" });
         } else {
           console.log(memberResults);
