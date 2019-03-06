@@ -5,6 +5,16 @@ img {
   margin-right: auto;
 }
 
+input {
+  width: 97%;
+}
+
+@media screen and (max-width: 830px) {
+  input {
+    width: 90%;
+  }
+}
+
 .modifyButton {
   border: 0;
   padding-top: 10px;
