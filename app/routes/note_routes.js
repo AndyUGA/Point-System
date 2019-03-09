@@ -38,16 +38,19 @@ module.exports = function(app, db) {
 
     collection = db.collection("Members");
     let query = { Name: { $regex: attendeeName, $options: "$i" } };
-    collection.find(query).toArray(function(err, memberResults) {
-      if (err) {
-        console.log("Error is " + err);
-        res.send({ error: " An error has occurred" });
-      } else {
-        res.render("attendeePoints", {
-          memberResults: memberResults
-        });
-      }
-    });
+    collection
+      .find(query)
+      .sort({ Name: 1 })
+      .toArray(function(err, memberResults) {
+        if (err) {
+          console.log("Error is " + err);
+          res.send({ error: " An error has occurred" });
+        } else {
+          res.render("attendeePoints", {
+            memberResults: memberResults
+          });
+        }
+      });
   });
 
   //Get page to display how many points each house has
