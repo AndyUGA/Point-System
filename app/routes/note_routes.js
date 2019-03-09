@@ -32,6 +32,24 @@ module.exports = function(app, db) {
     });
   });
 
+  //Search for attendee based on input from search bar
+  app.post("/searchAttendeePoints", (req, res) => {
+    let attendeeName = req.body.attendeeName;
+
+    collection = db.collection("Members");
+    let query = { Name: { $regex: attendeeName, $options: "$i" } };
+    collection.find(query).toArray(function(err, memberResults) {
+      if (err) {
+        console.log("Error is " + err);
+        res.send({ error: " An error has occurred" });
+      } else {
+        res.render("attendeePoints", {
+          memberResults: memberResults
+        });
+      }
+    });
+  });
+
   //Get page to display how many points each house has
   app.get("/housePoints", (req, res) => {
     var collection = db.collection("Members");
@@ -89,8 +107,8 @@ module.exports = function(app, db) {
     });
   });
 
-  //Search for attendee based on search bar
-  app.post("/searchAttendee", (req, res) => {
+  //Search for attendee based on input from search bar
+  app.post("/searchAttendeeInfo", (req, res) => {
     let attendeeName = req.body.attendeeName;
 
     var collection = db.collection("Houses");
