@@ -21,15 +21,18 @@ module.exports = function(app, db) {
     var collection = db.collection("Members");
     var houseResults;
 
-    collection.find({}).toArray(function(err, memberResults) {
-      if (err) {
-        res.send({ error: " An error has occurred" });
-      } else {
-        res.render("attendeePoints", {
-          memberResults: memberResults
-        });
-      }
-    });
+    collection
+      .find({})
+      .sort({ Name: 1 })
+      .toArray(function(err, memberResults) {
+        if (err) {
+          res.send({ error: " An error has occurred" });
+        } else {
+          res.render("attendeePoints", {
+            memberResults: memberResults
+          });
+        }
+      });
   });
 
   //Search for attendee based on input from search bar
@@ -97,16 +100,19 @@ module.exports = function(app, db) {
     collection.find({}).toArray(function(err, houseResults) {
       hrResults = houseResults;
       collection = db.collection("Members");
-      collection.find({}).toArray(function(err, memberResults) {
-        if (err) {
-          res.send({ error: " An error has occurred" });
-        } else {
-          res.render("attendeeInfo", {
-            houseResults: hrResults,
-            memberResults: memberResults
-          });
-        }
-      });
+      collection
+        .find({})
+        .sort({ Name: 1 })
+        .toArray(function(err, memberResults) {
+          if (err) {
+            res.send({ error: " An error has occurred" });
+          } else {
+            res.render("attendeeInfo", {
+              houseResults: hrResults,
+              memberResults: memberResults
+            });
+          }
+        });
     });
   });
 
