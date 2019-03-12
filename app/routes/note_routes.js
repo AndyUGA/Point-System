@@ -154,20 +154,22 @@ module.exports = function(app, db) {
       const memberCollection = db.collection("Members");
 
       housecollection.find({}).toArray(function(err, houseResults) {
-        collection = db.collection("Members");
         let query = { Name: { $regex: attendeeName, $options: "$i" } };
-        memberCollection.find(query).toArray(function(err, memberResults) {
-          if (err) {
-            console.log("Error is " + err);
-            res.send({ error: " An error has occurred" });
-          } else {
-            console.log(memberResults);
-            res.render("attendeeInfo", {
-              houseResults: houseResults,
-              memberResults: memberResults
-            });
-          }
-        });
+        memberCollection
+          .find(query)
+          .sort({ Name: 1 })
+          .toArray(function(err, memberResults) {
+            if (err) {
+              console.log("Error is " + err);
+              res.send({ error: " An error has occurred" });
+            } else {
+              console.log(memberResults);
+              res.render("attendeeInfo", {
+                houseResults: houseResults,
+                memberResults: memberResults
+              });
+            }
+          });
       });
     }
   });
