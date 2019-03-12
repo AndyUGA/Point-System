@@ -22,6 +22,7 @@ module.exports = function(app, db) {
     const memberCollection = db.collection("Members");
     const historyCollection = db.collection("History");
     const houseCollection = db.collection("Houses");
+    const workshopCollection = db.collection("Workshops");
 
     if (nameOfFile == "attendeePoints" || nameOfFile == "stylesheet.css") {
       let houseResults;
@@ -38,7 +39,6 @@ module.exports = function(app, db) {
           }
         });
     } else if (nameOfFile == "attendeeInfo") {
-      let hrResults;
       houseCollection.find({}).toArray(function(err, houseResults) {
         memberCollection
           .find({})
@@ -77,58 +77,22 @@ module.exports = function(app, db) {
           }
         });
       });
+    } else if (nameOfFile == "workshop") {
+      workshopCollection.find({}).toArray(function(err, workshopResults) {
+        if (err) {
+          res.send({ error: " An error has occurred" });
+        } else {
+          res.render("workshop", {
+            workshopResults: workshopResults
+          });
+        }
+      });
     } else {
       res.send("An error occurred");
     }
   });
 
-  //Search for attendee based on input from search bar
-  app.post("/searchAttendeePoints", (req, res) => {
-    let attendeeName = req.body.attendeeName;
-
-    collection = db.collection("Members");
-    let query = { Name: { $regex: attendeeName, $options: "$i" } };
-    collection
-      .find(query)
-      .sort({ Name: 1 })
-      .toArray(function(err, memberResults) {
-        if (err) {
-          console.log("Error is " + err);
-          res.send({ error: " An error has occurred" });
-        } else {
-          res.render("attendeePoints", {
-            memberResults: memberResults
-          });
-        }
-      });
-  });
-
-  //Search for attendee based on input from search bar
-  app.post("/searchAttendeeInfo", (req, res) => {
-    let attendeeName = req.body.attendeeName;
-
-    var collection = db.collection("Houses");
-    var hrResults;
-    collection.find({}).toArray(function(err, houseResults) {
-      hrResults = houseResults;
-      collection = db.collection("Members");
-      let query = { Name: { $regex: attendeeName, $options: "$i" } };
-      collection.find(query).toArray(function(err, memberResults) {
-        if (err) {
-          console.log("Error is " + err);
-          res.send({ error: " An error has occurred" });
-        } else {
-          console.log(memberResults);
-          res.render("attendeeInfo", {
-            houseResults: hrResults,
-            memberResults: memberResults
-          });
-        }
-      });
-    });
-  });
-
-  //Search for attendee based on input from search bar
+  //Returns search results based on input from search bar
   app.post("/Element/:nameOfContents", (req, res) => {
     let nameOfContents = req.params.nameOfContents;
     let attendeeName = req.body.attendeeName;
@@ -163,7 +127,6 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ error: " An error has occurred" });
             } else {
-              console.log(memberResults);
               res.render("attendeeInfo", {
                 houseResults: houseResults,
                 memberResults: memberResults
