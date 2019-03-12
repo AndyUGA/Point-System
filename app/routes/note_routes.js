@@ -128,6 +128,50 @@ module.exports = function(app, db) {
     });
   });
 
+  //Search for attendee based on input from search bar
+  app.post("/Element/:nameOfContents", (req, res) => {
+    let nameOfContents = req.params.nameOfContents;
+    let attendeeName = req.body.attendeeName;
+    const memberCollection = db.collection("Members");
+
+    if (nameOfContents == "attendeePoints") {
+      let query = { Name: { $regex: attendeeName, $options: "$i" } };
+      memberCollection
+        .find(query)
+        .sort({ Name: 1 })
+        .toArray(function(err, memberResults) {
+          if (err) {
+            console.log("Error is " + err);
+            res.send({ error: " An error has occurred" });
+          } else {
+            res.render("attendeePoints", {
+              memberResults: memberResults
+            });
+          }
+        });
+    } else if (nameOfContents == "attendeeInfo") {
+      const housecollection = db.collection("Houses");
+      const memberCollection = db.collection("Members");
+
+      housecollection.find({}).toArray(function(err, houseResults) {
+        collection = db.collection("Members");
+        let query = { Name: { $regex: attendeeName, $options: "$i" } };
+        memberCollection.find(query).toArray(function(err, memberResults) {
+          if (err) {
+            console.log("Error is " + err);
+            res.send({ error: " An error has occurred" });
+          } else {
+            console.log(memberResults);
+            res.render("attendeeInfo", {
+              houseResults: houseResults,
+              memberResults: memberResults
+            });
+          }
+        });
+      });
+    }
+  });
+
   //Get form to modify points
   app.post("/modifyPointsForm", (req, res) => {
     const name = req.body.tempName;

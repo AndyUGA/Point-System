@@ -1,0 +1,35 @@
+img {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  width: 97%;
+}
+
+@media screen and (max-width: 830px) {
+  input {
+    width: 85%;
+  }
+}
+
+.modifyButton {
+  border: 0;
+  padding-top: 10px;
+  background: none;
+}
+
+.cardIMG {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+@media only screen and (max-width: 700px) {
+  img {
+    width: 40%;
+  }
+}
