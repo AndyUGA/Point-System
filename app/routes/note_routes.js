@@ -15,7 +15,7 @@ module.exports = function(app, db) {
     });
   });
 
-  //Displays home page
+  //Displays page based on parameter
   app.get("/Element/:nameOfFile", (req, res) => {
     let nameOfFile = req.params.nameOfFile;
     console.log("Name of file is : " + nameOfFile);
@@ -82,25 +82,6 @@ module.exports = function(app, db) {
     }
   });
 
-  //Get page to display hwo many points each attendee has
-  app.get("/attendeePoints", (req, res) => {
-    var collection = db.collection("Members");
-    var houseResults;
-
-    collection
-      .find({})
-      .sort({ Name: 1 })
-      .toArray(function(err, memberResults) {
-        if (err) {
-          res.send({ error: " An error has occurred" });
-        } else {
-          res.render("attendeePoints", {
-            memberResults: memberResults
-          });
-        }
-      });
-  });
-
   //Search for attendee based on input from search bar
   app.post("/searchAttendeePoints", (req, res) => {
     let attendeeName = req.body.attendeeName;
@@ -120,66 +101,6 @@ module.exports = function(app, db) {
           });
         }
       });
-  });
-
-  //Get page to display how many points each house has
-  app.get("/housePoints", (req, res) => {
-    var collection = db.collection("Members");
-    var houseResults;
-
-    collection.find({}).toArray(function(err, memberResults) {
-      collection = db.collection("Houses");
-      collection.find({}).toArray(function(err, result) {
-        houseResults = result;
-
-        if (err) {
-          res.send({ error: " An error has occurred" });
-        } else {
-          res.render("housePoints", {
-            memberResults: memberResults,
-            houseResults: houseResults
-          });
-        }
-      });
-    });
-  });
-
-  //Get page to display how many points each house has
-  app.get("/history", (req, res) => {
-    var collection = db.collection("History");
-
-    collection.find({}).toArray(function(err, historyResults) {
-      if (err) {
-        res.send({ error: " An error has occurred" });
-      } else {
-        res.render("history", {
-          historyResults: historyResults
-        });
-      }
-    });
-  });
-
-  //Get page to display attendee information
-  app.get("/attendeeInfo", (req, res) => {
-    var collection = db.collection("Houses");
-    var hrResults;
-    collection.find({}).toArray(function(err, houseResults) {
-      hrResults = houseResults;
-      collection = db.collection("Members");
-      collection
-        .find({})
-        .sort({ Name: 1 })
-        .toArray(function(err, memberResults) {
-          if (err) {
-            res.send({ error: " An error has occurred" });
-          } else {
-            res.render("attendeeInfo", {
-              houseResults: hrResults,
-              memberResults: memberResults
-            });
-          }
-        });
-    });
   });
 
   //Search for attendee based on input from search bar
@@ -221,7 +142,7 @@ module.exports = function(app, db) {
 
   //Update score for attendee
   app.post("/increasePoints/:name/:points/:house/:redirect", (req, res) => {
-    const collection = db.collection("Members");
+    const memberCollection = db.collection("Members");
     let pointsToAdd = 0;
 
     if (req.body.points == undefined) {
@@ -235,7 +156,7 @@ module.exports = function(app, db) {
     const attendeeHouse = req.params.house;
     let operation = req.body.operation;
 
-    collection.find({}).toArray(function(err, result) {
+    memberCollection.find({}).toArray(function(err, result) {
       for (var i = 0; i < result.length; i++) {
         if (attendeeName == result[i].Name) {
           const attendee = result[i];
@@ -257,14 +178,11 @@ module.exports = function(app, db) {
             }
           };
 
-          db.collection("Members").updateOne(attendeeID, attendeeContent, (err, item) => {
+          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
             if (err) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              //res.redirect("/increaseHousePoints/" + attendeeHouse + "/" + pointsToAdd);
-              console.log("Sending request to record points");
-              //res.redirect("/record/" + attendeeName + "/" + pointsToAdd + "/" + attendeeHouse + "/" + redirect + "/" + operation);
               res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
           });
@@ -281,9 +199,9 @@ module.exports = function(app, db) {
     const pointsToAdd = req.params.pointsToAdd;
     const redirect = req.params.redirect;
     let operation = req.params.operation;
-    const collection = db.collection("Houses");
+    const houseCollection = db.collection("Houses");
 
-    collection.find({}).toArray(function(err, result) {
+    houseCollection.find({}).toArray(function(err, result) {
       for (var i = 0; i < result.length; i++) {
         const houseInfo = result[i];
         if (houseName == houseInfo.Name) {
@@ -307,12 +225,11 @@ module.exports = function(app, db) {
             }
           };
 
-          db.collection("Houses").updateOne(houseID, houseContent, (err, item) => {
+          houseCollection.updateOne(houseID, houseContent, (err, item) => {
             if (err) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              //res.redirect("/attendeePoints");
               res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
             }
           });
@@ -330,7 +247,7 @@ module.exports = function(app, db) {
 
     const operation = req.params.operation;
     const redirect = req.params.redirect;
-    const collection = db.collection("History");
+    const historyCollection = db.collection("History");
     let pointsToAdd = req.params.points;
     const attendeeName = req.params.name;
     const attendeeHouse = req.params.house;
@@ -347,13 +264,13 @@ module.exports = function(app, db) {
       Points: pointsToAdd
     };
 
-    collection.insertOne(attendeeContent, (err, item) => {
+    historyCollection.insertOne(attendeeContent, (err, item) => {
       if (err) {
         console.log("Error is " + err);
         res.send({ "Error is ": +err });
       } else {
         if (redirect == "yesRedirect") {
-          res.redirect("/attendeeInfo");
+          res.redirect("/Element/attendeeInfo");
         } else {
           console.log("Action has been recorded to history page");
         }
