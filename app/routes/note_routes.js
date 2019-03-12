@@ -16,6 +16,32 @@ module.exports = function(app, db) {
     });
   });
 
+  //Displays home page
+  app.get("/Element/:nameOfFile", (req, res) => {
+    let nameOfFile = req.params.nameOfFile;
+    console.log("22 Name of file is " + nameOfFile);
+    if (nameOfFile == "attendeePoints" || nameOfFile == "stylesheet.css") {
+      var collection = db.collection("Members");
+      var houseResults;
+      collection
+        .find({})
+        .sort({ Name: 1 })
+        .toArray(function(err, memberResults) {
+          if (err) {
+            res.send({ error: " An error has occurred" });
+          } else {
+            console.log("Rendered attendeePoints page");
+            res.render("attendeePoints", {
+              memberResults: memberResults
+            });
+          }
+        });
+    } else {
+      console.log("41");
+      res.send("hi");
+    }
+  });
+
   //Get page to display hwo many points each attendee has
   app.get("/attendeePoints", (req, res) => {
     var collection = db.collection("Members");
