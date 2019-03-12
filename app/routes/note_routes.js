@@ -4,8 +4,7 @@ const http = require("http");
 module.exports = function(app, db) {
   //Displays home page
   app.get("/", (req, res) => {
-    var collection = db.collection("Members");
-    var currentNotes = [];
+    let collection = db.collection("Members");
 
     collection.find({}).toArray(function(err, result) {
       if (err) {
@@ -19,26 +18,67 @@ module.exports = function(app, db) {
   //Displays home page
   app.get("/Element/:nameOfFile", (req, res) => {
     let nameOfFile = req.params.nameOfFile;
-    console.log("22 Name of file is " + nameOfFile);
+    console.log("Name of file is : " + nameOfFile);
+    const memberCollection = db.collection("Members");
+    const historyCollection = db.collection("History");
+    const houseCollection = db.collection("Houses");
+
     if (nameOfFile == "attendeePoints" || nameOfFile == "stylesheet.css") {
-      var collection = db.collection("Members");
-      var houseResults;
-      collection
+      let houseResults;
+      memberCollection
         .find({})
         .sort({ Name: 1 })
         .toArray(function(err, memberResults) {
           if (err) {
             res.send({ error: " An error has occurred" });
           } else {
-            console.log("Rendered attendeePoints page");
             res.render("attendeePoints", {
               memberResults: memberResults
             });
           }
         });
+    } else if (nameOfFile == "attendeeInfo") {
+      let hrResults;
+      houseCollection.find({}).toArray(function(err, houseResults) {
+        memberCollection
+          .find({})
+          .sort({ Name: 1 })
+          .toArray(function(err, memberResults) {
+            if (err) {
+              res.send({ error: " An error has occurred" });
+            } else {
+              res.render("attendeeInfo", {
+                houseResults: houseResults,
+                memberResults: memberResults
+              });
+            }
+          });
+      });
+    } else if (nameOfFile == "history") {
+      historyCollection.find({}).toArray(function(err, historyResults) {
+        if (err) {
+          res.send({ error: " An error has occurred" });
+        } else {
+          res.render("history", {
+            historyResults: historyResults
+          });
+        }
+      });
+    } else if (nameOfFile == "housePoints") {
+      memberCollection.find({}).toArray(function(err, memberResults) {
+        houseCollection.find({}).toArray(function(err, houseResults) {
+          if (err) {
+            res.send({ error: " An error has occurred: " + err });
+          } else {
+            res.render("housePoints", {
+              memberResults: memberResults,
+              houseResults: houseResults
+            });
+          }
+        });
+      });
     } else {
-      console.log("41");
-      res.send("hi");
+      res.send("An error occurred");
     }
   });
 
