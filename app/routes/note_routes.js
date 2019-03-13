@@ -97,9 +97,9 @@ module.exports = function(app, db) {
     let nameOfContents = req.params.nameOfContents;
     let attendeeName = req.body.attendeeName;
     const memberCollection = db.collection("Members");
-
+    const housecollection = db.collection("Houses");
+    let query = { Name: { $regex: attendeeName, $options: "$i" } };
     if (nameOfContents == "attendeePoints") {
-      let query = { Name: { $regex: attendeeName, $options: "$i" } };
       memberCollection
         .find(query)
         .sort({ Name: 1 })
@@ -114,11 +114,7 @@ module.exports = function(app, db) {
           }
         });
     } else if (nameOfContents == "attendeeInfo") {
-      const housecollection = db.collection("Houses");
-      const memberCollection = db.collection("Members");
-
       housecollection.find({}).toArray(function(err, houseResults) {
-        let query = { Name: { $regex: attendeeName, $options: "$i" } };
         memberCollection
           .find(query)
           .sort({ Name: 1 })
