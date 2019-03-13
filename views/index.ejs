@@ -56,7 +56,6 @@
 
 
     <script type="text/javascript">
-        console.log("<%= result[0].Name %>");
         let scanner = new Instascan.Scanner({
             video: document.getElementById('preview'),
             mirror: false,
@@ -64,16 +63,20 @@
             scanPeriod: 3,
         });
         scanner.addListener('scan', function(content) {
+          console.log("67");
             var data = JSON.parse(content);
+            var attendeeName;
             <% for(var i=0; i < result.length; i++) { %>
-            //console.log("Comparing <%= result[i].Name %> with " + data['Name']);
+              console.log("Comparing <%= result[i].Name %> with " + data['Name'] )
             if ("<%= result[i].Name %>" == data['Name']) {
-                //console.log("Comparing <%= result[i].Workshop %> with " + data['Workshop']);
-                if ("<%= result[i].Workshop %>" == data['Workshop']) {
+                console.log("Comparing <%= result[i].Workshop1 %> with " + data['Workshop1'] )
+                if ("<%= result[i].Workshop1 %>" == data['Workshop1']) {
+                    attendeeName = "<%=result[i].Name %>";
                     document.getElementById("name").innerHTML = "Name : " + data['Name'];
                     document.getElementById("score").innerHTML = "Added " + data['Points'] + " points to " + " attendee and " + data['House'];
-                    document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop'];
+                    document.getElementById("workshop").innerHTML = "Workshop : " + data['Workshop1'];
                     console.log("Workshops match!");
+                    return;
                 }
             }
             <% } %>
@@ -86,14 +89,7 @@
             xhttp.open("POST", "/increasePoints/" + data['Name'] + "/" + data['Points'] + "/" + data['House'] + "/noRedirect", true);
             xhttp.send();
 
-            var xhttp2 = new XMLHttpRequest();
-            xhttp2.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log("/increaseHousePoints request has been sent!");;
-                }
-            };
-            xhttp2.open("POST", "/increaseHousePoints/" + data['House'] + "/" + data['Points'], true);
-            xhttp2.send();
+
         });
 
         Instascan.Camera.getCameras().then(function(cameras) {

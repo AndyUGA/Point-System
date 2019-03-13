@@ -44,8 +44,10 @@
                </form>
              </div>
              <br>
+
             <% for(var i=0; i < memberResults.length; i++) { %>
                 <tbody>
+
                     <tr >
                         <td class="align-middle">
                             <%= memberResults[i].Name %>
@@ -57,7 +59,9 @@
                             <%= memberResults[i].House %>
                         </td>
                         <td class="align-middle">
-                            <%= memberResults[i].Workshop %>
+                            <%= memberResults[i].Workshop1 %> - <%= memberResults[i].Workshop1IsActive %>
+                            <br>
+                            <%= memberResults[i].Workshop2 %> - <%= memberResults[i].Workshop2IsActive %>
                         </td>
 
                         <td>
