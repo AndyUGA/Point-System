@@ -192,6 +192,7 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
+              console.log("Points added to user");
               res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
           });
@@ -239,6 +240,7 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
+              console.log("Points added to House");
               res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
             }
           });
@@ -270,7 +272,9 @@ module.exports = function(app, db) {
     const attendeeContent = {
       Name: attendeeName,
       House: attendeeHouse,
-      Points: pointsToAdd
+      Points: pointsToAdd,
+      timeRecorded: new Date().toLocaleTimeString(),
+      dateRecorded: new Date().toLocaleDateString()
     };
 
     historyCollection.insertOne(attendeeContent, (err, item) => {

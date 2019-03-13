@@ -27,6 +27,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Points</th>
                     <th scope="col"> House </th>
+                    <th scope="col"> Time / Date </th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,9 @@
                         </td>
                         <td>
                             <%= historyResults[i].House %>
+                        </td>
+                        <td>
+                          <%= historyResults[i].timeRecorded %> - <%= historyResults[i].dateRecorded %>
                         </td>
                     </tr>
                     <% } %>
