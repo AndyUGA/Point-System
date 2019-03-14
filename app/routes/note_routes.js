@@ -99,6 +99,7 @@ module.exports = function(app, db) {
     const memberCollection = db.collection("Members");
     const housecollection = db.collection("Houses");
     let query = { Name: { $regex: attendeeName, $options: "$i" } };
+    //Display search results for attendee points page
     if (nameOfContents == "attendeePoints") {
       memberCollection
         .find(query)
@@ -113,6 +114,7 @@ module.exports = function(app, db) {
             });
           }
         });
+      //Display search results for attendee info page
     } else if (nameOfContents == "attendeeInfo") {
       housecollection.find({}).toArray(function(err, houseResults) {
         memberCollection
@@ -130,6 +132,8 @@ module.exports = function(app, db) {
             }
           });
       });
+      //Update workshop status for user
+    } else if (nameOfContents == "updateWorkshopStatus") {
     }
   });
 
