@@ -93,14 +93,14 @@ module.exports = function(app, db) {
   });
 
   //Returns search results based on input from search bar
-  app.post("/Element/:nameOfContents", (req, res) => {
-    let nameOfContents = req.params.nameOfContents;
-    let attendeeName = req.body.attendeeName;
+  app.post("/Element/:searchContents", (req, res) => {
     const memberCollection = db.collection("Members");
     const housecollection = db.collection("Houses");
+    let searchContents = req.params.searchContents;
+    let attendeeName = req.body.attendeeName;
     let query = { Name: { $regex: attendeeName, $options: "$i" } };
     //Display search results for attendee points page
-    if (nameOfContents == "attendeePoints") {
+    if (searchContents == "attendeePoints") {
       memberCollection
         .find(query)
         .sort({ Name: 1 })
@@ -115,7 +115,7 @@ module.exports = function(app, db) {
           }
         });
       //Display search results for attendee info page
-    } else if (nameOfContents == "attendeeInfo") {
+    } else if (searchContents == "attendeeInfo") {
       housecollection.find({}).toArray(function(err, houseResults) {
         memberCollection
           .find(query)
@@ -133,7 +133,7 @@ module.exports = function(app, db) {
           });
       });
       //Update workshop status for user
-    } else if (nameOfContents == "updateWorkshopStatus") {
+    } else if (searchContents == "updateWorkshopStatus") {
     }
   });
 
@@ -255,13 +255,14 @@ module.exports = function(app, db) {
   //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
     console.log("Entering record method");
+    const historyCollection = db.collection("History");
 
     const operation = req.params.operation;
     const redirect = req.params.redirect;
-    const historyCollection = db.collection("History");
-    let pointsToAdd = req.params.points;
     const attendeeName = req.params.name;
     const attendeeHouse = req.params.house;
+
+    let pointsToAdd = req.params.points;
 
     if (operation == "subtract") {
       pointsToAdd = "-" + pointsToAdd;
