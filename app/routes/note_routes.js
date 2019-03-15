@@ -252,7 +252,7 @@ module.exports = function(app, db) {
     });
   });
 
-  //Record point increases on history page
+  //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
     console.log("Entering record method");
 
