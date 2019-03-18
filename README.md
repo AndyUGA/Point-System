@@ -19,8 +19,8 @@ The registration system for UVSASE Element leadership conference
 
 ---------------------------------------------------------------------------------------------------------------------------
 ## Features
-- Check-in attendees with qr code scanner
-- Track individual points for each attendee
+- Check-in attendees with QR code scanner
+- Track individual points for registered attendee
 - View live scores for individuals and their team
 - Modify points for individual attendees
 - View history for each point modification 
