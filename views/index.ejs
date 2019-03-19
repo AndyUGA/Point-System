@@ -63,16 +63,16 @@
             scanPeriod: 3,
         });
         scanner.addListener('scan', function(content) {
-          console.log("67");
+
             let data = JSON.parse(content);
 
             let matchFound = false;
             let i = 0;
             <% for(i=0; i < result.length; i++) { %>
-              console.log(<%= i %> + " < " + <%= result.length %> );
-              console.log("Comparing <%= result[i].Name %> with " + data['Name'] )
+              //console.log(<%= i %> + " < " + <%= result.length %> );
+              //console.log("Comparing <%= result[i].Name %> with " + data['Name'] )
             if ("<%= result[i].Name %>" == data['Name'] && matchFound != true) {
-                console.log("Comparing <%= result[i].Workshop1 %> with " + data['Workshop1'] )
+                //console.log("Comparing <%= result[i].Workshop1 %> with " + data['Workshop1'] )
                 if ("<%= result[i].Workshop1 %>" == data['Workshop1']) {
 
                     document.getElementById("name").innerHTML = "Name : " + data['Name'];
@@ -90,6 +90,16 @@
 
                     xhttp.open("POST", "/increasePoints/" + data['Name'] + "/" + data['Points'] + "/" + data['House'] + "/noRedirect", true);
                     xhttp.send();
+
+                    var xhttp2 = new XMLHttpRequest();
+                    xhttp2.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            console.log("/workshop request has been sent!");
+                        }
+                    };
+
+                    xhttp2.open("POST", "/Workshop/" + data['Name'] + "/" + data['Workshop1']);
+                    xhttp2.send();
 
                     return;
 

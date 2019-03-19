@@ -132,8 +132,6 @@ module.exports = function(app, db) {
             }
           });
       });
-      //Update workshop status for user
-    } else if (searchContents == "updateWorkshopStatus") {
     }
   });
 
@@ -147,6 +145,37 @@ module.exports = function(app, db) {
     console.log("house is " + house);
 
     res.render("forms/modifyValuesForm", { name: name, points: points, house: house });
+  });
+
+  //Update workshop status
+  app.post("/Workshop/:name/:workshopName", (req, res) => {
+    const memberCollection = db.collection("Members");
+    const workshopName = req.params.workshopName;
+    const attendeeName = req.params.name;
+
+    memberCollection.find({}).toArray(function(err, result) {
+      for (var i = 0; i < result.length; i++) {
+        if (attendeeName == result[i].Name) {
+          const attendee = result[i];
+          const attendeeID = { _id: new ObjectID(attendee._id) };
+          const attendeeContent = {
+            $set: {
+              Workshop1IsActive: true
+            }
+          };
+          console.log(attendeeContent);
+          console.log(attendeeID);
+          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
+            if (err) {
+              console.log("Error is " + err);
+              res.send({ "Error is ": +err });
+            } else {
+              console.log("Workshop status updated!");
+            }
+          });
+        }
+      }
+    });
   });
 
   //Update score for attendee
@@ -192,7 +221,7 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              console.log("Points added to user");
+              //console.log("Points added to user");
               res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
           });
@@ -240,7 +269,7 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              console.log("Points added to House");
+              //console.log("Points added to House");
               res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
             }
           });
@@ -254,7 +283,7 @@ module.exports = function(app, db) {
 
   //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
-    console.log("Entering record method");
+    //console.log("Entering record method");
     const historyCollection = db.collection("History");
 
     const operation = req.params.operation;
@@ -286,7 +315,7 @@ module.exports = function(app, db) {
         if (redirect == "yesRedirect") {
           res.redirect("/Element/attendeeInfo");
         } else {
-          console.log("Action has been recorded to history page");
+          //console.log("Action has been recorded to history page");
         }
       }
     });
