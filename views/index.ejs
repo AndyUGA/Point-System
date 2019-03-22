@@ -33,7 +33,7 @@
             <br><br>
 
             <div class="dropdown">
-  <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button id = "workshopButton" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   Select Workshop
   </button>
   <div id = "workShopMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -78,14 +78,15 @@
 
 
     <script type="text/javascript">
-
+    var selectedWorkshop;
     $("#workShopMenu a").click(function(e){
-    e.preventDefault(); // cancel the link behaviour
-    var selText = $(this).text();
+      e.preventDefault();
 
-
+      //Stores selected workshop text into selText variable
+       selectedWorkshop = $(this).text();
+      //Sets button text to selected workshop
+      $("#workshopButton").text(selectedWorkshop);
 });
-
 
 
 
