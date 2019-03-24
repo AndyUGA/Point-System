@@ -152,17 +152,31 @@ module.exports = function(app, db) {
     const memberCollection = db.collection("Members");
     const workshopName = req.params.workshopName;
     const attendeeName = req.params.name;
+    let attendeeContent;
 
     memberCollection.find({}).toArray(function(err, result) {
       for (var i = 0; i < result.length; i++) {
         if (attendeeName == result[i].Name) {
           const attendee = result[i];
           const attendeeID = { _id: new ObjectID(attendee._id) };
-          const attendeeContent = {
-            $set: {
-              Workshop1IsActive: true
-            }
-          };
+
+          if(workshopName == "Photography")
+          {
+            attendeeContent = {
+             $set: {
+               Workshop1IsActive: true
+             }
+           };
+          }
+          else if(workshopName == "Learning")
+          {
+            attendeeContent = {
+             $set: {
+               Workshop2IsActive: true
+             }
+           };
+          }
+
           console.log(attendeeContent);
           console.log(attendeeID);
           memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
