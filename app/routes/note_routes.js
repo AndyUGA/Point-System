@@ -183,11 +183,7 @@ module.exports = function(app, db) {
             }
           }
         } else if (workshopName == "Learning") {
-          attendeeContent = {
-            $set: {
-              Workshop2IsActive: true
-            }
-          };
+          attendeeContent = { $set: { Workshop2IsActive: true } };
         }
 
         console.log(attendeeContent);
