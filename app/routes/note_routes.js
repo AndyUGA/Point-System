@@ -6,6 +6,7 @@ module.exports = function(app, db) {
   const historyCollection = db.collection("History");
   const houseCollection = db.collection("Houses");
   const workshopCollection = db.collection("Workshops");
+
   //Displays home page
   app.get("/", (req, res) => {
     memberCollection.find({}).toArray(function(err, result) {
@@ -132,6 +133,7 @@ module.exports = function(app, db) {
   });
 
   //Get form to modify points
+  //Must be post to get values from page
   app.post("/modifyPointsForm", (req, res) => {
     const name = req.body.tempName;
     const points = req.body.points;
