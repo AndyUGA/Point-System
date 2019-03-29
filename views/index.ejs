@@ -30,11 +30,11 @@
                </button>
                <br><br>
                <div id = "workShopMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Photography</a>
+                  <a class="dropdown-item">Photography</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Learning</a>
+                  <a class="dropdown-item">Learning</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Leadership</a>
+                  <a class="dropdown-item">Leadership</a>
                </div>
             </div>
             <video width="330" height="250" playsinline controls="true" id="preview"></video>
@@ -89,23 +89,18 @@
                  let matchFound = false;
                  let i = 0;
                  <% for(i=0; i < result.length; i++) { %>
-                   //console.log(<%= i %> + " < " + <%= result.length %> );
+
 
                    console.log("Comparing <%= result[i].Name %> with " + data['Name'] )
                  if ("<%= result[i].Name %>" == data['Name'] && matchFound != true) {
 
 
-                     //if ("<%= result[i].Workshop1 %>" == data['Workshop1']) {
+
                      if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2']) {
                        console.log("Workshops match!");
                          document.getElementById("name").innerHTML = "Name : " + data['Name'];
                          document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + " attendee and " + data['House'];
                          document.getElementById("check").innerHTML = "Checked into " + selectedWorkshop + " workshop";
-                         //document.getElementById("workshop1").innerHTML = "Workshop1 : " + data['Workshop1'];
-                         //document.getElementById("workshop2").innerHTML = "Workshop2 : " + data['Workshop2'];
-                         //document.getElementById("workshop3").innerHTML = "Workshop3 : " + data['Workshop3'];
-
-
 
                          var xhttp = new XMLHttpRequest();
                          xhttp.onreadystatechange = function() {
