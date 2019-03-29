@@ -154,6 +154,10 @@ module.exports = function(app, db) {
     let attendeeContent;
 
     memberCollection.find({}).toArray(function(err, result) {
+
+      const PhotographyPoints = 50;
+      const LearnignPoints = 50;
+
       for (var i = 0; i < result.length; i++) {
         if (attendeeName == result[i].Name) {
           const attendee = result[i];
@@ -161,6 +165,20 @@ module.exports = function(app, db) {
 
           if (workshopName == "Photography") {
             attendeeContent = {
+             $set: {
+               Workshop1IsActive: true,
+               Points : attendee.Points + PhotographyPoints,
+             }
+           };
+          }
+          else if(workshopName == "Learning")
+          {
+            attendeeContent = {
+             $set: {
+               Workshop2IsActive: true,
+              Points : attendee.Points + LearnignPoints
+             }
+           };
               $set: {
                 Workshop1IsActive: true
               }
