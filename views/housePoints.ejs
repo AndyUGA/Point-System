@@ -1,67 +1,62 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <% include reusableComponents/css.html %>
-        <title>House Points</title>
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/Element/housePoints"> House Points </a>
-        <% include reusableComponents/navButton.html %>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-
-            <li class="nav-item"><a class="nav-link" href="/Element/attendeeInfo"> Attendee Info</a></li>
-            <li class="nav-item"><a class="nav-link" href="/Element/attendeePoints">Attendee Points</a></li>
-            <li class="nav-item"><a class="nav-link" href="/">Check-In </a></li>
-            <li class="nav-item"><a class="nav-link" href="/Element/history">History</a></li>
-            <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
-          </ul>
-        </div>
-
-    </nav>
-    <div class="pricing pricing--sonam">
-        <div class="pricing__item">
+   <head>
+      <% include reusableComponents/css.html %>
+      <title>House Points</title>
+   </head>
+   <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <a class="navbar-brand" href="/Element/housePoints"> House Points </a>
+         <% include reusableComponents/navButton.html %>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item"><a class="nav-link" href="/Element/attendeeInfo"> Attendee Info</a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/attendeePoints">Attendee Points</a></li>
+               <li class="nav-item"><a class="nav-link" href="/">Check-In </a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/history">History</a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
+            </ul>
+         </div>
+      </nav>
+      <div class="pricing pricing--sonam">
+         <div class="pricing__item">
             <h3 class="">
-                <%= houseResults[0].Name %>
+               <%= houseResults[0].Name %>
             </h3>
             <h3 class="">
-                <%= houseResults[0].Points %>
+               <%= houseResults[0].Points %>
             </h3>
-        </div>
-    </div>
-    <div class="pricing pricing--sonam2">
-        <div class="pricing__item">
+         </div>
+      </div>
+      <div class="pricing pricing--sonam2">
+         <div class="pricing__item">
             <h3 class="">
-                <%= houseResults[1].Name %>
-            </h3>
-            <h3 class="">
-                <%= houseResults[1].Points %>
-            </h3>
-        </div>
-    </div>
-    <div class="pricing pricing--sonam3">
-        <div class="pricing__item">
-            <h3 class="">
-                <%= houseResults[2].Name %>
+               <%= houseResults[1].Name %>
             </h3>
             <h3 class="">
-                <%= houseResults[2].Points %>
+               <%= houseResults[1].Points %>
             </h3>
-        </div>
-    </div>
-    <div class="pricing pricing--sonam4">
-        <div class="pricing__item">
+         </div>
+      </div>
+      <div class="pricing pricing--sonam3">
+         <div class="pricing__item">
             <h3 class="">
-                <%= houseResults[3].Name %>
+               <%= houseResults[2].Name %>
             </h3>
             <h3 class="">
-                <%= houseResults[3].Points %>
+               <%= houseResults[2].Points %>
             </h3>
-        </div>
-    </div>
-</body>
-
+         </div>
+      </div>
+      <div class="pricing pricing--sonam4">
+         <div class="pricing__item">
+            <h3 class="">
+               <%= houseResults[3].Name %>
+            </h3>
+            <h3 class="">
+               <%= houseResults[3].Points %>
+            </h3>
+         </div>
+      </div>
+   </body>
 </html>
