@@ -2,11 +2,13 @@ var ObjectID = require("mongodb").ObjectID;
 const http = require("http");
 
 module.exports = function(app, db) {
+  const memberCollection = db.collection("Members");
+  const historyCollection = db.collection("History");
+  const houseCollection = db.collection("Houses");
+  const workshopCollection = db.collection("Workshops");
   //Displays home page
   app.get("/", (req, res) => {
-    let collection = db.collection("Members");
-
-    collection.find({}).toArray(function(err, result) {
+    memberCollection.find({}).toArray(function(err, result) {
       if (err) {
         res.send({ error: " An error has occurred" });
       } else {
@@ -19,10 +21,6 @@ module.exports = function(app, db) {
   app.get("/Element/:nameOfFile", (req, res) => {
     let nameOfFile = req.params.nameOfFile;
     console.log("Name of file is : " + nameOfFile);
-    const memberCollection = db.collection("Members");
-    const historyCollection = db.collection("History");
-    const houseCollection = db.collection("Houses");
-    const workshopCollection = db.collection("Workshops");
 
     if (nameOfFile == "attendeePoints" || nameOfFile == "stylesheet.css") {
       let houseResults;
@@ -94,8 +92,6 @@ module.exports = function(app, db) {
 
   //Returns search results based on input from search bar
   app.post("/Element/:searchContents", (req, res) => {
-    const memberCollection = db.collection("Members");
-    const housecollection = db.collection("Houses");
     let searchContents = req.params.searchContents;
     let attendeeName = req.body.attendeeName;
     let query = { Name: { $regex: attendeeName, $options: "$i" } };
@@ -144,12 +140,15 @@ module.exports = function(app, db) {
     console.log("points is " + points);
     console.log("house is " + house);
 
-    res.render("forms/modifyValuesForm", { name: name, points: points, house: house });
+    res.render("forms/modifyValuesForm", {
+      name: name,
+      points: points,
+      house: house
+    });
   });
 
   //Update workshop status
   app.post("/Workshop/:name/:workshopName", (req, res) => {
-    const memberCollection = db.collection("Members");
     const workshopName = req.params.workshopName;
     const attendeeName = req.params.name;
     let attendeeContent;
@@ -160,33 +159,34 @@ module.exports = function(app, db) {
           const attendee = result[i];
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
-          if(workshopName == "Photography")
-          {
+          if (workshopName == "Photography") {
             attendeeContent = {
-             $set: {
-               Workshop1IsActive: true
-             }
-           };
-          }
-          else if(workshopName == "Learning")
-          {
+              $set: {
+                Workshop1IsActive: true
+              }
+            };
+          } else if (workshopName == "Learning") {
             attendeeContent = {
-             $set: {
-               Workshop2IsActive: true
-             }
-           };
+              $set: {
+                Workshop2IsActive: true
+              }
+            };
           }
 
           console.log(attendeeContent);
           console.log(attendeeID);
-          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
-            if (err) {
-              console.log("Error is " + err);
-              res.send({ "Error is ": +err });
-            } else {
-              console.log("Workshop status updated!");
+          memberCollection.updateOne(
+            attendeeID,
+            attendeeContent,
+            (err, item) => {
+              if (err) {
+                console.log("Error is " + err);
+                res.send({ "Error is ": +err });
+              } else {
+                console.log("Workshop status updated!");
+              }
             }
-          });
+          );
         }
       }
     });
@@ -194,7 +194,6 @@ module.exports = function(app, db) {
 
   //Update score for attendee
   app.post("/increasePoints/:name/:points/:house/:redirect", (req, res) => {
-    const memberCollection = db.collection("Members");
     let pointsToAdd = 0;
 
     if (req.body.points == undefined) {
@@ -230,15 +229,30 @@ module.exports = function(app, db) {
             }
           };
 
-          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
-            if (err) {
-              console.log("Error is " + err);
-              res.send({ "Error is ": +err });
-            } else {
-              //console.log("Points added to user");
-              res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
+          memberCollection.updateOne(
+            attendeeID,
+            attendeeContent,
+            (err, item) => {
+              if (err) {
+                console.log("Error is " + err);
+                res.send({ "Error is ": +err });
+              } else {
+                //console.log("Points added to user");
+                res.redirect(
+                  "/increaseHousePoints/" +
+                    attendeeName +
+                    "/" +
+                    attendeeHouse +
+                    "/" +
+                    pointsToAdd +
+                    "/" +
+                    redirect +
+                    "/" +
+                    operation
+                );
+              }
             }
-          });
+          );
           break;
         }
       }
@@ -246,59 +260,73 @@ module.exports = function(app, db) {
   });
 
   //Update score for attendee house
-  app.get("/increaseHousePoints/:name/:house/:pointsToAdd/:redirect/:operation", (req, res) => {
-    const houseName = req.params.house;
-    const name = req.params.name;
-    const pointsToAdd = req.params.pointsToAdd;
-    const redirect = req.params.redirect;
-    let operation = req.params.operation;
-    const houseCollection = db.collection("Houses");
+  app.get(
+    "/increaseHousePoints/:name/:house/:pointsToAdd/:redirect/:operation",
+    (req, res) => {
+      const houseName = req.params.house;
+      const name = req.params.name;
+      const pointsToAdd = req.params.pointsToAdd;
+      const redirect = req.params.redirect;
+      let operation = req.params.operation;
 
-    houseCollection.find({}).toArray(function(err, result) {
-      for (var i = 0; i < result.length; i++) {
-        const houseInfo = result[i];
-        if (houseName == houseInfo.Name) {
-          const houseID = { _id: new ObjectID(houseInfo._id) };
+      houseCollection.find({}).toArray(function(err, result) {
+        for (var i = 0; i < result.length; i++) {
+          const houseInfo = result[i];
+          if (houseName == houseInfo.Name) {
+            const houseID = { _id: new ObjectID(houseInfo._id) };
 
-          const currentHousePoints = houseInfo.Points;
+            const currentHousePoints = houseInfo.Points;
 
-          let totalHousePoints = 0;
+            let totalHousePoints = 0;
 
-          if (operation == "subtract") {
-            totalHousePoints = parseInt(currentHousePoints) - parseInt(pointsToAdd);
-          } else {
-            operation = "add";
-            totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
-          }
-
-          const houseContent = {
-            $set: {
-              Name: houseInfo.Name,
-              Points: totalHousePoints
-            }
-          };
-
-          houseCollection.updateOne(houseID, houseContent, (err, item) => {
-            if (err) {
-              console.log("Error is " + err);
-              res.send({ "Error is ": +err });
+            if (operation == "subtract") {
+              totalHousePoints =
+                parseInt(currentHousePoints) - parseInt(pointsToAdd);
             } else {
-              //console.log("Points added to House");
-              res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
+              operation = "add";
+              totalHousePoints =
+                parseInt(currentHousePoints) + parseInt(pointsToAdd);
             }
-          });
 
-          //Break out of loop if a match is found
-          break;
+            const houseContent = {
+              $set: {
+                Name: houseInfo.Name,
+                Points: totalHousePoints
+              }
+            };
+
+            houseCollection.updateOne(houseID, houseContent, (err, item) => {
+              if (err) {
+                console.log("Error is " + err);
+                res.send({ "Error is ": +err });
+              } else {
+                //console.log("Points added to House");
+                res.redirect(
+                  "/record/" +
+                    name +
+                    "/" +
+                    pointsToAdd +
+                    "/" +
+                    houseName +
+                    "/" +
+                    redirect +
+                    "/" +
+                    operation
+                );
+              }
+            });
+
+            //Break out of loop if a match is found
+            break;
+          }
         }
-      }
-    });
-  });
+      });
+    }
+  );
 
   //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
     //console.log("Entering record method");
-    const historyCollection = db.collection("History");
 
     const operation = req.params.operation;
     const redirect = req.params.redirect;
