@@ -156,7 +156,6 @@ module.exports = function(app, db) {
     let attendeeContent;
 
     memberCollection.find({}).toArray(function(err, result) {
-
       const PhotographyPoints = 50;
       const LearnignPoints = 50;
 
@@ -167,47 +166,40 @@ module.exports = function(app, db) {
 
           if (workshopName == "Photography") {
             attendeeContent = {
-             $set: {
-               Workshop1IsActive: true,
-               Points : attendee.Points + PhotographyPoints,
-             }
-           };
-          }
-          else if(workshopName == "Learning")
-          {
-            attendeeContent = {
-             $set: {
-               Workshop2IsActive: true,
-              Points : attendee.Points + LearnignPoints
-             }
-           };
               $set: {
-                Workshop1IsActive: true
+                Workshop1IsActive: true,
+                Points: attendee.Points + PhotographyPoints
               }
             };
           } else if (workshopName == "Learning") {
             attendeeContent = {
               $set: {
-                Workshop2IsActive: true
+                Workshop2IsActive: true,
+                Points: attendee.Points + LearnignPoints
               }
             };
-          }
-
-          console.log(attendeeContent);
-          console.log(attendeeID);
-          memberCollection.updateOne(
-            attendeeID,
-            attendeeContent,
-            (err, item) => {
-              if (err) {
-                console.log("Error is " + err);
-                res.send({ "Error is ": +err });
-              } else {
-                console.log("Workshop status updated!");
-              }
+            $set: {
+              Workshop1IsActive: true;
             }
-          );
+          }
+        } else if (workshopName == "Learning") {
+          attendeeContent = {
+            $set: {
+              Workshop2IsActive: true
+            }
+          };
         }
+
+        console.log(attendeeContent);
+        console.log(attendeeID);
+        memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
+          if (err) {
+            console.log("Error is " + err);
+            res.send({ "Error is ": +err });
+          } else {
+            console.log("Workshop status updated!");
+          }
+        });
       }
     });
   });
