@@ -41,10 +41,10 @@
          </div>
       </div>
       <div class="d-flex justify-content-center">
-         <p id="name"> </p>
+         <p id="score"> </p>
       </div>
       <div class="d-flex justify-content-center">
-         <p id="score"> </p>
+         <p id="name"> </p>
       </div>
       <div class="d-flex justify-content-center">
          <p id="check"> </p>
@@ -93,14 +93,17 @@
 
                    console.log("Comparing <%= result[i].Name %> with " + data['Name'] )
                  if ("<%= result[i].Name %>" == data['Name'] && matchFound != true) {
+                   let totalPoints = <%= result[i].Points %> + 50;
 
 
+                     if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2'] || selectedWorkshop == data['Workshop3']) {
 
-                     if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2']) {
                        console.log("Workshops match!");
-                         document.getElementById("name").innerHTML = "Name : " + data['Name'];
-                         document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + " attendee and " + data['House'];
+                       document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + " attendee and " + data['House'] + " team";
+                        document.getElementById("name").innerHTML = data['Name'] + " has " + totalPoints + " Points";
+
                          document.getElementById("check").innerHTML = "Checked into " + selectedWorkshop + " workshop";
+
 
                          var xhttp = new XMLHttpRequest();
                          xhttp.onreadystatechange = function() {
