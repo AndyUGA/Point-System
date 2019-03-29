@@ -158,11 +158,14 @@ module.exports = function(app, db) {
     memberCollection.find({}).toArray(function(err, result) {
       const PhotographyPoints = 50;
       const LearnignPoints = 50;
+      const LeadershipPoints = 50;
 
       for (var i = 0; i < result.length; i++) {
         if (attendeeName == result[i].Name) {
           const attendee = result[i];
           const attendeeID = { _id: new ObjectID(attendee._id) };
+          console.log("attendeeID is ");
+          console.log(attendeeID);
 
           if (workshopName == "Photography") {
             attendeeContent = {
@@ -178,24 +181,23 @@ module.exports = function(app, db) {
                 Points: attendee.Points + LearnignPoints
               }
             };
-            $set: {
-              Workshop1IsActive: true;
-            }
+          } else if (workshopName == "Leadership") {
+            attendeeContent = {
+              $set: { Workshop3IsActive: true, Points: attendee.Points + LeadershipPoints }
+            };
           }
-        } else if (workshopName == "Learning") {
-          attendeeContent = { $set: { Workshop2IsActive: true } };
-        }
 
-        console.log(attendeeContent);
-        console.log(attendeeID);
-        memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
-          if (err) {
-            console.log("Error is " + err);
-            res.send({ "Error is ": +err });
-          } else {
-            console.log("Workshop status updated!");
-          }
-        });
+          console.log(attendeeContent);
+
+          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
+            if (err) {
+              console.log("Error is " + err);
+              res.send({ "Error is ": +err });
+            } else {
+              console.log("Workshop status updated!");
+            }
+          });
+        }
       }
     });
   });
@@ -237,30 +239,15 @@ module.exports = function(app, db) {
             }
           };
 
-          memberCollection.updateOne(
-            attendeeID,
-            attendeeContent,
-            (err, item) => {
-              if (err) {
-                console.log("Error is " + err);
-                res.send({ "Error is ": +err });
-              } else {
-                //console.log("Points added to user");
-                res.redirect(
-                  "/increaseHousePoints/" +
-                    attendeeName +
-                    "/" +
-                    attendeeHouse +
-                    "/" +
-                    pointsToAdd +
-                    "/" +
-                    redirect +
-                    "/" +
-                    operation
-                );
-              }
+          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
+            if (err) {
+              console.log("Error is " + err);
+              res.send({ "Error is ": +err });
+            } else {
+              //console.log("Points added to user");
+              res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
-          );
+          });
           break;
         }
       }
@@ -268,69 +255,53 @@ module.exports = function(app, db) {
   });
 
   //Update score for attendee house
-  app.get(
-    "/increaseHousePoints/:name/:house/:pointsToAdd/:redirect/:operation",
-    (req, res) => {
-      const houseName = req.params.house;
-      const name = req.params.name;
-      const pointsToAdd = req.params.pointsToAdd;
-      const redirect = req.params.redirect;
-      let operation = req.params.operation;
+  app.get("/increaseHousePoints/:name/:house/:pointsToAdd/:redirect/:operation", (req, res) => {
+    const houseName = req.params.house;
+    const name = req.params.name;
+    const pointsToAdd = req.params.pointsToAdd;
+    const redirect = req.params.redirect;
+    let operation = req.params.operation;
 
-      houseCollection.find({}).toArray(function(err, result) {
-        for (var i = 0; i < result.length; i++) {
-          const houseInfo = result[i];
-          if (houseName == houseInfo.Name) {
-            const houseID = { _id: new ObjectID(houseInfo._id) };
+    houseCollection.find({}).toArray(function(err, result) {
+      for (var i = 0; i < result.length; i++) {
+        const houseInfo = result[i];
+        if (houseName == houseInfo.Name) {
+          const houseID = { _id: new ObjectID(houseInfo._id) };
 
-            const currentHousePoints = houseInfo.Points;
+          const currentHousePoints = houseInfo.Points;
 
-            let totalHousePoints = 0;
+          let totalHousePoints = 0;
 
-            if (operation == "subtract") {
-              totalHousePoints =
-                parseInt(currentHousePoints) - parseInt(pointsToAdd);
-            } else {
-              operation = "add";
-              totalHousePoints =
-                parseInt(currentHousePoints) + parseInt(pointsToAdd);
-            }
-
-            const houseContent = {
-              $set: {
-                Name: houseInfo.Name,
-                Points: totalHousePoints
-              }
-            };
-
-            houseCollection.updateOne(houseID, houseContent, (err, item) => {
-              if (err) {
-                console.log("Error is " + err);
-                res.send({ "Error is ": +err });
-              } else {
-                //console.log("Points added to House");
-                res.redirect(
-                  "/record/" +
-                    name +
-                    "/" +
-                    pointsToAdd +
-                    "/" +
-                    houseName +
-                    "/" +
-                    redirect +
-                    "/" +
-                    operation
-                );
-              }
-            });
-
-            //Break out of loop if a match is found
-            break;
+          if (operation == "subtract") {
+            totalHousePoints = parseInt(currentHousePoints) - parseInt(pointsToAdd);
+          } else {
+            operation = "add";
+            totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
           }
+
+          const houseContent = {
+            $set: {
+              Name: houseInfo.Name,
+              Points: totalHousePoints
+            }
+          };
+
+          houseCollection.updateOne(houseID, houseContent, (err, item) => {
+            if (err) {
+              console.log("Error is " + err);
+              res.send({ "Error is ": +err });
+            } else {
+              //console.log("Points added to House");
+              res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
+            }
+          });
+
+          //Break out of loop if a match is found
+          break;
         }
-      });
-    }
-  );
+      }
+    });
+  });
 
   //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
