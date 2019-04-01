@@ -56,7 +56,7 @@ module.exports = function(app, db) {
     } else if (nameOfFile == "history") {
       historyCollection
         .find({})
-        .sort({ datefield: -1 })
+        .sort({ _id: -1 })
         .toArray(function(err, historyResults) {
           if (err) {
             res.send({ error: " An error has occurred" });
