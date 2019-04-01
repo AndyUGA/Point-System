@@ -54,15 +54,18 @@ module.exports = function(app, db) {
           });
       });
     } else if (nameOfFile == "history") {
-      historyCollection.find({}).toArray(function(err, historyResults) {
-        if (err) {
-          res.send({ error: " An error has occurred" });
-        } else {
-          res.render("history", {
-            historyResults: historyResults
-          });
-        }
-      });
+      historyCollection
+        .find({})
+        .sort({ datefield: -1 })
+        .toArray(function(err, historyResults) {
+          if (err) {
+            res.send({ error: " An error has occurred" });
+          } else {
+            res.render("history", {
+              historyResults: historyResults
+            });
+          }
+        });
     } else if (nameOfFile == "housePoints") {
       memberCollection.find({}).toArray(function(err, memberResults) {
         houseCollection.find({}).toArray(function(err, houseResults) {
@@ -305,7 +308,7 @@ module.exports = function(app, db) {
 
   //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
-    //console.log("Entering record method");
+    console.log("Entering record method");
 
     const operation = req.params.operation;
     const redirect = req.params.redirect;
