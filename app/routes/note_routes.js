@@ -132,24 +132,21 @@ module.exports = function(app, db) {
             }
           });
       });
+      //Redirects to modify points form
+    } else if (searchContents == "modifyPointsForm") {
+      const name = req.body.tempName;
+      const points = req.body.points;
+      const house = req.body.house;
+      console.log("name is " + name);
+      console.log("points is " + points);
+      console.log("house is " + house);
+
+      res.render("forms/modifyValuesForm", {
+        name: name,
+        points: points,
+        house: house
+      });
     }
-  });
-
-  //Get form to modify points
-  //Must be post to get values from page
-  app.post("/modifyPointsForm", (req, res) => {
-    const name = req.body.tempName;
-    const points = req.body.points;
-    const house = req.body.house;
-    console.log("name is " + name);
-    console.log("points is " + points);
-    console.log("house is " + house);
-
-    res.render("forms/modifyValuesForm", {
-      name: name,
-      points: points,
-      house: house
-    });
   });
 
   //Update workshop status
