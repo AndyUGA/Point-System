@@ -327,8 +327,7 @@ module.exports = function(app, db) {
       Name: attendeeName,
       House: attendeeHouse,
       Points: pointsToAdd,
-      timeRecorded: new Date().toLocaleTimeString(),
-      dateRecorded: new Date().toLocaleDateString()
+      timeRecorded: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
     };
 
     historyCollection.insertOne(attendeeContent, (err, item) => {
