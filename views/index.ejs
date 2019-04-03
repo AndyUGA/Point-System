@@ -93,16 +93,16 @@
 
                    console.log("Comparing <%= result[i].Name %> with " + data['Name'] )
                  if ("<%= result[i].Name %>" == data['Name'] && matchFound != true) {
+                   console.log('result[i] is ' + <%= result[i].Points %>);
                    let totalPoints = <%= result[i].Points %> + 50;
 
 
                      if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2'] || selectedWorkshop == data['Workshop3']) {
 
-                       console.log("Workshops match!");
-                       document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + " attendee and " + data['House'] + " team";
-                        document.getElementById("name").innerHTML = data['Name'] + " has " + totalPoints + " Points";
 
-                         document.getElementById("check").innerHTML = "Checked into " + selectedWorkshop + " workshop ✔️";
+                       document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + " attendee and " + data['House'] + " team";
+                       document.getElementById("name").innerHTML = data['Name'] + " has " + totalPoints + " Points";
+                       document.getElementById("check").innerHTML = "Checked into " + selectedWorkshop + " workshop ✔️";
 
 
                          var xhttp = new XMLHttpRequest();
@@ -121,7 +121,7 @@
                                  console.log("/workshop request has been sent!");
                              }
                          };
-                         console.log("Sending " + "/Workshop/" + data['Name'] + "/" + selectedWorkshop)
+                         //console.log("Sending " + "/Workshop/" + data['Name'] + "/" + selectedWorkshop)
                          xhttp2.open("POST", "/Workshop/" + data['Name'] + "/" + selectedWorkshop);
                          xhttp2.send();
 

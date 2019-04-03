@@ -21,7 +21,7 @@ module.exports = function(app, db) {
   //Displays page based on parameter
   app.get("/Element/:nameOfFile", (req, res) => {
     let nameOfFile = req.params.nameOfFile;
-    console.log("Name of file is : " + nameOfFile);
+    //console.log("Name of file is : " + nameOfFile);
 
     if (nameOfFile == "attendeePoints" || nameOfFile == "stylesheet.css") {
       let houseResults;
@@ -244,7 +244,7 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              //console.log("Points added to user");
+              console.log("Points added to user");
               res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
           });
@@ -291,7 +291,7 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              //console.log("Points added to House");
+              console.log("Points added to House");
               res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
             }
           });
@@ -335,7 +335,7 @@ module.exports = function(app, db) {
         if (redirect == "yesRedirect") {
           res.redirect("/Element/attendeeInfo");
         } else {
-          //console.log("Action has been recorded to history page");
+          console.log("Action has been recorded to history page");
         }
       }
     });
