@@ -137,9 +137,6 @@ module.exports = function(app, db) {
       const name = req.body.tempName;
       const points = req.body.points;
       const house = req.body.house;
-      console.log("name is " + name);
-      console.log("points is " + points);
-      console.log("house is " + house);
 
       res.render("forms/modifyValuesForm", {
         name: name,
@@ -168,20 +165,18 @@ module.exports = function(app, db) {
           if (workshopName == "Photography") {
             attendeeContent = {
               $set: {
-                Workshop1IsActive: true,
-                Points: attendee.Points + PhotographyPoints
+                Workshop1IsActive: true
               }
             };
           } else if (workshopName == "Learning") {
             attendeeContent = {
               $set: {
-                Workshop2IsActive: true,
-                Points: attendee.Points + LearnignPoints
+                Workshop2IsActive: true
               }
             };
           } else if (workshopName == "Leadership") {
             attendeeContent = {
-              $set: { Workshop3IsActive: true, Points: attendee.Points + LeadershipPoints }
+              $set: { Workshop3IsActive: true }
             };
           }
 
@@ -227,7 +222,7 @@ module.exports = function(app, db) {
             operation = "add";
             calculatedPoints = currentPoints + pointsToAdd;
           }
-          console.log("Updated points are: " + calculatedPoints);
+
           const attendeeContent = {
             $set: {
               Name: attendeeName,
@@ -235,6 +230,10 @@ module.exports = function(app, db) {
               Points: calculatedPoints
             }
           };
+
+          console.log(attendeeName + " has " + currentPoints + " points");
+          console.log("Adding " + pointsToAdd + " points");
+          console.log("Total points should be " + calculatedPoints);
 
           memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
             if (err) {
