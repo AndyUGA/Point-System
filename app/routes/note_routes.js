@@ -164,8 +164,6 @@ module.exports = function(app, db) {
         if (attendeeName == result[i].Name) {
           const attendee = result[i];
           const attendeeID = { _id: new ObjectID(attendee._id) };
-          console.log("attendeeID is ");
-          console.log(attendeeID);
 
           if (workshopName == "Photography") {
             attendeeContent = {
@@ -187,14 +185,12 @@ module.exports = function(app, db) {
             };
           }
 
-          console.log(attendeeContent);
-
           memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
             if (err) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              console.log("Workshop status updated!");
+              //console.log("Workshop status updated!");
             }
           });
         }
@@ -211,7 +207,7 @@ module.exports = function(app, db) {
     } else {
       pointsToAdd = parseInt(req.body.points);
     }
-
+    console.log("Points to add is " + pointsToAdd);
     const redirect = req.params.redirect;
     const attendeeName = req.params.name;
     const attendeeHouse = req.params.house;
@@ -231,6 +227,7 @@ module.exports = function(app, db) {
             operation = "add";
             calculatedPoints = currentPoints + pointsToAdd;
           }
+          console.log("Updated points are: " + calculatedPoints);
           const attendeeContent = {
             $set: {
               Name: attendeeName,
@@ -244,7 +241,6 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              console.log("Points added to user");
               res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
           });
@@ -291,7 +287,6 @@ module.exports = function(app, db) {
               console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
-              console.log("Points added to House");
               res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
             }
           });
@@ -305,8 +300,6 @@ module.exports = function(app, db) {
 
   //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {
-    console.log("Entering record method");
-
     const operation = req.params.operation;
     const redirect = req.params.redirect;
     const attendeeName = req.params.name;
@@ -335,7 +328,7 @@ module.exports = function(app, db) {
         if (redirect == "yesRedirect") {
           res.redirect("/Element/attendeeInfo");
         } else {
-          console.log("Action has been recorded to history page");
+          //console.log("Action has been recorded to history page");
         }
       }
     });
