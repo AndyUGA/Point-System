@@ -116,7 +116,7 @@ module.exports = function(app, db) {
         });
       //Display search results for attendee info page
     } else if (searchContents == "attendeeInfo") {
-      housecollection.find({}).toArray(function(err, houseResults) {
+      memberCollection.find({}).toArray(function(err, houseResults) {
         memberCollection
           .find(query)
           .sort({ Name: 1 })
