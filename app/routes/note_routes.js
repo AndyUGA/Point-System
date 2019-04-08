@@ -27,7 +27,7 @@ module.exports = function(app, db) {
       let houseResults;
       memberCollection
         .find({})
-        .sort({ Name: 1 })
+        .sort({ Points: -1 })
         .toArray(function(err, memberResults) {
           if (err) {
             res.send({ error: " An error has occurred" });
@@ -103,7 +103,7 @@ module.exports = function(app, db) {
     if (searchContents == "attendeePoints") {
       memberCollection
         .find(query)
-        .sort({ Name: 1 })
+        .sort({ Points: -1 })
         .toArray(function(err, memberResults) {
           if (err) {
             console.log("Error is " + err);
