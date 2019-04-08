@@ -18,45 +18,50 @@
             </ul>
          </div>
       </nav>
-      <div class="pricing pricing--sonam">
-         <div class="pricing__item">
-            <h3 class="">
-               <%= houseResults[0].Name %>
-            </h3>
-            <h3 class="">
-               <%= houseResults[0].Points %>
-            </h3>
-         </div>
-      </div>
-      <div class="pricing pricing--sonam2">
-         <div class="pricing__item">
-            <h3 class="">
-               <%= houseResults[1].Name %>
-            </h3>
-            <h3 class="">
-               <%= houseResults[1].Points %>
-            </h3>
-         </div>
-      </div>
-      <div class="pricing pricing--sonam3">
-         <div class="pricing__item">
-            <h3 class="">
-               <%= houseResults[2].Name %>
-            </h3>
-            <h3 class="">
-               <%= houseResults[2].Points %>
-            </h3>
-         </div>
-      </div>
-      <div class="pricing pricing--sonam4">
-         <div class="pricing__item">
-            <h3 class="">
-               <%= houseResults[3].Name %>
-            </h3>
-            <h3 class="">
-               <%= houseResults[3].Points %>
-            </h3>
-         </div>
-      </div>
+
+      <br><br>
+      <div class="container h-100 ">
+          <div class="column h-100 flex-column justify-content-center align-items-center">
+              <div class="card shadow p-3 bg-white rounded " style="width: 80%;">
+                  <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/b/b1/Gryffindor_ClearBG.png/revision/latest/scale-to-width-down/350?cb=20190222162949" alt="Card image cap">
+                  <div class="card-body">
+                      <h5 class="card-title text-center">   <%= houseResults[0].Name %></h5>
+                      <p class="card-text text-center"> <%= houseResults[0].Points %> </p>
+                  </div>
+                  </div>
+                  <br>
+                  <div class="card shadow p-3 bg-white rounded " style="width: 80%;">
+                      <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/0/06/Hufflepuff_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182518" alt="Card image cap">
+                      <div class="card-body">
+                          <h5 class="card-title text-center">   <%= houseResults[1].Name %></h5>
+                          <p class="card-text text-center"> <%= houseResults[1].Points %> </p>
+                      </div>
+                      </div>
+
+                      <div class="card shadow p-3 bg-white rounded " style="width: 80%;">
+                          <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/4/4e/RavenclawCrest.png/revision/latest/scale-to-width-down/700?cb=20161020182442" alt="Card image cap">
+                          <div class="card-body">
+                              <h5 class="card-title text-center">   <%= houseResults[2].Name %></h5>
+                              <p class="card-text text-center"> <%= houseResults[2].Points %> </p>
+                          </div>
+                          </div>
+
+                          <div class="card shadow p-3 bg-white rounded " style="width: 80%;">
+                              <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/0/00/Slytherin_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182557" alt="Card image cap">
+                              <div class="card-body">
+                                  <h5 class="card-title text-center">   <%= houseResults[3].Name %></h5>
+                                  <p class="card-text text-center"> <%= houseResults[3].Points %> </p>
+                              </div>
+                              </div>
+              </div>
+
+          </div>
+
+
+
+
+
+
+
    </body>
 </html>
