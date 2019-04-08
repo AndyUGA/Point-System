@@ -17,16 +17,32 @@ th {
   color: #d91c18;
 }
 
+.gryffindorBorder {
+  outline: 2px solid #d91c18;
+}
+
 .hufflepuff {
   color: #deb610;
+}
+
+.hufflepuffBorder {
+  outline: 2px solid #deb610;
 }
 
 .ravenclaw {
   color: #0d7696;
 }
 
+.ravenclawBorder {
+  outline: 2px solid #0d7696;
+}
+
 .slytherin {
   color: #124e11;
+}
+
+.slytherinBorder {
+  outline: 2px solid #124e11;
 }
 
 .card {
