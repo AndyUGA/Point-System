@@ -1,5 +1,5 @@
 
-# Registration System
+# Gamification System
 
 ![Image](https://github.com/AndyUGA/Element/blob/master/public/images/uvsase2.png)
 
@@ -29,4 +29,4 @@ The registration system for UVSASE Element leadership conference
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-UVSASE Registration System - [Live Preview](https://vivacious-trigonometry.glitch.me)
+UVSASE Gamification System - [Live Preview](https://vivacious-trigonometry.glitch.me)
