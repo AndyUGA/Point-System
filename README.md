@@ -3,7 +3,7 @@
 
 ![Image](https://github.com/AndyUGA/Element/blob/master/public/images/uvsase2.png)
 
-The registration system for UVSASE Element leadership conference
+The gamification system for UVSASE Element leadership conference
 
 ------------------------------------------------------------------------------------------------------------------------------  
 
