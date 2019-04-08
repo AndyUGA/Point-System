@@ -12,6 +12,23 @@ th {
 .formTest {
   height: 100%;
 }
+
+.gryffindor {
+  color: #d91c18;
+}
+
+.hufflepuff {
+  color: #deb610;
+}
+
+.ravenclaw {
+  color: #0d7696;
+}
+
+.slytherin {
+  color: #124e11;
+}
+
 .card {
   margin: 0 auto; /* Added */
   float: none; /* Added */
