@@ -1,4 +1,7 @@
 /* Common styles */
+* {
+  font-family: Helvetica-light;
+}
 
 html,
 body {
@@ -15,6 +18,8 @@ th {
 
 .gryffindor {
   color: #d91c18;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .gryffindorBorder {
@@ -23,6 +28,8 @@ th {
 
 .hufflepuff {
   color: #deb610;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .hufflepuffBorder {
@@ -31,6 +38,8 @@ th {
 
 .ravenclaw {
   color: #0d7696;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .ravenclawBorder {
@@ -39,6 +48,8 @@ th {
 
 .slytherin {
   color: #124e11;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .slytherinBorder {
@@ -51,9 +62,6 @@ th {
   margin-bottom: 10px; /* Added */
 }
 
-* {
-  font-family: Helvetica;
-}
 @font-face {
   font-family: Harry;
   src: url("Harry.TTF");
