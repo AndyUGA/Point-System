@@ -11,7 +11,7 @@ module.exports = function(app, db) {
   app.get("/", (req, res) => {
     memberCollection.find({}).toArray(function(err, result) {
       if (err) {
-        res.send({ error: " An error has occurred" });
+        res.send({ error: " Error is " + err });
       } else {
         res.render("index", { result: result });
       }
@@ -30,7 +30,7 @@ module.exports = function(app, db) {
         .sort({ Points: -1 })
         .toArray(function(err, memberResults) {
           if (err) {
-            res.send({ error: " An error has occurred" });
+            res.send({ error: " Error is " + err });
           } else {
             res.render("attendeePoints", {
               memberResults: memberResults,
@@ -45,7 +45,7 @@ module.exports = function(app, db) {
           .sort({ Name: 1 })
           .toArray(function(err, memberResults) {
             if (err) {
-              res.send({ error: " An error has occurred" });
+              res.send({ error: " Error is " + err });
             } else {
               res.render("attendeeInfo", {
                 houseResults: houseResults,
@@ -60,7 +60,7 @@ module.exports = function(app, db) {
         .sort({ _id: -1 })
         .toArray(function(err, historyResults) {
           if (err) {
-            res.send({ error: " An error has occurred" });
+            res.send({ error: " Error is " + err });
           } else {
             res.render("history", {
               historyResults: historyResults
@@ -111,7 +111,8 @@ module.exports = function(app, db) {
             } else {
               res.render("attendeePoints", {
                 memberResults: memberResults,
-                houseResults: houseResults
+                houseResults: houseResults,
+                searchType: "attendeePointsR"
               });
             }
           });
@@ -151,7 +152,7 @@ module.exports = function(app, db) {
     } else if (nameOfFile == "workshop") {
       workshopCollection.find({}).toArray(function(err, workshopResults) {
         if (err) {
-          res.send({ error: " An error has occurred" });
+          res.send({ error: " Error is " + err });
         } else {
           res.render("workshop", {
             workshopResults: workshopResults
@@ -173,7 +174,7 @@ module.exports = function(app, db) {
       memberCollection.aggregate([{ $match: { Name: query } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
         if (err) {
           console.log("Error is " + err);
-          res.send({ error: " An error has occurred" });
+          res.send({ error: " Error is " + err });
         } else {
           res.render("attendeePoints", {
             memberResults: memberResults,
@@ -182,14 +183,17 @@ module.exports = function(app, db) {
         }
       });
       //Display search results for attendee info page
-    } else if (searchContents == "attendeePointsG") {
-      memberCollection.aggregate([{ $match: { Name: query, House: "Gryffindor" } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
+    } else if (searchContents == "attendeePointsG" || searchContents == "attendeePointsR") {
+      let memberContents;
+      if (searchContents == "attendeePointsG") {
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Gryffindor" } }, { $sort: { Points: -1 } }]);
+      } else if (searchContents == "attendeePointsR") {
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Ravenclaw" } }, { $sort: { Points: -1 } }]);
+      }
+      memberContents.toArray(function(err, memberResults) {
         if (err) {
-          console.log("Error is " + err);
-          res.send({ error: " An error has occurred" });
+          res.send({ error: " Error is " + err });
         } else {
-          console.log("Member results are");
-          console.log(memberResults);
           res.render("attendeePoints", {
             memberResults: memberResults,
             searchType: "attendeePointsG"
@@ -205,7 +209,7 @@ module.exports = function(app, db) {
           .toArray(function(err, memberResults) {
             if (err) {
               console.log("Error is " + err);
-              res.send({ error: " An error has occurred" });
+              res.send({ error: " Error is " + err });
             } else {
               res.render("attendeeInfo", {
                 houseResults: houseResults,
