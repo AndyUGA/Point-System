@@ -24,12 +24,12 @@
 
   </div>
       <br>
-      <form action="/Element/attendeePoints" method = "POST">
+      <form action="/Element/<%= searchType %>" method = "POST">
          <input type="text" placeholder=" Search Name" name="attendeeName">
          <button type="submit"><i class="fa fa-search"></i></button>
       </form>
       <br>
-      
+
       <div class="container h-100 ">
           <div class="column h-100 flex-column justify-content-center align-items-center">
             <% for(var i=0; i < memberResults.length; i++) { %>

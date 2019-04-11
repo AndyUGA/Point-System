@@ -33,7 +33,8 @@ module.exports = function(app, db) {
             res.send({ error: " An error has occurred" });
           } else {
             res.render("attendeePoints", {
-              memberResults: memberResults
+              memberResults: memberResults,
+              searchType: "attendeePoints"
             });
           }
         });
@@ -93,7 +94,8 @@ module.exports = function(app, db) {
             } else {
               res.render("attendeePoints", {
                 memberResults: memberResults,
-                houseResults: houseResults
+                houseResults: houseResults,
+                searchType: "attendeePointsG"
               });
             }
           });
@@ -165,22 +167,35 @@ module.exports = function(app, db) {
   app.post("/Element/:searchContents", (req, res) => {
     let searchContents = req.params.searchContents;
     let attendeeName = req.body.attendeeName;
-    let query = { Name: { $regex: attendeeName, $options: "$i" } };
+    let query = { $regex: attendeeName, $options: "$i" };
     //Display search results for attendee points page
     if (searchContents == "attendeePoints") {
-      memberCollection
-        .find(query)
-        .sort({ Points: -1 })
-        .toArray(function(err, memberResults) {
-          if (err) {
-            console.log("Error is " + err);
-            res.send({ error: " An error has occurred" });
-          } else {
-            res.render("attendeePoints", {
-              memberResults: memberResults
-            });
-          }
-        });
+      memberCollection.aggregate([{ $match: { Name: query } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
+        if (err) {
+          console.log("Error is " + err);
+          res.send({ error: " An error has occurred" });
+        } else {
+          res.render("attendeePoints", {
+            memberResults: memberResults,
+            searchType: "attendeePoints"
+          });
+        }
+      });
+      //Display search results for attendee info page
+    } else if (searchContents == "attendeePointsG") {
+      memberCollection.aggregate([{ $match: { Name: query, House: "Gryffindor" } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
+        if (err) {
+          console.log("Error is " + err);
+          res.send({ error: " An error has occurred" });
+        } else {
+          console.log("Member results are");
+          console.log(memberResults);
+          res.render("attendeePoints", {
+            memberResults: memberResults,
+            searchType: "attendeePointsG"
+          });
+        }
+      });
       //Display search results for attendee info page
     } else if (searchContents == "attendeeInfo") {
       memberCollection.find({}).toArray(function(err, houseResults) {
