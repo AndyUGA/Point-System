@@ -128,7 +128,8 @@ module.exports = function(app, db) {
             } else {
               res.render("attendeePoints", {
                 memberResults: memberResults,
-                houseResults: houseResults
+                houseResults: houseResults,
+                searchType: "attendeePointsH"
               });
             }
           });
@@ -144,7 +145,8 @@ module.exports = function(app, db) {
             } else {
               res.render("attendeePoints", {
                 memberResults: memberResults,
-                houseResults: houseResults
+                houseResults: houseResults,
+                searchType: "attendeePointsS"
               });
             }
           });
@@ -169,6 +171,7 @@ module.exports = function(app, db) {
     let searchContents = req.params.searchContents;
     let attendeeName = req.body.attendeeName;
     let query = { $regex: attendeeName, $options: "$i" };
+    let query2 = { Name: { $regex: attendeeName, $options: "$i" } };
     //Display search results for attendee points page
     if (searchContents == "attendeePoints") {
       memberCollection.aggregate([{ $match: { Name: query } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
@@ -185,10 +188,19 @@ module.exports = function(app, db) {
       //Display search results for attendee info page
     } else if (searchContents == "attendeePointsG" || searchContents == "attendeePointsR") {
       let memberContents;
+      let searchType;
       if (searchContents == "attendeePointsG") {
         memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Gryffindor" } }, { $sort: { Points: -1 } }]);
+        searchType = "attendeePointsG";
       } else if (searchContents == "attendeePointsR") {
         memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Ravenclaw" } }, { $sort: { Points: -1 } }]);
+        searchType = "attendeePointsR";
+      } else if (searchContents == "attendeePointsH") {
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Hufflepuff" } }, { $sort: { Points: -1 } }]);
+        searchType = "attendeePointsH";
+      } else if (searchContents == "attendeePointsS") {
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Slytherin" } }, { $sort: { Points: -1 } }]);
+        searchType = "attendeePointsS";
       }
       memberContents.toArray(function(err, memberResults) {
         if (err) {
@@ -196,7 +208,7 @@ module.exports = function(app, db) {
         } else {
           res.render("attendeePoints", {
             memberResults: memberResults,
-            searchType: "attendeePointsG"
+            searchType: searchType
           });
         }
       });
@@ -204,7 +216,7 @@ module.exports = function(app, db) {
     } else if (searchContents == "attendeeInfo") {
       memberCollection.find({}).toArray(function(err, houseResults) {
         memberCollection
-          .find(query)
+          .find(query2)
           .sort({ Name: 1 })
           .toArray(function(err, memberResults) {
             if (err) {
