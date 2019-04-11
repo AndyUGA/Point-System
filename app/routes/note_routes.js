@@ -21,7 +21,6 @@ module.exports = function(app, db) {
   //Displays page based on parameter
   app.get("/Element/:nameOfFile", (req, res) => {
     let nameOfFile = req.params.nameOfFile;
-    //console.log("Name of file is : " + nameOfFile);
 
     if (nameOfFile == "attendeePoints" || nameOfFile == "stylesheet.css") {
       let houseResults;
@@ -67,7 +66,9 @@ module.exports = function(app, db) {
             });
           }
         });
-    } else if (nameOfFile == "housePoints") {
+    }
+    //Will display all members by descending amount of points
+    else if (nameOfFile == "housePoints") {
       memberCollection.find({}).toArray(function(err, memberResults) {
         houseCollection
           .find({})
@@ -83,7 +84,9 @@ module.exports = function(app, db) {
             }
           });
       });
-    } else if (nameOfFile == "attendeePointsGryffindor") {
+    }
+    //Will display page filtered by Gryffindor house
+    else if (nameOfFile == "attendeePointsGryffindor") {
       memberCollection
         .find({ House: "Gryffindor" })
         .sort({ Points: -1 })
@@ -100,7 +103,9 @@ module.exports = function(app, db) {
             }
           });
         });
-    } else if (nameOfFile == "attendeePointsRavenclaw") {
+    }
+    //Will display page filtered by Ravenclaw house
+    else if (nameOfFile == "attendeePointsRavenclaw") {
       memberCollection
         .find({ House: "Ravenclaw" })
         .sort({ Points: -1 })
@@ -117,7 +122,9 @@ module.exports = function(app, db) {
             }
           });
         });
-    } else if (nameOfFile == "attendeePointsHufflepuff") {
+    }
+    //Will display page filtered by Hufflepuff house
+    else if (nameOfFile == "attendeePointsHufflepuff") {
       memberCollection
         .find({ House: "Hufflepuff" })
         .sort({ Points: -1 })
@@ -134,7 +141,9 @@ module.exports = function(app, db) {
             }
           });
         });
-    } else if (nameOfFile == "attendeePointsSlytherin") {
+    }
+    //Will display page filtered by Slytherin house
+    else if (nameOfFile == "attendeePointsSlytherin") {
       memberCollection
         .find({ House: "Slytherin" })
         .sort({ Points: -1 })
@@ -189,6 +198,7 @@ module.exports = function(app, db) {
     } else if (searchContents == "attendeePointsG" || searchContents == "attendeePointsR" || searchContents == "attendeePointsS" || searchContents == "attendeePointsH") {
       let memberContents;
       let searchType;
+      //Will filter by house depending on what page user is on
       if (searchContents == "attendeePointsG") {
         memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Gryffindor" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsG";
