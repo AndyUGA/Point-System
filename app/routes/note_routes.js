@@ -80,12 +80,51 @@ module.exports = function(app, db) {
         });
       });
     } else if (nameOfFile == "attendeePointsGryffindor") {
-      memberCollection.find({}).toArray(function(err, memberResults) {
+      memberCollection.find({ House: "Gryffindor" }).toArray(function(err, memberResults) {
         houseCollection.find({}).toArray(function(err, houseResults) {
           if (err) {
             res.send({ error: " An error has occurred: " + err });
           } else {
-            res.render("attendeePointsGryffindor", {
+            res.render("attendeePoints", {
+              memberResults: memberResults,
+              houseResults: houseResults
+            });
+          }
+        });
+      });
+    } else if (nameOfFile == "attendeePointsRavenclaw") {
+      memberCollection.find({ House: "Ravenclaw" }).toArray(function(err, memberResults) {
+        houseCollection.find({}).toArray(function(err, houseResults) {
+          if (err) {
+            res.send({ error: " An error has occurred: " + err });
+          } else {
+            res.render("attendeePoints", {
+              memberResults: memberResults,
+              houseResults: houseResults
+            });
+          }
+        });
+      });
+    } else if (nameOfFile == "attendeePointsHufflepuff") {
+      memberCollection.find({ House: "Hufflepuff" }).toArray(function(err, memberResults) {
+        houseCollection.find({}).toArray(function(err, houseResults) {
+          if (err) {
+            res.send({ error: " An error has occurred: " + err });
+          } else {
+            res.render("attendeePoints", {
+              memberResults: memberResults,
+              houseResults: houseResults
+            });
+          }
+        });
+      });
+    } else if (nameOfFile == "attendeePointsSlytherin") {
+      memberCollection.find({ House: "Slytherin" }).toArray(function(err, memberResults) {
+        houseCollection.find({}).toArray(function(err, houseResults) {
+          if (err) {
+            res.send({ error: " An error has occurred: " + err });
+          } else {
+            res.render("attendeePoints", {
               memberResults: memberResults,
               houseResults: houseResults
             });
