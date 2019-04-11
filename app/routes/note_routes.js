@@ -186,7 +186,7 @@ module.exports = function(app, db) {
         }
       });
       //Display search results for attendee info page
-    } else if (searchContents == "attendeePointsG" || searchContents == "attendeePointsR") {
+    } else if (searchContents == "attendeePointsG" || searchContents == "attendeePointsR" || searchContents == "attendeePointsS" || searchContents == "attendeePointsH") {
       let memberContents;
       let searchType;
       if (searchContents == "attendeePointsG") {
