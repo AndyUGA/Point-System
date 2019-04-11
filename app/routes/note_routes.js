@@ -68,16 +68,19 @@ module.exports = function(app, db) {
         });
     } else if (nameOfFile == "housePoints") {
       memberCollection.find({}).toArray(function(err, memberResults) {
-        houseCollection.find({}).toArray(function(err, houseResults) {
-          if (err) {
-            res.send({ error: " An error has occurred: " + err });
-          } else {
-            res.render("housePoints", {
-              memberResults: memberResults,
-              houseResults: houseResults
-            });
-          }
-        });
+        houseCollection
+          .find({})
+          .sort({ Points: -1 })
+          .toArray(function(err, houseResults) {
+            if (err) {
+              res.send({ error: " An error has occurred: " + err });
+            } else {
+              res.render("housePoints", {
+                memberResults: memberResults,
+                houseResults: houseResults
+              });
+            }
+          });
       });
     } else if (nameOfFile == "attendeePointsGryffindor") {
       memberCollection.find({ House: "Gryffindor" }).toArray(function(err, memberResults) {
