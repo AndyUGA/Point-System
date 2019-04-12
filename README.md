@@ -12,7 +12,7 @@ The gamification system for UVSASE Element leadership conference
 - [Express.js](https://expressjs.com)
 - [MongoDB](https://www.mongodb.com) 
 - [EJS](https://ejs.co)
-- [Bootstrap](https://getbootstrap.com)
+- [Bootstrap 4](https://getbootstrap.com)
 - HTML5
 - CSS3
 - JavaScript
