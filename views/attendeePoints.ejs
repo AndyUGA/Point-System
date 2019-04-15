@@ -29,14 +29,27 @@
          <button type="submit"><i class="fa fa-search"></i></button>
       </form>
       <br>
+      <div class="dropdown show text-center">
+  <a class="btn btn-secondary dropdown-toggle"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Filter: <%= filterType %>
+  </a>
 
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="/Element/attendeePoints">All Houses</a>
+    <a class="dropdown-item" href="/Element/attendeePointsGryffindor">Gryffindor</a>
+    <a class="dropdown-item" href="/Element/attendeePointsHufflepuff">Hufflepuff</a>
+    <a class="dropdown-item" href="/Element/attendeePointsRavenclaw">Ravenclaw</a>
+    <a class="dropdown-item" href="/Element/attendeePointsSlytherin">Slytherin</a>
+  </div>
+</div>
+<br>
       <div class="container h-100 ">
           <div class="column h-100 flex-column justify-content-center align-items-center">
             <% for(var i=0; i < memberResults.length; i++) { %>
 
               <div class="card shadow p-3 bg-white rounded " style="width: 80%;">
                   <div class="card-body">
-                      <p> <%- i + 1%> </p>
+                      <p class = "text-center"> <%- i + 1%> </p>
                       <h5 class="card-title text-center">   <%= memberResults[i].Name %> </h5>
                       <p class="card-text text-center"> <%= memberResults[i].Points %> Points  </p>
                       <p class="card-text text-center"> <%= memberResults[i].House %> </p>

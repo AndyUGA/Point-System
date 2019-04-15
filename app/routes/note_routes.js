@@ -33,7 +33,8 @@ module.exports = function(app, db) {
           } else {
             res.render("attendeePoints", {
               memberResults: memberResults,
-              searchType: "attendeePoints"
+              searchType: "attendeePoints",
+              filterType: "All Houses"
             });
           }
         });
@@ -98,7 +99,8 @@ module.exports = function(app, db) {
               res.render("attendeePoints", {
                 memberResults: memberResults,
                 houseResults: houseResults,
-                searchType: "attendeePointsG"
+                searchType: "attendeePointsG",
+                filterType: "Gryffindor"
               });
             }
           });
@@ -117,7 +119,8 @@ module.exports = function(app, db) {
               res.render("attendeePoints", {
                 memberResults: memberResults,
                 houseResults: houseResults,
-                searchType: "attendeePointsR"
+                searchType: "attendeePointsR",
+                filterType: "Ravenclaw"
               });
             }
           });
@@ -136,7 +139,8 @@ module.exports = function(app, db) {
               res.render("attendeePoints", {
                 memberResults: memberResults,
                 houseResults: houseResults,
-                searchType: "attendeePointsH"
+                searchType: "attendeePointsH",
+                filterType: "Hufflepuff"
               });
             }
           });
@@ -155,7 +159,8 @@ module.exports = function(app, db) {
               res.render("attendeePoints", {
                 memberResults: memberResults,
                 houseResults: houseResults,
-                searchType: "attendeePointsS"
+                searchType: "attendeePointsS",
+                filterType: "Slytherin"
               });
             }
           });
@@ -190,7 +195,8 @@ module.exports = function(app, db) {
         } else {
           res.render("attendeePoints", {
             memberResults: memberResults,
-            searchType: "attendeePoints"
+            searchType: "attendeePoints",
+            filterType: "All Houses"
           });
         }
       });
@@ -198,19 +204,24 @@ module.exports = function(app, db) {
     } else if (searchContents == "attendeePointsG" || searchContents == "attendeePointsR" || searchContents == "attendeePointsS" || searchContents == "attendeePointsH") {
       let memberContents;
       let searchType;
+      let filterType;
       //Will filter by house depending on what page user is on
       if (searchContents == "attendeePointsG") {
         memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Gryffindor" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsG";
+        filterType = "Gryffindor";
       } else if (searchContents == "attendeePointsR") {
         memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Ravenclaw" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsR";
+        filterType = "Ravenclaw";
       } else if (searchContents == "attendeePointsH") {
         memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Hufflepuff" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsH";
+        filterType = "Hufflepuff";
       } else if (searchContents == "attendeePointsS") {
         memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Slytherin" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsS";
+        filterType = "Slytherin";
       }
       memberContents.toArray(function(err, memberResults) {
         if (err) {
@@ -218,7 +229,8 @@ module.exports = function(app, db) {
         } else {
           res.render("attendeePoints", {
             memberResults: memberResults,
-            searchType: searchType
+            searchType: searchType,
+            filterType: filterType
           });
         }
       });
