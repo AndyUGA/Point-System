@@ -21,14 +21,35 @@
       <br><br>
       <div class="container h-100 ">
          <div class="column h-100 flex-column justify-content-center align-items-center">
-            <div class="card shadow p-3 bg-white rounded gryffindorBorder" style="width: 80%;">
+
+           <% for(var i=0; i < houseResults.length; i++) { %>
+
+                <%if (houseResults[i].Name == "Gryffindor") { %>
+                  <div class="card shadow p-3 bg-white rounded gryffindorBorder" style="width: 80%;">
                <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/b/b1/Gryffindor_ClearBG.png/revision/latest/scale-to-width-down/350?cb=20190222162949" alt="Card image cap">
+               <% } %>
+               <%if (houseResults[i].Name == "Ravenclaw") { %>
+                 <div class="card shadow p-3 bg-white rounded ravenclawBorder" style="width: 80%;">
+              <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/4/4e/RavenclawCrest.png/revision/latest/scale-to-width-down/700?cb=20161020182442" alt="Card image cap">
+              <% } %>
+              <%if (houseResults[i].Name == "Hufflepuff") { %>
+                <div class="card shadow p-3 bg-white rounded hufflepuffBorder" style="width: 80%;">
+             <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/0/06/Hufflepuff_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182518" alt="Card image cap">
+             <% } %>
+             <%if (houseResults[i].Name == "Slytherin") { %>
+               <div class="card shadow p-3 bg-white rounded slytherinBorder" style="width: 80%;">
+            <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/0/00/Slytherin_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182557" alt="Card image cap">
+            <% } %>
+
                <div class="card-body ">
-                  <h5 class="card-title text-center gryffindor">   <%= houseResults[0].Name %></h5>
-                  <p class="card-text text-center gryffindor "> <%= houseResults[0].Points %> </p>
+                  <h5 class="card-title text-center gryffindor">   <%= houseResults[i].Name %></h5>
+                  <p class="card-text text-center gryffindor "> <%= houseResults[i].Points %> </p>
                </div>
             </div>
             <br>
+            <% } %>
+
+            <!--
             <div class="card shadow p-3 bg-white rounded hufflepuffBorder" style="width: 80%;">
                <img class = "logo img-fluid " src="https://vignette.wikia.nocookie.net/harrypotter/images/0/06/Hufflepuff_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182518" alt="Card image cap">
                <div class="card-body">
@@ -52,6 +73,7 @@
                   <p class="card-text text-center slytherin"> <%= houseResults[3].Points %> </p>
                </div>
             </div>
+          -->
          </div>
       </div>
    </body>
