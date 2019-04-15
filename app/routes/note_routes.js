@@ -22,6 +22,7 @@ module.exports = function(app, db) {
   app.get("/Element/:nameOfFile", (req, res) => {
     let nameOfFile = req.params.nameOfFile;
 
+    //Will display attendee points page
     if (nameOfFile == "attendeePoints" || nameOfFile == "stylesheet.css") {
       let houseResults;
       memberCollection
@@ -38,6 +39,7 @@ module.exports = function(app, db) {
             });
           }
         });
+      //Will display attendee info page
     } else if (nameOfFile == "attendeeInfo") {
       houseCollection.find({}).toArray(function(err, houseResults) {
         memberCollection
@@ -54,6 +56,7 @@ module.exports = function(app, db) {
             }
           });
       });
+      //Will display history page
     } else if (nameOfFile == "history") {
       historyCollection
         .find({})
@@ -165,6 +168,7 @@ module.exports = function(app, db) {
             }
           });
         });
+      //Will display workshop page
     } else if (nameOfFile == "workshop") {
       workshopCollection.find({}).toArray(function(err, workshopResults) {
         if (err) {
