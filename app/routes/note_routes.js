@@ -180,16 +180,20 @@ module.exports = function(app, db) {
         }
       });
     } else {
-      res.send("An error occurred");
+      res.render("error");
     }
   });
 
   //Returns search results based on input from search bar
   app.post("/Element/:searchContents", (req, res) => {
+    //Name of file
     let searchContents = req.params.searchContents;
+
+    //Contents from search bar
     let attendeeName = req.body.attendeeName;
     let query = { $regex: attendeeName, $options: "$i" };
     let query2 = { Name: { $regex: attendeeName, $options: "$i" } };
+
     //Display search results for attendee points page
     if (searchContents == "attendeePoints") {
       memberCollection.aggregate([{ $match: { Name: query } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
@@ -453,6 +457,16 @@ module.exports = function(app, db) {
         } else {
           //console.log("Action has been recorded to history page");
         }
+      }
+    });
+  });
+
+  app.get("*", (req, res) => {
+    memberCollection.find({}).toArray(function(err, result) {
+      if (err) {
+        res.send({ error: " Error is " + err });
+      } else {
+        res.render("error");
       }
     });
   });
