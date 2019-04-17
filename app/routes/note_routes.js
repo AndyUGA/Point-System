@@ -180,6 +180,7 @@ module.exports = function(app, db) {
         }
       });
     } else {
+      console.log("183");
       res.render("error");
     }
   });
@@ -466,6 +467,7 @@ module.exports = function(app, db) {
       if (err) {
         res.send({ error: " Error is " + err });
       } else {
+        console.log("469");
         res.render("error");
       }
     });
