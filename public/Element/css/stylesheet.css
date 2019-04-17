@@ -18,6 +18,10 @@
 }
 */
 
+.img-fluid {
+  width: 90% !important;
+}
+
 img {
   width: 50%;
   display: block;
