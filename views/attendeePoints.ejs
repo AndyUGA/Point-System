@@ -28,19 +28,19 @@
          <input type="text" placeholder=" Search Name" name="attendeeName">
          <button type="submit"><i class="fa fa-search"></i></button>
       </form>
-      <br>
+
     <% include reusableComponents/filter.ejs %>
-<br>
+
       <div class="container h-100">
           <div class="column h-100 flex-column justify-content-center align-items-center">
             <% for(var i=0; i < memberResults.length; i++) { %>
 
-              <div class="card shadow p-3 bg-light rounded pointCard  " style="width: 80%;">
-                  <div class="card-body">
-                      <p class = "text-center"> <%- i + 1%> </p>
-                      <h5 class="card-title text-center">   <%= memberResults[i].Name %> </h5>
-                      <p class="card-text text-center"> <%= memberResults[i].Points %> Points  </p>
-                      <p class="card-text text-center"> <%= memberResults[i].House %> </p>
+              <div class="card shadow p-3 bg-dark2 rounded pointCard  " style="width: 80%;">
+                  <div class="card-body bg-dark2">
+                      <p class = "text-center bg-dark2"> <%- i + 1%> </p>
+                      <h5 class="card-title text-center bg-dark2">   <%= memberResults[i].Name %> </h5>
+                      <p class="card-text text-center bg-dark2"> <%= memberResults[i].Points %> Points  </p>
+                      <p class="card-text text-center bg-dark2"> <%= memberResults[i].House %> </p>
                   </div>
                   </div>
                   <br>
