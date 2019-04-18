@@ -6,6 +6,7 @@ module.exports = function(app, db) {
   const historyCollection = db.collection("History");
   const houseCollection = db.collection("Houses");
   const workshopCollection = db.collection("Workshops");
+  const eventCollection = db.collection("Events");
 
   //Displays home page
   app.get("/", (req, res) => {
@@ -176,6 +177,16 @@ module.exports = function(app, db) {
         } else {
           res.render("workshop", {
             workshopResults: workshopResults
+          });
+        }
+      });
+    } else if (nameOfFile == "events") {
+      eventCollection.find({}).toArray(function(err, eventResults) {
+        if (err) {
+          res.send({ error: " Error is " + err });
+        } else {
+          res.render("events", {
+            eventResults: eventResults
           });
         }
       });
@@ -467,7 +478,6 @@ module.exports = function(app, db) {
       if (err) {
         res.send({ error: " Error is " + err });
       } else {
-        console.log("469");
         res.render("error");
       }
     });

@@ -5,7 +5,7 @@
       <script type="text/javascript" src="instascan.js"></script>
       <title>Check-In</title>
    </head>
-   <body>
+   <body class = "darkMode">
       <% include reusableComponents/navbar.ejs %>
          <a class="navbar-brand" href="/">Check-In</a>
          <% include reusableComponents/navButton.html %>
@@ -13,6 +13,7 @@
             <ul class="navbar-nav mr-auto">
                <li class="nav-item"><a class="nav-link" href="/Element/attendeeInfo"> Attendee Info</a></li>
                <% include reusableComponents/dropDownMenu.html %>
+               <li class="nav-item"><a class="nav-link" href="/Element/events">Events</a></li>
                <li class="nav-item"><a class="nav-link" href="/Element/history">History</a></li>
                <li class="nav-item"><a class="nav-link" href="/Element/housePoints">House Points</a></li>
                <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>

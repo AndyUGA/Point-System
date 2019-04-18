@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <% include reusableComponents/css.html %>
+      <title>Events </title>
+   </head>
+   <body>
+      <% include reusableComponents/navbar.ejs %>
+         <a class="navbar-brand" href="/Element/events">Events</a>
+         <% include reusableComponents/navButton.html %>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item"><a class="nav-link" href="/">Check-In </a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/attendeeInfo">Attendee Info</a></li>
+               <% include reusableComponents/dropDownMenu.html %>
+               <li class="nav-item"><a class="nav-link" href="/Element/housePoints">House Points</a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/history">History</a></li>
+            </ul>
+         </div>
+      </nav>
+      <div class="table-responsive">
+         <table class="table table-bordered table-hover text-center ">
+            <thead>
+               <tr>
+                  <th scope="col">Events</th>
+               </tr>
+            </thead>
+            <br>
+            <div class="search-container">
+            </div>
+            <br>
+            <% for(var i=0; i < eventResults.length; i++) { %>
+            <tbody>
+               <tr>
+                  <td class="align-middle">
+                     <%= eventResults[i].Name %>
+                  </td>
+               </tr>
+               <% } %>
+            </tbody>
+         </table>
+      </div>
+   </body>
+</html>

@@ -1,6 +1,17 @@
 * {
   font-family: Helvetica-light;
+  /*
+  background-color: #262626;
+  color: white;
+  */
 }
+
+/*
+.darkMode {
+  background-color: #262626;
+  color: white;
+}
+*/
 
 img {
   width: 50%;
