@@ -1,15 +1,16 @@
 
 # Gamification System
+The gamification system for UVSASE Element leadership conference
 
 ![Image](https://github.com/AndyUGA/Element/blob/master/public/images/uvsase2.png)
 
-The gamification system for UVSASE Element leadership conference
+
 
 ------------------------------------------------------------------------------------------------------------------------------  
 Home             |  Admin
 :-------------------------:|:-------------------------:
 ![](https://github.com/AndyUGA/Element/blob/master/Screenshots/Home.png)  |  ![](https://github.com/AndyUGA/Element/blob/master/Screenshots/Admin.png)
-Points            
+Attendee Points            
 ![](https://github.com/AndyUGA/Element/blob/master/Screenshots/Points.png)
 ## Technologies utitilized in this project:
 - [Node.js](https://nodejs.org/en/) 
