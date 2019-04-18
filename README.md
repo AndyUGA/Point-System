@@ -24,11 +24,12 @@ Points
 ---------------------------------------------------------------------------------------------------------------------------
 ## Features
 - Check-in attendees with QR code scanner
-- Track individual points for registered attendee
-- View live scores for individuals and their team
+- View scores for individual attendees and their team
 - Modify points for individual attendees
-- View history for each point modification 
-- Filter attendees with search bar
+- View history for each point modification
+- Search for attendees using search bar
+- Filter attendees by team 
+- Dark Mode
 
 
 ---------------------------------------------------------------------------------------------------------------------------
