@@ -89,13 +89,14 @@
                  let workshopPoints = 50;
                  let matchFound = false;
                  let i = 0;
-                 <% for(i=0; i < result.length; i++) { %>
+                 <% for(i=0; i < 1; i++) { %>
 
 
-                   //console.log("Comparing <%= result[i].Name %> with " + data['Name'] )
+
+
 
                  //Compares name from QR code with names in database
-                 if ("<%= result[i].Name %>" == data['Name'] && matchFound != true) {
+                 if ("<%= result[i]._id %>" == data['id'] && matchFound != true) {
                    //console.log('result[i] is ' + <%= result[i].Points %>);
                    let totalPoints = <%= result[i].Points %> + 50;
 

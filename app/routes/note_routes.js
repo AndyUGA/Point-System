@@ -191,7 +191,6 @@ module.exports = function(app, db) {
         }
       });
     } else {
-      console.log("183");
       res.render("error");
     }
   });
@@ -210,7 +209,6 @@ module.exports = function(app, db) {
     if (searchContents == "attendeePoints") {
       memberCollection.aggregate([{ $match: { Name: query } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
         if (err) {
-          console.log("Error is " + err);
           res.send({ error: " Error is " + err });
         } else {
           res.render("attendeePoints", {
@@ -262,7 +260,6 @@ module.exports = function(app, db) {
           .sort({ Name: 1 })
           .toArray(function(err, memberResults) {
             if (err) {
-              console.log("Error is " + err);
               res.send({ error: " Error is " + err });
             } else {
               res.render("attendeeInfo", {
@@ -322,7 +319,6 @@ module.exports = function(app, db) {
 
           memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
             if (err) {
-              console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
               //console.log("Workshop status updated!");
@@ -377,7 +373,6 @@ module.exports = function(app, db) {
 
           memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
             if (err) {
-              console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
               res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
@@ -423,7 +418,6 @@ module.exports = function(app, db) {
 
           houseCollection.updateOne(houseID, houseContent, (err, item) => {
             if (err) {
-              console.log("Error is " + err);
               res.send({ "Error is ": +err });
             } else {
               res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
@@ -461,7 +455,6 @@ module.exports = function(app, db) {
 
     historyCollection.insertOne(attendeeContent, (err, item) => {
       if (err) {
-        console.log("Error is " + err);
         res.send({ "Error is ": +err });
       } else {
         if (redirect == "yesRedirect") {
