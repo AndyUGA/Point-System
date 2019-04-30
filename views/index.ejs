@@ -36,6 +36,8 @@
                   <a class="dropdown-item">Learning</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item">Leadership</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item">Keynote1</a>
                </div>
             </div>
             <video width="330" height="250" playsinline controls="true" id="preview"></video>
@@ -86,18 +88,22 @@
              scanner.addListener('scan', function(content) {
 
                  let data = JSON.parse(content);
-                 let workshopPoints = 50;
+
+
+
+
+                 let workshopPoints = 100;
                  let matchFound = false;
                  let i = 0;
                  <% for(i=0; i < result.length; i++) { %>
-                   console.log("93:  + <%=result[i]._id %> +  to " + data['id']);
+                   //console.log("93:  + <%=result[i]._id %> +  to " + data['id']);
                  //Compares name from QR code with names in database
                  if ("<%= result[i]._id %>" == data['id'] && matchFound != true) {
                    console.log('<%=result[i].Name%>');
                    let totalPoints = <%= result[i].Points %> + 50;
 
                      //Checks if selected workshop matches a workshop from the scanned attendee
-                     if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2'] || selectedWorkshop == data['Workshop3']) {
+                     if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2'] || selectedWorkshop == data['Workshop3'] || selectedWorkshop == "Keynote1") {
 
 
                        document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + " attendee and " + data['House'] + " team";
@@ -121,9 +127,13 @@
                                  //console.log("/workshop request has been sent!");
                              }
                          };
-                         //console.log("Sending " + "/Workshop/" + data['Name'] + "/" + selectedWorkshop)
-                         xhttp2.open("POST", "/Workshop/" + data['id'] + "/" + selectedWorkshop);
-                         xhttp2.send();
+                         if(selectedWorkshop != "Keynote1")
+                         {
+                           //console.log("Sending " + "/Workshop/" + data['Name'] + "/" + selectedWorkshop)
+                           xhttp2.open("POST", "/Workshop/" + data['id'] + "/" + selectedWorkshop);
+                           xhttp2.send();
+                         }
+
 
                          return;
 

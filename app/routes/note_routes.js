@@ -297,6 +297,7 @@ module.exports = function(app, db) {
       for (var i = 0; i < result.length; i++) {
         if (currentAttendeeID == result[i]._id) {
           const attendee = result[i];
+          const currentPoint = attendee.Points;
 
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
@@ -317,7 +318,6 @@ module.exports = function(app, db) {
               $set: { Workshop3IsActive: true }
             };
           }
-
           memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
             if (err) {
               res.send({ "Error is ": +err });
