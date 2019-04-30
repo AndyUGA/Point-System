@@ -477,14 +477,4 @@ module.exports = function(app, db) {
       }
     });
   });
-
-  app.get("*", (req, res) => {
-    memberCollection.find({}).toArray(function(err, result) {
-      if (err) {
-        res.send({ error: " Error is " + err });
-      } else {
-        res.render("error");
-      }
-    });
-  });
 };
