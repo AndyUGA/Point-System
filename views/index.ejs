@@ -89,15 +89,11 @@
                  let workshopPoints = 50;
                  let matchFound = false;
                  let i = 0;
-                 <% for(i=0; i < 1; i++) { %>
-
-
-
-
-
+                 <% for(i=0; i < result.length; i++) { %>
+                   console.log("93:  + <%=result[i]._id %> +  to " + data['id']);
                  //Compares name from QR code with names in database
                  if ("<%= result[i]._id %>" == data['id'] && matchFound != true) {
-                   //console.log('result[i] is ' + <%= result[i].Points %>);
+                   console.log('<%=result[i].Name%>');
                    let totalPoints = <%= result[i].Points %> + 50;
 
                      //Checks if selected workshop matches a workshop from the scanned attendee
@@ -116,7 +112,7 @@
                              }
                          };
 
-                         xhttp.open("POST", "/increasePoints/" + data['Name'] + "/" + workshopPoints + "/" + data['House'] + "/noRedirect", true);
+                         xhttp.open("POST", "/increasePoints/" + data['id'] + "/" + workshopPoints + "/" + data['House'] + "/noRedirect", true);
                          xhttp.send();
 
                          var xhttp2 = new XMLHttpRequest();
@@ -126,7 +122,7 @@
                              }
                          };
                          //console.log("Sending " + "/Workshop/" + data['Name'] + "/" + selectedWorkshop)
-                         xhttp2.open("POST", "/Workshop/" + data['Name'] + "/" + selectedWorkshop);
+                         xhttp2.open("POST", "/Workshop/" + data['id'] + "/" + selectedWorkshop);
                          xhttp2.send();
 
                          return;

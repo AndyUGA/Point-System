@@ -284,9 +284,9 @@ module.exports = function(app, db) {
   });
 
   //Update workshop status
-  app.post("/Workshop/:name/:workshopName", (req, res) => {
+  app.post("/Workshop/:id/:workshopName", (req, res) => {
     const workshopName = req.params.workshopName;
-    const attendeeName = req.params.name;
+    const currentAttendeeID = req.params.id;
     let attendeeContent;
 
     memberCollection.find({}).toArray(function(err, result) {
@@ -295,8 +295,9 @@ module.exports = function(app, db) {
       const LeadershipPoints = 50;
 
       for (var i = 0; i < result.length; i++) {
-        if (attendeeName == result[i].Name) {
+        if (currentAttendeeID == result[i]._id) {
           const attendee = result[i];
+
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
           if (workshopName == "Photography") {
@@ -321,34 +322,35 @@ module.exports = function(app, db) {
             if (err) {
               res.send({ "Error is ": +err });
             } else {
-              //console.log("Workshop status updated!");
+              console.log("Workshop status updated!");
             }
           });
+          break;
         }
       }
     });
   });
 
   //Update score for attendee
-  app.post("/increasePoints/:name/:points/:house/:redirect", (req, res) => {
-    let pointsToAdd = 0;
+  app.post("/increasePoints/:id/:points/:house/:redirect", (req, res) => {
+    const redirect = req.params.redirect;
+    const currentAttendeeID = req.params.id;
+    const attendeeHouse = req.params.house;
+    let operation = req.body.operation;
 
+    let pointsToAdd = 0;
     if (req.body.points == undefined) {
       pointsToAdd = parseInt(req.params.points);
     } else {
       pointsToAdd = parseInt(req.body.points);
     }
-    console.log("Points to add is " + pointsToAdd);
-    const redirect = req.params.redirect;
-    const attendeeName = req.params.name;
-    const attendeeHouse = req.params.house;
-    let operation = req.body.operation;
 
     memberCollection.find({}).toArray(function(err, result) {
       for (var i = 0; i < result.length; i++) {
-        if (attendeeName == result[i].Name) {
+        if (currentAttendeeID == result[i]._id) {
           const attendee = result[i];
           const currentPoints = parseInt(attendee.Points);
+          const attendeeName = attendee.Name;
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
           let calculatedPoints = 0;
@@ -462,6 +464,16 @@ module.exports = function(app, db) {
         } else {
           //console.log("Action has been recorded to history page");
         }
+      }
+    });
+  });
+
+  app.get("*", (req, res) => {
+    memberCollection.find({}).toArray(function(err, result) {
+      if (err) {
+        res.send({ error: " Error is " + err });
+      } else {
+        res.render("error");
       }
     });
   });
