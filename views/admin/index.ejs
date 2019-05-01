@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <% include reusableComponents/css.html %>
+      <% include ../reusableComponents/css.html %>
       <script type="text/javascript" src="instascan.js"></script>
       <title>Check-In</title>
    </head>
    <body class = "darkMode">
-      <% include reusableComponents/navbar.ejs %>
+      <% include ../reusableComponents/navbar.ejs %>
          <a class="navbar-brand" href="/">Check-In</a>
-         <% include reusableComponents/navButton.html %>
+         <% include ../reusableComponents/navButton.html %>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-               <li class="nav-item"><a class="nav-link" href="/Element/attendeeInfo"> Attendee Info</a></li>
-               <% include reusableComponents/dropDownMenu.html %>
+
+               <% include ../reusableComponents/dropDownMenu.html %>
                <li class="nav-item"><a class="nav-link" href="/Element/events">Events</a></li>
-               <li class="nav-item"><a class="nav-link" href="/Element/history">History</a></li>
+
                <li class="nav-item"><a class="nav-link" href="/Element/housePoints">House Points</a></li>
                <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
             </ul>

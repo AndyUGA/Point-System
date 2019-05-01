@@ -14,9 +14,70 @@ module.exports = function(app, db) {
       if (err) {
         res.send({ error: " Error is " + err });
       } else {
-        res.render("index", { result: result });
+        res.render("AdminPanel", { result: result });
       }
     });
+  });
+
+  function authentication(req, res, next) {
+    let password = req.body.password;
+    let pass = false;
+    console.log("Password is " + password);
+    if (password == "secret") {
+      pass = true;
+    }
+    var isValid = pass; //your validation function
+    if (isValid) {
+      next(); // valid password username combination
+    } else {
+      res.render("error"); //Unauthorized
+    }
+  }
+
+  app.post("/checkin", authentication, (req, res) => {
+    memberCollection.find({}).toArray(function(err, result) {
+      if (err) {
+        res.send({ error: " Error is " + err });
+      } else {
+        res.render("admin/index", { result: result });
+      }
+    });
+  });
+
+  app.post("/attendeeInfo", authentication, (req, res) => {
+    let searchContents = req.params.searchContents;
+
+    houseCollection.find({}).toArray(function(err, houseResults) {
+      memberCollection
+        .find({})
+        .sort({ Name: 1 })
+        .toArray(function(err, memberResults) {
+          if (err) {
+            res.send({ error: " Error is " + err });
+          } else {
+            res.render("admin/attendeeInfo", {
+              houseResults: houseResults,
+              memberResults: memberResults
+            });
+          }
+        });
+    });
+  });
+
+  app.post("/history", authentication, (req, res) => {
+    let searchContents = req.params.searchContents;
+    historyCollection
+      .find({})
+      .sort({ _id: -1 })
+      .toArray(function(err, historyResults) {
+        if (err) {
+          res.send({ error: " Error is " + err });
+        } else {
+          res.render("admin/history", {
+            historyResults: historyResults
+          });
+        }
+      });
   });
 
   //Displays page based on parameter
@@ -274,11 +335,13 @@ module.exports = function(app, db) {
       const name = req.body.tempName;
       const points = req.body.points;
       const house = req.body.house;
+      const id = req.body.id;
 
       res.render("forms/modifyValuesForm", {
         name: name,
         points: points,
-        house: house
+        house: house,
+        id: id
       });
     }
   });

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <% include ../reusableComponents/css.html %>
+      <title>History</title>
+   </head>
+   <body>
+    <% include ../reusableComponents/navbar.ejs %>
+         <a class="navbar-brand" href="/Element/history"> History</a>
+         <% include ../reusableComponents/navButton.html %>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item"><a class="nav-link" href="/Element/attendeeInfo"> Attendee Info</a></li>
+               <% include ../reusableComponents/dropDownMenu.html %>
+               <li class="nav-item"><a class="nav-link" href="/">Check-In </a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/events">Events</a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/housePoints">House Points</a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
+            </ul>
+         </div>
+      </nav>
+      <div class="table-responsive">
+         <table class="table table-bordered table-hover text-center">
+            <thead>
+               <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Points</th>
+                  <th scope="col"> House </th>
+                  <th scope="col"> Time / Date </th>
+               </tr>
+            </thead>
+            <tbody>
+               <% for(var i=0; i < historyResults.length; i++) { %>
+               <tr>
+                  <td>
+                     <%= historyResults[i].Name %>
+                  </td>
+                  <td>
+                     <%= historyResults[i].Points %>
+                  </td>
+                  <td>
+                     <%= historyResults[i].House %>
+                  </td>
+                  <td>
+                     <%= historyResults[i].timeRecorded %>%>
+                  </td>
+               </tr>
+               <% } %>
+            </tbody>
+         </table>
+      </div>
+   </body>
+</html>
