@@ -413,7 +413,7 @@ module.exports = function(app, db) {
         if (currentAttendeeID == result[i]._id) {
           const attendee = result[i];
           const currentPoints = parseInt(attendee.Points);
-          const attendeeName = attendee.Name;
+          const attendeeName = attendee.FirstName + " " + attendee.LastName;
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
           let calculatedPoints = 0;

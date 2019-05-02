@@ -20,35 +20,49 @@
          </div>
       </nav>
 
-    <form action = "/checkin" class="container form-horizontal " method="post">
-        <div class="form-group">
-          <label>Check-In</label>
-          <input type="text" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
 
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-      <br>
-
-      <form action = "/attendeeInfo" class="container form-horizontal " method="post">
-          <div class="form-group">
-            <label>Attendee Info</label>
-            <input type="text" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
-
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-
+      <div class="card" style="width: 18rem;">
+  <form action = "/checkin" class="text-center container form-horizontal " method="post">
+      <div class="form-group">
         <br>
+        <i class="fas fa-qrcode fa-4x"></i>
+        <br>
+        <label>Check-In</label>
+        <input type="password" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+        <br>
+        <button type="submit" class=" btn btn-primary">Submit</button>
+      </div>
+    </form>
+</div>
 
-        <form action = "/history" class="container form-horizontal " method="post">
-            <div class="form-group">
-              <label> History </label>
-              <input type="text" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
 
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+<div class="card" style="width: 18rem;">
+<form action = "/attendeeInfo" class="text-center container form-horizontal " method="post">
+<div class="form-group">
+  <br>
+  <i class="fas fa-user-friends fa-4x"></i>
+  <br>
+<label>Attendee Info</label>
+  <input type="password" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+  <br>
+  <button type="submit" class=" btn btn-primary">Submit</button>
+</div>
+</form>
+</div>
+
+<div class="card" style="width: 18rem;">
+<form action = "/history" class="text-center container form-horizontal " method="post">
+<div class="form-group">
+  <br>
+<i class="fas fa-history fa-4x"></i>
+  <br>
+<label>History</label>
+  <input type="password" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+  <br>
+  <button type="submit" class=" btn btn-primary">Submit</button>
+</div>
+</form>
+</div>
 
 
 
