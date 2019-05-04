@@ -50,7 +50,7 @@ module.exports = function(app, db) {
     houseCollection.find({}).toArray(function(err, houseResults) {
       memberCollection
         .find({})
-        .sort({ Name: 1 })
+        .sort({ Points: -1 })
         .toArray(function(err, memberResults) {
           if (err) {
             res.send({ error: " Error is " + err });
