@@ -102,36 +102,6 @@ module.exports = function(app, db) {
           }
         });
       //Will display attendee info page
-    } else if (nameOfFile == "attendeeInfo") {
-      houseCollection.find({}).toArray(function(err, houseResults) {
-        memberCollection
-          .find({})
-          .sort({ Name: 1 })
-          .toArray(function(err, memberResults) {
-            if (err) {
-              res.send({ error: " Error is " + err });
-            } else {
-              res.render("attendeeInfo", {
-                houseResults: houseResults,
-                memberResults: memberResults
-              });
-            }
-          });
-      });
-      //Will display history page
-    } else if (nameOfFile == "history") {
-      historyCollection
-        .find({})
-        .sort({ _id: -1 })
-        .toArray(function(err, historyResults) {
-          if (err) {
-            res.send({ error: " Error is " + err });
-          } else {
-            res.render("history", {
-              historyResults: historyResults
-            });
-          }
-        });
     }
     //Will display all members by descending amount of points
     else if (nameOfFile == "housePoints") {

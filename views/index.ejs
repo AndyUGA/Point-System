@@ -96,7 +96,7 @@
                  let matchFound = false;
                  let i = 0;
                  <% for(i=0; i < result.length; i++) { %>
-                   //console.log("93:  + <%=result[i]._id %> +  to " + data['id']);
+                   console.log("93:  + <%=result[i]._id %> +  to " + data['id']);
                  //Compares name from QR code with names in database
                  if ("<%= result[i]._id %>" == data['id'] && matchFound != true) {
                    console.log('<%=result[i].Name%>');
