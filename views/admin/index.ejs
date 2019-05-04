@@ -42,19 +42,22 @@
             </div>
             <video width="330" height="250" playsinline controls="true" id="preview"></video>
          </div>
+         <div class="d-flex justify-content-center text-center">
+            <p id="check"> </p>
+         </div>
+       <div class="d-flex justify-content-center text-center">
+          <p id="score"> </p>
+       </div>
+       <div class="d-flex justify-content-center text-center">
+          <p id="name"> </p>
+       </div>
 
       </div>
 
 
-      <div class="d-flex justify-content-center text-center">
-         <p id="check"> </p>
-      </div>
-    <div class="d-flex justify-content-center text-center">
-       <p id="score"> </p>
-    </div>
-    <div class="d-flex justify-content-center text-center">
-       <p id="name"> </p>
-    </div>
+
+
+
 
 
 
@@ -84,19 +87,20 @@
              });
              scanner.addListener('scan', function(content) {
 
+                console.log("Selected workshop is " + selectedWorkshop);
                  let data = JSON.parse(content);
 
 
 
 
                  let workshopPoints = 50;
-                 let matchFound = false;
+
                  let i = 0;
                  <% for(i=0; i < result.length; i++) { %>
                  //console.log("93:  + <%=result[i]._id %> +  to " + data['id']);
                  //Compares name from QR code with names in database
-                 if ("<%= result[i]._id %>" == data['id'] && matchFound != true) {
-                   console.log('<%=result[i].Name%>');
+                 if ("<%= result[i]._id %>" == data['id']) {
+
                    let totalPoints = <%= result[i].Points %> + 50;
 
                      //Checks if selected workshop matches a workshop from the scanned attendee
@@ -106,6 +110,7 @@
                        document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + data['FirstName'] + " " + data['LastName'] + " & " + data['House'];
                        document.getElementById("name").innerHTML = data['FirstName'] + " " + data['LastName'] + " has " + totalPoints + " Points";
                        document.getElementById("check").innerHTML = "Checked into " + selectedWorkshop + " workshop ✔️";
+
 
 
                          var xhttp = new XMLHttpRequest();
@@ -135,6 +140,11 @@
                          return;
 
                      }
+                     else if(selectedWorkshop == undefined)
+                     {
+                       document.getElementById("check").innerHTML = "You did not select a workhop";
+                     }
+
                  }
                  <% } %>
 
