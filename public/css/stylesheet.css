@@ -13,6 +13,10 @@
 }
 */
 
+p {
+  color: black;
+}
+
 img {
   width: 50%;
   display: block;

@@ -120,6 +120,24 @@ module.exports = function(app, db) {
             }
           });
       });
+    } else if (nameOfFile == "attendeeInfo") {
+      let searchContents = req.params.searchContents;
+
+      houseCollection.find({}).toArray(function(err, houseResults) {
+        memberCollection
+          .find({})
+          .sort({ Points: -1 })
+          .toArray(function(err, memberResults) {
+            if (err) {
+              res.send({ error: " Error is " + err });
+            } else {
+              res.render("admin/attendeeInfo", {
+                houseResults: houseResults,
+                memberResults: memberResults
+              });
+            }
+          });
+      });
     }
     //Will display page filtered by Gryffindor house
     else if (nameOfFile == "attendeePointsGryffindor") {
