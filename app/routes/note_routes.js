@@ -256,56 +256,37 @@ module.exports = function(app, db) {
 
     //Display search results for attendee points page
     if (searchContents == "attendeePoints") {
-      memberCollection
-        .aggregate([{ $match: { Name: query } }, { $sort: { Points: -1 } }])
-        .toArray(function(err, memberResults) {
-          if (err) {
-            res.send({ error: " Error is " + err });
-          } else {
-            res.render("attendeePoints", {
-              memberResults: memberResults,
-              searchType: "attendeePoints",
-              filterType: "All Houses"
-            });
-          }
-        });
+      memberCollection.aggregate([{ $match: { Name: query } }, { $sort: { Points: -1 } }]).toArray(function(err, memberResults) {
+        if (err) {
+          res.send({ error: " Error is " + err });
+        } else {
+          res.render("attendeePoints", {
+            memberResults: memberResults,
+            searchType: "attendeePoints",
+            filterType: "All Houses"
+          });
+        }
+      });
       //Display search results for attendee info page
-    } else if (
-      searchContents == "attendeePointsG" ||
-      searchContents == "attendeePointsR" ||
-      searchContents == "attendeePointsS" ||
-      searchContents == "attendeePointsH"
-    ) {
+    } else if (searchContents == "attendeePointsG" || searchContents == "attendeePointsR" || searchContents == "attendeePointsS" || searchContents == "attendeePointsH") {
       let memberContents;
       let searchType;
       let filterType;
       //Will filter by house depending on what page user is on
       if (searchContents == "attendeePointsG") {
-        memberContents = memberCollection.aggregate([
-          { $match: { Name: query, House: "Gryffindor" } },
-          { $sort: { Points: -1 } }
-        ]);
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Gryffindor" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsG";
         filterType = "Gryffindor";
       } else if (searchContents == "attendeePointsR") {
-        memberContents = memberCollection.aggregate([
-          { $match: { Name: query, House: "Ravenclaw" } },
-          { $sort: { Points: -1 } }
-        ]);
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Ravenclaw" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsR";
         filterType = "Ravenclaw";
       } else if (searchContents == "attendeePointsH") {
-        memberContents = memberCollection.aggregate([
-          { $match: { Name: query, House: "Hufflepuff" } },
-          { $sort: { Points: -1 } }
-        ]);
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Hufflepuff" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsH";
         filterType = "Hufflepuff";
       } else if (searchContents == "attendeePointsS") {
-        memberContents = memberCollection.aggregate([
-          { $match: { Name: query, House: "Slytherin" } },
-          { $sort: { Points: -1 } }
-        ]);
+        memberContents = memberCollection.aggregate([{ $match: { Name: query, House: "Slytherin" } }, { $sort: { Points: -1 } }]);
         searchType = "attendeePointsS";
         filterType = "Slytherin";
       }
@@ -353,17 +334,14 @@ module.exports = function(app, db) {
     }
   });
 
-  //Update workshop status
+  //Update workshop status from false to true
   app.post("/Workshop/:id/:workshopName", (req, res) => {
     const workshopName = req.params.workshopName;
     const currentAttendeeID = req.params.id;
     let attendeeContent;
+    console.log("361: Workshop name is " + workshopName);
 
     memberCollection.find({}).toArray(function(err, result) {
-      const PhotographyPoints = 50;
-      const LearnignPoints = 50;
-      const LeadershipPoints = 50;
-
       for (var i = 0; i < result.length; i++) {
         if (currentAttendeeID == result[i]._id) {
           const attendee = result[i];
@@ -371,34 +349,30 @@ module.exports = function(app, db) {
 
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
-          if (workshopName == "Personal Growth & Self-Improvement") {
+          if (workshopName == "Definition of Branding, Effective Branding Practices, Personal vs. Professional Branding") {
             attendeeContent = {
               $set: {
                 Workshop1IsActive: true
               }
             };
-          } else if (workshopName == "Record Family Stories. Why and How") {
+          } else if (workshopName == "Breaking the Bamboo Ceiling: Public Speaking & Social Etiquette 101") {
             attendeeContent = {
               $set: {
                 Workshop2IsActive: true
               }
             };
-          } else if (workshopName == "Dating Violence: Let's Talk About It") {
+          } else if (workshopName == "Career Building 101") {
             attendeeContent = {
               $set: { Workshop3IsActive: true }
             };
           }
-          memberCollection.updateOne(
-            attendeeID,
-            attendeeContent,
-            (err, item) => {
-              if (err) {
-                res.send({ "Error is ": +err });
-              } else {
-                console.log("Workshop status updated!");
-              }
+          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
+            if (err) {
+              res.send({ "Error is ": +err });
+            } else {
+              console.log("Workshop status updated!");
             }
-          );
+          });
           break;
         }
       }
@@ -447,28 +421,13 @@ module.exports = function(app, db) {
           console.log("Adding " + pointsToAdd + " points");
           console.log("Total points should be " + calculatedPoints);
 
-          memberCollection.updateOne(
-            attendeeID,
-            attendeeContent,
-            (err, item) => {
-              if (err) {
-                res.send({ "Error is ": +err });
-              } else {
-                res.redirect(
-                  "/increaseHousePoints/" +
-                    attendeeName +
-                    "/" +
-                    attendeeHouse +
-                    "/" +
-                    pointsToAdd +
-                    "/" +
-                    redirect +
-                    "/" +
-                    operation
-                );
-              }
+          memberCollection.updateOne(attendeeID, attendeeContent, (err, item) => {
+            if (err) {
+              res.send({ "Error is ": +err });
+            } else {
+              res.redirect("/increaseHousePoints/" + attendeeName + "/" + attendeeHouse + "/" + pointsToAdd + "/" + redirect + "/" + operation);
             }
-          );
+          });
           break;
         }
       }
@@ -476,67 +435,51 @@ module.exports = function(app, db) {
   });
 
   //Update score for attendee house
-  app.get(
-    "/increaseHousePoints/:name/:house/:pointsToAdd/:redirect/:operation",
-    (req, res) => {
-      const houseName = req.params.house;
-      const name = req.params.name;
-      const pointsToAdd = req.params.pointsToAdd;
-      const redirect = req.params.redirect;
-      let operation = req.params.operation;
+  app.get("/increaseHousePoints/:name/:house/:pointsToAdd/:redirect/:operation", (req, res) => {
+    const houseName = req.params.house;
+    const name = req.params.name;
+    const pointsToAdd = req.params.pointsToAdd;
+    const redirect = req.params.redirect;
+    let operation = req.params.operation;
 
-      houseCollection.find({}).toArray(function(err, result) {
-        for (var i = 0; i < result.length; i++) {
-          const houseInfo = result[i];
-          if (houseName == houseInfo.Name) {
-            const houseID = { _id: new ObjectID(houseInfo._id) };
+    houseCollection.find({}).toArray(function(err, result) {
+      for (var i = 0; i < result.length; i++) {
+        const houseInfo = result[i];
+        if (houseName == houseInfo.Name) {
+          const houseID = { _id: new ObjectID(houseInfo._id) };
 
-            const currentHousePoints = houseInfo.Points;
+          const currentHousePoints = houseInfo.Points;
 
-            let totalHousePoints = 0;
+          let totalHousePoints = 0;
 
-            if (operation == "subtract") {
-              totalHousePoints =
-                parseInt(currentHousePoints) - parseInt(pointsToAdd);
-            } else {
-              operation = "add";
-              totalHousePoints =
-                parseInt(currentHousePoints) + parseInt(pointsToAdd);
-            }
-
-            const houseContent = {
-              $set: {
-                Name: houseInfo.Name,
-                Points: totalHousePoints
-              }
-            };
-
-            houseCollection.updateOne(houseID, houseContent, (err, item) => {
-              if (err) {
-                res.send({ "Error is ": +err });
-              } else {
-                res.redirect(
-                  "/record/" +
-                    name +
-                    "/" +
-                    pointsToAdd +
-                    "/" +
-                    houseName +
-                    "/" +
-                    redirect +
-                    "/" +
-                    operation
-                );
-              }
-            });
-
-            //Break out of loop if a match is found
-            break;
+          if (operation == "subtract") {
+            totalHousePoints = parseInt(currentHousePoints) - parseInt(pointsToAdd);
+          } else {
+            operation = "add";
+            totalHousePoints = parseInt(currentHousePoints) + parseInt(pointsToAdd);
           }
+
+          const houseContent = {
+            $set: {
+              Name: houseInfo.Name,
+              Points: totalHousePoints
+            }
+          };
+
+          houseCollection.updateOne(houseID, houseContent, (err, item) => {
+            if (err) {
+              res.send({ "Error is ": +err });
+            } else {
+              res.redirect("/record/" + name + "/" + pointsToAdd + "/" + houseName + "/" + redirect + "/" + operation);
+            }
+          });
+
+          //Break out of loop if a match is found
+          break;
         }
-      });
-    }
-  );
+      }
+    });
+  });
 
   //Record point modifications on history page
   app.get("/record/:name/:points/:house/:redirect/:operation", (req, res) => {

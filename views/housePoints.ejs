@@ -21,23 +21,34 @@
       <br><br>
       <div class="container h-100">
          <div class="column h-100 flex-column justify-content-center align-items-center">
-
            <% for(var i=0; i < houseResults.length; i++) { %>
 
                 <%if (houseResults[i].Name == "Gryffindor") { %>
                   <div class="card shadow p-3 bg-dark3 rounded gryffindorBorder" style="width: 80%;">
+                    <div class = "text-left">
+                      <%= i + 1%>
+                    </div>
                <img class = "img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/b/b1/Gryffindor_ClearBG.png/revision/latest/scale-to-width-down/350?cb=20190222162949" alt="Card image cap">
                <% } %>
                <%if (houseResults[i].Name == "Ravenclaw") { %>
                  <div class="card shadow p-3 bg-dark3 rounded ravenclawBorder" style="width: 80%;">
+                   <div class = "text-left">
+                    <%= i + 1%>
+                   </div>
               <img class = " img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/4/4e/RavenclawCrest.png/revision/latest/scale-to-width-down/700?cb=20161020182442" alt="Card image cap">
               <% } %>
               <%if (houseResults[i].Name == "Hufflepuff") { %>
                 <div class="card shadow p-3 bg-dark3 rounded hufflepuffBorder" style="width: 80%;">
+                  <div class = "text-left">
+                  <%= i + 1%>
+                  </div>
              <img class = " img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/0/06/Hufflepuff_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182518" alt="Card image cap">
              <% } %>
              <%if (houseResults[i].Name == "Slytherin") { %>
                <div class="card shadow p-3 bg-dark3 rounded slytherinBorder" style="width: 80%;">
+                 <div class = "text-left">
+                  <%= i + 1%>
+                 </div>
             <img class = " img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/0/00/Slytherin_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182557" alt="Card image cap">
             <% } %>
 

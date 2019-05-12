@@ -26,12 +26,13 @@
             <img class="cardIMG" src="images/uvsase_main_logomark.png" alt="Card image cap">
             <br><br>
             <div class="dropdown">
-               <button id = "workshopButton" class="btn btn-secondary dropdown-toggle"  data-display="static" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <button id = "workshopButton" class="btn btn-secondary dropdown-toggle"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                Select Workshop
                </button>
                <br><br>
                <div id = "workShopMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item"> Personal Growth & Self-Improvement</a>
+                 <!--
+                  <a class="dropdown-item">Personal Growth & Self-Improvement</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item">Record Family Stories. Why and How</a>
                   <div class="dropdown-divider"></div>
@@ -42,6 +43,33 @@
                   <a class="dropdown-item">SEED Dance Workshop</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item">Chasing Wanderlust: International Travel 101</a>
+                -->
+
+                <!--
+                <a class="dropdown-item">Journey to a Successful Career Path</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">Anticipating the Unexpected</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">Preparation for the Workforce</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">Definition of Branding, Effective Branding Practices, Personal vs. Professional Branding</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">Breaking the Bamboo Ceiling: Public <br> Speaking & Social Etiquette 101</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">Career Building 101</a>
+                <div class="dropdown-divider"></div>
+              -->
+              <a class="dropdown-item">The Modern Day Icarus: Curving the Burnout Epidemic</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">SEAA/Vietnamese History and Advocacy</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Oh you FANcy, huh?!</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Understanding Your Finances</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Navigating a Career & Fulfillment</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Asian Americans & Sex</a>
                </div>
             </div>
             <video width="330" height="250" playsinline controls="true" id="preview"></video>
@@ -65,22 +93,14 @@
       </div>
 
 
-
-
-
-
-
-
-
-
-
       <script type="text/javascript">
          var selectedWorkshop;
          $("#workShopMenu a").click(function(e){
            e.preventDefault();
 
            //Stores selected workshop text into selectedWorkshop variable
-            selectedWorkshop = $(this).text();
+            selectedWorkshop = $(this).text().trim();
+
            //Sets button text to selected workshop
            $("#workshopButton").text(selectedWorkshop);
          });
@@ -97,8 +117,9 @@
              });
              scanner.addListener('scan', function(content) {
 
-                console.log("Selected workshop is " + selectedWorkshop);
+                console.log("115:" + selectedWorkshop.trim());
                  let data = JSON.parse(content);
+                 console.log("117:" + data['Workshop1']);
 
 
 
@@ -136,7 +157,7 @@
                          var xhttp2 = new XMLHttpRequest();
                          xhttp2.onreadystatechange = function() {
                              if (this.readyState == 4 && this.status == 200) {
-                                 //console.log("/workshop request has been sent!");
+                                 console.log("/workshop request has been sent!");
                              }
                          };
                          if(selectedWorkshop != "Keynote1")
