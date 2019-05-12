@@ -24,7 +24,7 @@ Attendee Points
 
 ---------------------------------------------------------------------------------------------------------------------------
 ## Features
-- Check-in attendees with QR code scanner
+- Check-in attendees with QR code scanner.
 - View scores for individual attendees and their team
 - Modify points for individual attendees
 - View history for each point modification
