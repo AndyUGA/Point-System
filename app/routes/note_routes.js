@@ -349,19 +349,19 @@ module.exports = function(app, db) {
 
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
-          if (workshopName == "Definition of Branding, Effective Branding Practices, Personal vs. Professional Branding") {
+          if (workshopName == "Dating Violence: Let's Talk About It. - Maiquynh Ngo") {
             attendeeContent = {
               $set: {
                 Workshop1IsActive: true
               }
             };
-          } else if (workshopName == "Breaking the Bamboo Ceiling: Public Speaking & Social Etiquette 101") {
+          } else if (workshopName == "Career Building 101 - Christopher Hew") {
             attendeeContent = {
               $set: {
                 Workshop2IsActive: true
               }
             };
-          } else if (workshopName == "Career Building 101") {
+          } else if (workshopName == "Navigating a Career & Fulfillment - Thoa Kim Nguyen") {
             attendeeContent = {
               $set: { Workshop3IsActive: true }
             };
