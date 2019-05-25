@@ -35,4 +35,4 @@ Attendee Points
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-UVSASE Gamification System - [Live Preview](https://vivacious-trigonometry.glitch.me)
+[Live Demo](https://admin.uvsase.org)
