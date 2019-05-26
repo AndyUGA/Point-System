@@ -339,6 +339,34 @@ module.exports = function(app, db) {
     const workshopName = req.params.workshopName;
     const currentAttendeeID = req.params.id;
     let attendeeContent;
+
+    const workshopDayOne = [
+      "Success: Habits to Have It (and then some!) - Sarah Tran",
+      "Record Family Stories. Why and How. - Jimmy Patel-Nguyen",
+      "Dating Violence: Let's Talk About It. - Maiquynh Ngo",
+      "Business management, Photography, Marketing, Self-confidence, Motivation - Jason Cun",
+      "SEED Dance Workshop - Nikolas Tioseco",
+      "Chasing Wanderlust: International Travel 101 - Calvin Sun"
+    ];
+
+    const workshopDayTwo = [
+      "Journey to a Successful Career Path - Hanh Crose/Nguyen",
+      "Anticipating the Unexpected - Phuc Hong Phan",
+      "Preparation for the Workforce - Sue Ann",
+      "Definition of Branding, Effective Branding Practices, Personal vs. Professional Branding - Thoa Kim",
+      "Breaking the Bamboo Ceiling: Public Speaking & Social Etiquette 101 - Calvin Sun",
+      "Career Building 101 - Christopher Hew"
+    ];
+
+    const workshopDayThree = [
+      "The Modern Day Icarus: Curving the Burnout Epidemic - Christian Sy",
+      "SEAA/Vietnamese History and Advocacy - Pele Le",
+      "Oh you FANcy, huh?! - Jenny Nguyen",
+      "Understanding Your Finances - Phuc Hong Phan",
+      "Navigating a Career & Fulfillment - Thoa Kim",
+      "Asian Americans & Sex - Calvin Sun"
+    ];
+
     console.log("361: Workshop name is " + workshopName);
 
     memberCollection.find({}).toArray(function(err, result) {
