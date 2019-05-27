@@ -13,8 +13,8 @@
             <ul class="navbar-nav mr-auto">
 
                <% include ../reusableComponents/dropDownMenu.html %>
+               <li class="nav-item"><a class="nav-link" href="/">Admin Panel</a></li>
                <li class="nav-item"><a class="nav-link" href="/Element/events">Events</a></li>
-
                <li class="nav-item"><a class="nav-link" href="/Element/housePoints">House Points</a></li>
                <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
             </ul>
@@ -27,7 +27,7 @@
             <br><br>
             <div class="dropdown">
                <button id = "workshopButton" class="btn btn-secondary dropdown-toggle"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               Select Workshop
+               Select Event
                </button>
                <br><br>
                <div id = "workShopMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -70,6 +70,29 @@
               <a class="dropdown-item">SEED Dance Workshop - Nikolas Tioseco</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item">Success: Habits to Have It (and then some!) - Sarah Tran</a>
+
+              <!-- Check in for various conference events -->
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Opening Ceremony</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Leadership Breakout</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Regional Showcase</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Social</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Career Breakout</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Keynote</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Resource Fair</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Gala</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Testimonial</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">Photobooth</a>
+
                </div>
             </div>
             <video width="330" height="250" playsinline controls="true" id="preview"></video>
@@ -123,8 +146,24 @@
 
 
 
-                 //By default, add 50 points to attendee
-                 let workshopPoints = 50;
+                 //By default, add 40 points to attendee
+                 let workshopPoints = 40;
+
+                 if (selectedWorkshop == "Opening Ceremony" || selectedWorkshop == "Keynote") {
+                   let workshopPoints = 50;
+                 }
+
+                 if (selectedWorkshop == "Gala") {
+                   let workshopPoints = 30;
+                 }
+
+                 if (selectedWorkshop == "Regional Showcase" || selectedWorkshop == "Social") {
+                   let workshopPoints = 25;
+                 }
+
+                 if (selectedWorkshop == "Resource Fair" || selectedWorkshop == "Testimonial" || selectedWorkshop == "Photobooth") {
+                   let workshopPoints = 10;
+                 }
 
                  let i = 0;
                  <% for(i=0; i < result.length; i++) { %>
@@ -132,7 +171,7 @@
                  //Compares name from QR code with names in database
                  if ("<%= result[i]._id %>" == data['id']) {
 
-                   let totalPoints = <%= result[i].Points %> + 50;
+                   let totalPoints = <%= result[i].Points %> + workshopPoints;
 
                      //Checks if selected workshop matches a workshop from the scanned attendee
                      if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2'] || selectedWorkshop == data['Workshop3'] || selectedWorkshop == "Keynote1") {
@@ -140,7 +179,7 @@
 
                        document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + data['FirstName'] + " " + data['LastName'] + " & " + data['House'];
                        document.getElementById("name").innerHTML = data['FirstName'] + " " + data['LastName'] + " has " + totalPoints + " Points";
-                       document.getElementById("check").innerHTML = "Checked into " + selectedWorkshop + " workshop ✔️";
+                       document.getElementById("check").innerHTML = "Checked into " + selectedWorkshop + " ✔️";
 
 
 
