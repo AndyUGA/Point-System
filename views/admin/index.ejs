@@ -117,6 +117,7 @@
 
 
       <script type="text/javascript">
+         var eventCheckin = 0;
          var selectedWorkshop;
          $("#workShopMenu a").click(function(e){
            e.preventDefault();
@@ -174,7 +175,24 @@
                    let totalPoints = <%= result[i].Points %> + workshopPoints;
 
                      //Checks if selected workshop matches a workshop from the scanned attendee
-                     if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2'] || selectedWorkshop == data['Workshop3'] || selectedWorkshop == "Keynote1") {
+                     const conferenceEvents = [
+                       "Opening Ceremony",
+                       "Leadership Breakout",
+                       "Regional Showcase",
+                       "Social",
+                       "Career Breakout",
+                       "Keynote",
+                       "Resource Fair",
+                       "Gala",
+                       "Testimonial",
+                       "Photobooth"
+                     ];
+
+                     if (conferenceEvents.indexOf(selectedWorkshop) > -1) {
+                       eventCheckin = 1;
+                     }
+
+                     if (selectedWorkshop == data['Workshop1'] || selectedWorkshop == data['Workshop2'] || selectedWorkshop == data['Workshop3'] || eventCheckin == 1) {
 
 
                        document.getElementById("score").innerHTML = "Added " + workshopPoints + " points to " + data['FirstName'] + " " + data['LastName'] + " & " + data['House'];
