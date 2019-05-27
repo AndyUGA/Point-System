@@ -232,6 +232,9 @@
                      {
                        document.getElementById("check").innerHTML = "You did not select a workhop";
                      }
+                     else {
+                       document.getElementById("check").innerHTML = "<%=  result[i].Name %> is not registred for this workshop";
+                     }
 
                  }
                  <% } %>
