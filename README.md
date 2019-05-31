@@ -27,7 +27,7 @@ Attendee Points
 - Check-in attendees with QR code scanner
 - View scores for individual attendees and their team
 - Modify points for individual attendees
-- View history for each point modification
+- View history for all point modification
 - Search for attendees using search bar
 - Filter attendees by team 
 
