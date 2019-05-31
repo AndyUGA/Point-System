@@ -117,6 +117,7 @@
 
 
       <script type="text/javascript">
+         var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
          var eventCheckin = 0;
          var selectedWorkshop;
          $("#workShopMenu a").click(function(e){
@@ -240,6 +241,10 @@
 
              });
 
+             if (!iOS) {
+               Instascan.Camera.getCameras().then(function (cameras) { if (cameras.length > 0) { scanner.start(cameras[1]); } else { console.error('No cameras found.'); } }).catch(function (e) { console.error(e); });
+             } else {
+
              Instascan.Camera.getCameras().then(function(cameras) {
                  if (cameras.length > 0) {
                      scanner.start(cameras[0]);
@@ -249,6 +254,7 @@
              }).catch(function(e) {
                  console.error(e);
              });
+           }
       </script>
    </body>
 </html>
