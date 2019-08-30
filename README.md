@@ -33,4 +33,5 @@ The gamification system for UVSASE Element leadership conference
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-[Live Preview](https://admin.uvsase.org)
+[Admin View](https://admin.uvsase.org)
+[Attendee View](https://element.uvsase.org)
