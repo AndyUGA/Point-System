@@ -10,45 +10,35 @@
          <% include reusableComponents/navButton.html %>
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a class="nav-link" href="/">Admin Panel</a></li>
                <% include reusableComponents/dropDownMenu.html %>
-
-               <li class="nav-item"><a class="nav-link" href="/Element/events">Events</a></li>
-               <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
+               <li class="nav-item"><a class="nav-link" href="/Element/schedule">Point System</a></li>
             </ul>
+           
+           
          </div>
+     
       </nav>
+      <img class="cardIMG responsive" src="https://cdn.glitch.com/4ab41f1c-3d7c-47ae-90cb-c10df786a969%2Fuvsase_main_horizontallogo.png?1558989671821" alt="Card image cap">
       <br><br>
       <div class="container h-100">
          <div class="column h-100 flex-column justify-content-center align-items-center">
+
            <% for(var i=0; i < houseResults.length; i++) { %>
 
                 <%if (houseResults[i].Name == "Gryffindor") { %>
                   <div class="card shadow p-3 bg-dark3 rounded gryffindorBorder" style="width: 80%;">
-                    <div class = "text-left gryffindor">
-                      <%= i + 1%>
-                    </div>
                <img class = "img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/b/b1/Gryffindor_ClearBG.png/revision/latest/scale-to-width-down/350?cb=20190222162949" alt="Card image cap">
                <% } %>
                <%if (houseResults[i].Name == "Ravenclaw") { %>
                  <div class="card shadow p-3 bg-dark3 rounded ravenclawBorder" style="width: 80%;">
-                   <div class = "text-left ravenclaw">
-                    <%= i + 1%>
-                   </div>
               <img class = " img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/4/4e/RavenclawCrest.png/revision/latest/scale-to-width-down/700?cb=20161020182442" alt="Card image cap">
               <% } %>
               <%if (houseResults[i].Name == "Hufflepuff") { %>
                 <div class="card shadow p-3 bg-dark3 rounded hufflepuffBorder" style="width: 80%;">
-                  <div class = "text-left hufflepuff">
-                  <%= i + 1%>
-                  </div>
              <img class = " img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/0/06/Hufflepuff_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182518" alt="Card image cap">
              <% } %>
              <%if (houseResults[i].Name == "Slytherin") { %>
                <div class="card shadow p-3 bg-dark3 rounded slytherinBorder" style="width: 80%;">
-                 <div class = "text-left slytherin">
-                  <%= i + 1%>
-                 </div>
             <img class = " img-fluid bg-dark3" src="https://vignette.wikia.nocookie.net/harrypotter/images/0/00/Slytherin_ClearBG.png/revision/latest/scale-to-width-down/700?cb=20161020182557" alt="Card image cap">
             <% } %>
 

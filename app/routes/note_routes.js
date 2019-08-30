@@ -14,70 +14,9 @@ module.exports = function(app, db) {
       if (err) {
         res.send({ error: " Error is " + err });
       } else {
-        res.render("AdminPanel", { result: result });
+        res.redirect("/Element/attendeePoints");
       }
     });
-  });
-
-  function authentication(req, res, next) {
-    let password = req.body.password;
-    let pass = false;
-    console.log("Password is " + password);
-    if (password == "tealBubble") {
-      pass = true;
-    }
-    var isValid = pass; //your validation function
-    if (isValid) {
-      next(); // valid password username combination
-    } else {
-      res.render("error"); //Unauthorized
-    }
-  }
-
-  app.post("/checkin", authentication, (req, res) => {
-    memberCollection.find({}).toArray(function(err, result) {
-      if (err) {
-        res.send({ error: " Error is " + err });
-      } else {
-        res.render("admin/index", { result: result });
-      }
-    });
-  });
-
-  app.post("/attendeeInfo", authentication, (req, res) => {
-    let searchContents = req.params.searchContents;
-
-    houseCollection.find({}).toArray(function(err, houseResults) {
-      memberCollection
-        .find({})
-        .sort({ Points: -1 })
-        .toArray(function(err, memberResults) {
-          if (err) {
-            res.send({ error: " Error is " + err });
-          } else {
-            res.render("admin/attendeeInfo", {
-              houseResults: houseResults,
-              memberResults: memberResults
-            });
-          }
-        });
-    });
-  });
-
-  app.post("/history", authentication, (req, res) => {
-    let searchContents = req.params.searchContents;
-    historyCollection
-      .find({})
-      .sort({ _id: -1 })
-      .toArray(function(err, historyResults) {
-        if (err) {
-          res.send({ error: " Error is " + err });
-        } else {
-          res.render("admin/history", {
-            historyResults: historyResults
-          });
-        }
-      });
   });
 
   //Displays page based on parameter
@@ -102,7 +41,7 @@ module.exports = function(app, db) {
           }
         });
       //Will display attendee info page
-    }
+    } 
     //Will display all members by descending amount of points
     else if (nameOfFile == "housePoints") {
       memberCollection.find({}).toArray(function(err, memberResults) {
@@ -120,21 +59,17 @@ module.exports = function(app, db) {
             }
           });
       });
-    } else if (nameOfFile == "attendeeInfo") {
-      let searchContents = req.params.searchContents;
-
-      houseCollection.find({}).toArray(function(err, houseResults) {
-        memberCollection
+    }
+    else if (nameOfFile == "schedule") {
+      memberCollection.find({}).toArray(function(err, memberResults) {
+        houseCollection
           .find({})
           .sort({ Points: -1 })
-          .toArray(function(err, memberResults) {
+          .toArray(function(err, houseResults) {
             if (err) {
-              res.send({ error: " Error is " + err });
+              res.send({ error: " An error has occurred: " + err });
             } else {
-              res.render("admin/attendeeInfo", {
-                houseResults: houseResults,
-                memberResults: memberResults
-              });
+              res.render("schedule");
             }
           });
       });
@@ -219,27 +154,7 @@ module.exports = function(app, db) {
           });
         });
       //Will display workshop page
-    } else if (nameOfFile == "workshop") {
-      workshopCollection.find({}).toArray(function(err, workshopResults) {
-        if (err) {
-          res.send({ error: " Error is " + err });
-        } else {
-          res.render("workshop", {
-            workshopResults: workshopResults
-          });
-        }
-      });
-    } else if (nameOfFile == "events") {
-      eventCollection.find({}).toArray(function(err, eventResults) {
-        if (err) {
-          res.send({ error: " Error is " + err });
-        } else {
-          res.render("events", {
-            eventResults: eventResults
-          });
-        }
-      });
-    } else {
+    }  else {
       res.render("error");
     }
   });
@@ -311,7 +226,7 @@ module.exports = function(app, db) {
             if (err) {
               res.send({ error: " Error is " + err });
             } else {
-              res.render("admin/attendeeInfo", {
+              res.render("attendeeInfo", {
                 houseResults: houseResults,
                 memberResults: memberResults
               });
@@ -323,77 +238,47 @@ module.exports = function(app, db) {
       const name = req.body.tempName;
       const points = req.body.points;
       const house = req.body.house;
-      const id = req.body.id;
 
       res.render("forms/modifyValuesForm", {
         name: name,
         points: points,
-        house: house,
-        id: id
+        house: house
       });
     }
   });
 
-  //Update workshop status from false to true
+  //Update workshop status
   app.post("/Workshop/:id/:workshopName", (req, res) => {
     const workshopName = req.params.workshopName;
     const currentAttendeeID = req.params.id;
     let attendeeContent;
 
-    const workshopDayOne = [
-      "Success: Habits to Have It (and then some!) - Sarah Tran",
-      "Record Family Stories. Why and How. - Jimmy Patel-Nguyen",
-      "Dating Violence: Let's Talk About It. - Maiquynh Ngo",
-      "Business management, Photography, Marketing, Self-confidence, Motivation - Jason Cun",
-      "SEED Dance Workshop - Nikolas Tioseco",
-      "Chasing Wanderlust: International Travel 101 - Calvin Sun"
-    ];
-
-    const workshopDayTwo = [
-      "Journey to a Successful Career Path - Hanh Crose/Nguyen",
-      "Anticipating the Unexpected - Phuc Hong Phan",
-      "Preparation for the Workforce - Sue Ann",
-      "Definition of Branding, Effective Branding Practices, Personal vs. Professional Branding - Thoa Kim",
-      "Breaking the Bamboo Ceiling: Public Speaking & Social Etiquette 101 - Calvin Sun",
-      "Career Building 101 - Christopher Hew"
-    ];
-
-    const workshopDayThree = [
-      "The Modern Day Icarus: Curving the Burnout Epidemic - Christian Sy",
-      "SEAA/Vietnamese History and Advocacy - Pele Le",
-      "Oh you FANcy, huh?! - Jenny Nguyen",
-      "Understanding Your Finances - Phuc Hong Phan",
-      "Navigating a Career & Fulfillment - Thoa Kim",
-      "Asian Americans & Sex - Calvin Sun"
-    ];
-
-    console.log("361: Workshop name is " + workshopName);
-
     memberCollection.find({}).toArray(function(err, result) {
+      const PhotographyPoints = 50;
+      const LearnignPoints = 50;
+      const LeadershipPoints = 50;
+
       for (var i = 0; i < result.length; i++) {
         if (currentAttendeeID == result[i]._id) {
           const attendee = result[i];
-          const currentPoint = attendee.Points;
 
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
-          if (workshopDayOne.indexOf(workshopName) > -1) {
+          if (workshopName == "Photography") {
             attendeeContent = {
               $set: {
                 Workshop1IsActive: true
               }
             };
-          } else if (workshopDayTwo.indexOf(workshopName) > -1) {
+          } else if (workshopName == "Learning") {
             attendeeContent = {
               $set: {
                 Workshop2IsActive: true
               }
             };
-          } else if (workshopDayThree.indexOf(workshopName) > -1) {
+          } else if (workshopName == "Leadership") {
             attendeeContent = {
-              $set: {
-                Workshop3IsActive: true
-              }
+              $set: { Workshop3IsActive: true }
             };
           }
 
@@ -429,7 +314,7 @@ module.exports = function(app, db) {
         if (currentAttendeeID == result[i]._id) {
           const attendee = result[i];
           const currentPoints = parseInt(attendee.Points);
-          const attendeeName = attendee.FirstName + " " + attendee.LastName;
+          const attendeeName = attendee.Name;
           const attendeeID = { _id: new ObjectID(attendee._id) };
 
           let calculatedPoints = 0;
@@ -531,9 +416,7 @@ module.exports = function(app, db) {
       Name: attendeeName,
       House: attendeeHouse,
       Points: pointsToAdd,
-      timeRecorded: new Date().toLocaleString("en-US", {
-        timeZone: "America/New_York"
-      })
+      timeRecorded: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
     };
 
     historyCollection.insertOne(attendeeContent, (err, item) => {
@@ -545,6 +428,16 @@ module.exports = function(app, db) {
         } else {
           //console.log("Action has been recorded to history page");
         }
+      }
+    });
+  });
+
+  app.get("*", (req, res) => {
+    memberCollection.find({}).toArray(function(err, result) {
+      if (err) {
+        res.send({ error: " Error is " + err });
+      } else {
+        res.render("error");
       }
     });
   });
