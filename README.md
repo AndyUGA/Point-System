@@ -33,4 +33,4 @@ The gamification system for UVSASE Element leadership conference
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-[Admin View](https://uvsase-gamification.herokuapp.com/)
+[Admin View](https://uvsase-pointsystem.herokuapp.com/)
