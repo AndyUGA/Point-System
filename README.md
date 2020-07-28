@@ -1,5 +1,5 @@
 
-# Gamification System
+# Point System
 The gamification system for UVSASE Element leadership conference
 
 ![Image](https://github.com/AndyUGA/Element/blob/master/public/images/uvsase2.png)
@@ -33,6 +33,4 @@ The gamification system for UVSASE Element leadership conference
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-[Admin View](https://admin.uvsase.org)
-<br>
-[Attendee View](https://element.uvsase.org)
+[Admin View](https://uvsase-gamification.herokuapp.com/)
