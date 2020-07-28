@@ -23,7 +23,7 @@ module.exports = function(app, db) {
     let password = req.body.password;
     let pass = false;
     console.log("Password is " + password);
-    if (password == "tealBubble") {
+    if (password == "secret") {
       pass = true;
     }
     var isValid = pass; //your validation function

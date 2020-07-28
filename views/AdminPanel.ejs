@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <% include reusableComponents/css.html %>
-      <title>Attendee Information</title>
-   </head>
-   <body>
-     <nav class="navbar navbar-expand-lg navbar-light">
 
-         <a class="navbar-brand" href="/Element/attendeeInfo">Admin</a>
-         <% include reusableComponents/navButton.html %>
-         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-               <% include reusableComponents/dropDownMenu.html %>
-               <li class="nav-item"><a class="nav-link" href="/Element/events">Events</a></li>
-               <li class="nav-item"><a class="nav-link" href="/Element/housePoints">House Points</a></li>
+<head>
+  <% include reusableComponents/css.html %>
+  <title>Attendee Information</title>
+</head>
 
-               <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
-            </ul>
-         </div>
-      </nav>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+
+    <a class="navbar-brand" href="/Element/attendeeInfo">Admin</a>
+    <% include reusableComponents/navButton.html %>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% include reusableComponents/dropDownMenu.html %>
+        <li class="nav-item"><a class="nav-link" href="/Element/events">Events</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Element/housePoints">House Points</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="/Element/workshop"> Workshops </a></li>
+      </ul>
+    </div>
+  </nav>
 
 
-      <div class="card" style="width: 18rem;">
-  <form action = "/checkin" class="text-center container form-horizontal " method="post">
+  <h3 class = "text-center">
+    Password is: secret
+  </h3>
+  <div class="card" style="width: 18rem;">
+   
+    <form action="/checkin" class="text-center container form-horizontal " method="post">
       <div class="form-group">
         <br>
         <i class="fas fa-qrcode fa-4x"></i>
         <br>
         <label>Check-In</label>
-        <input type="password" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+        <input type="password" name="password" class="form-control" aria-describedby="emailHelp"
+          placeholder="Enter Password">
         <br>
         <button type="submit" class=" btn btn-primary">Submit</button>
       </div>
     </form>
-</div>
+  </div>
 
 
-<div class="card" style="width: 18rem;">
-<form action = "/attendeeInfo" class="text-center container form-horizontal " method="post">
-<div class="form-group">
-  <br>
-  <i class="fas fa-user-friends fa-4x"></i>
-  <br>
-<label>Attendee Info</label>
-  <input type="password" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
-  <br>
-  <button type="submit" class=" btn btn-primary">Submit</button>
-</div>
-</form>
-</div>
+  <div class="card" style="width: 18rem;">
+    <form action="/attendeeInfo" class="text-center container form-horizontal " method="post">
+      <div class="form-group">
+        <br>
+        <i class="fas fa-user-friends fa-4x"></i>
+        <br>
+        <label>Attendee Info</label>
+        <input type="password" name="password" class="form-control" aria-describedby="emailHelp"
+          placeholder="Enter Password">
+        <br>
+        <button type="submit" class=" btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
 
-<div class="card" style="width: 18rem;">
-<form action = "/history" class="text-center container form-horizontal " method="post">
-<div class="form-group">
-  <br>
-<i class="fas fa-history fa-4x"></i>
-  <br>
-<label>History</label>
-  <input type="password" name = "password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
-  <br>
-  <button type="submit" class=" btn btn-primary">Submit</button>
-</div>
-</form>
-</div>
+  <div class="card" style="width: 18rem;">
+    <form action="/history" class="text-center container form-horizontal " method="post">
+      <div class="form-group">
+        <br>
+        <i class="fas fa-history fa-4x"></i>
+        <br>
+        <label>History</label>
+        <input type="password" name="password" class="form-control" aria-describedby="emailHelp"
+          placeholder="Enter Password">
+        <br>
+        <button type="submit" class=" btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
 
 
 
 
 </body>
+
 </html>
