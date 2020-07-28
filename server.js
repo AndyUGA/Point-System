@@ -2,6 +2,7 @@ const express = require("express");
 const MongoClient = require("mongodb").MongoClient;
 const bodyParser = require("body-parser");
 const db = require("./config/db");
+const db2 = process.env.db;
 const methodOverride = require("method-override");
 
 const ObjectID = require("mongodb").ObjectID;
@@ -17,7 +18,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 MongoClient.connect(
-  db.url,
+  db2.url,
   { useNewUrlParser: true },
   function(err, database) {
     if (err) {
