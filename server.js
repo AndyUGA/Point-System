@@ -8,7 +8,7 @@ const ObjectID = require("mongodb").ObjectID;
 
 const app = express();
 
-const port = 8000 || process.env.PORT;
+const port = process.env.PORT || 8000;
 
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: true }));
