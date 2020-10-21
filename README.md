@@ -1,8 +1,6 @@
 
 # Point System
-The gamification system for UVSASE Element leadership conference
-
-![Image](https://github.com/AndyUGA/Element/blob/master/public/images/uvsase2.png)
+This is a full-stack web application that managed the gamification system of the Element Leadership Conference!
 
 
 <p align = "middle"> Scanner </p>
@@ -22,7 +20,7 @@ The gamification system for UVSASE Element leadership conference
 
 ---------------------------------------------------------------------------------------------------------------------------
 ## Features
-- Check-in attendees with QR code scanner
+- Check-in attendees with built-in QR code scanner
 - View scores for individual attendees and their team
 - Modify points for individual attendees
 - View history for all point modification
